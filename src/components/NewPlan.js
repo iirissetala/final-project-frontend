@@ -69,7 +69,7 @@ export default function OutlinedTextFields() {
             />
 
         </form>
-        {/*<BasicDateTimePicker/>*/}
+        <BasicDateTimePicker/>
         </div>
     );
 }
