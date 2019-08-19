@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.png';
 import './App.css';
 import Plan from './components/NewPlan'
+import PreviousPlan from './components/PreviousPlan'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
 
       </header>
       <Plan/>
+      <PreviousPlan/>
     </div>
   );
 }
