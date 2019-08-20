@@ -45,14 +45,7 @@ export default function OutlinedTextFields() {
     };
 
     return (
-        <div>
-            <div className="buttons" style={{padding: 30}}>
-                <i className="material-icons">clear</i>
-                <i className="material-icons">highlight_off</i>
-            </div>
-        <form className={classes.container}
-              noValidate autoComplete="off">
-    return (
+
         <div>
         <form className={classes.container} noValidate autoComplete="off">
 
@@ -70,9 +63,6 @@ export default function OutlinedTextFields() {
                 float="center"
             />
 
-            <TextField
-                id="outlined-participants"
-            />
 
             <TextField
                 id="outlined-textarea"
@@ -86,9 +76,6 @@ export default function OutlinedTextFields() {
                 float="center"
             />
 
-            <TextField
-                id="outlined-notes"
-            />
 
             <TextField
                 id="outlined-textarea"
@@ -100,12 +87,8 @@ export default function OutlinedTextFields() {
                 margin="normal"
                 variant="outlined"
                 float="center"
-
             />
 
-        <BasicDateTimePicker/>
-        </form>
-            />
 
         </form>
         <BasicDateTimePicker/>
@@ -118,11 +101,6 @@ export default function OutlinedTextFields() {
             <Button variant="outlined" size="small" className={classes.button}>
                 Save
                 <SaveIcon className={clsx(classes.rightIcon, classes.iconSmall)} />
-            </Button>
-        </div>
-
-                <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
-                Save
             </Button>
 
         </div>
