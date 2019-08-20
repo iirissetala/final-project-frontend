@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles/index';
 import TextField from '@material-ui/core/TextField/index';
 import BasicDateTimePicker from './DateTime';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import SaveIcon from '@material-ui/icons/Save';
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button/index';
@@ -38,10 +39,10 @@ export default function OutlinedTextFields() {
         // multiline: 'Controlled',
         // currency: 'EUR',
     });
+
     const handleChange = name => event => {
         setValues({ ...values, [name]: event.target.value });
     };
-
 
     return (
         <div>
@@ -51,6 +52,12 @@ export default function OutlinedTextFields() {
             </div>
         <form className={classes.container}
               noValidate autoComplete="off">
+    return (
+        <div>
+        <form className={classes.container} noValidate autoComplete="off">
+
+            <i className="material-icons">clear</i>
+            <i className="material-icons">highlight_off</i>
 
             <TextField
                 id="outlined-name"
@@ -65,6 +72,10 @@ export default function OutlinedTextFields() {
 
             <TextField
                 id="outlined-participants"
+            />
+
+            <TextField
+                id="outlined-textarea"
                 label="Participants"
                 placeholder="Participants"
                 // onChange={handleChange('participants')}
@@ -77,6 +88,10 @@ export default function OutlinedTextFields() {
 
             <TextField
                 id="outlined-notes"
+            />
+
+            <TextField
+                id="outlined-textarea"
                 label="Notes"
                 placeholder="Notes"
                 // onChange={handleChange('notes')}
@@ -90,6 +105,11 @@ export default function OutlinedTextFields() {
 
         <BasicDateTimePicker/>
         </form>
+            />
+
+        </form>
+        <BasicDateTimePicker/>
+
             <Button variant="outlined" size="small" color="grey" className={classes.button}>
                 Delete
                 <DeleteIcon className={classes.rightIcon} />
@@ -101,5 +121,10 @@ export default function OutlinedTextFields() {
             </Button>
         </div>
 
+                <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
+                Save
+            </Button>
+
+        </div>
     );
 }
