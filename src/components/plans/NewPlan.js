@@ -78,7 +78,6 @@ export default function OutlinedTextFields() {
             />
 
 
-
             <TextField
                 id="outlined-textarea"
                 label="Notes"
@@ -89,7 +88,6 @@ export default function OutlinedTextFields() {
                 margin="normal"
                 variant="outlined"
                 float="center"
-
             />
 
 
@@ -105,8 +103,10 @@ export default function OutlinedTextFields() {
                 Save
                 <SaveIcon className={clsx(classes.rightIcon, classes.iconSmall)} />
             </Button>
+
             <Plans/>
         </div>
+
 
 
 
