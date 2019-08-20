@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from "react";
-import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import DateFnsUtils from '@date-io/date-fns';
+import React, { useState } from "react";
+import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers/index";
+import DateFnsUtils from '@date-io/date-fns/build/index';
 
  function BasicDateTimePicker() {
     const [selectedDate, handleDateChange] = useState(new Date());
@@ -16,9 +16,9 @@ import DateFnsUtils from '@date-io/date-fns';
                 onChange={handleDateChange}
                 label="Select Date and Time"
                 showTodayButton
+                margin="normal"
             />
         </MuiPickersUtilsProvider>
-
     );
 }
 
