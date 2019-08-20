@@ -1,11 +1,11 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles/index';
+import TextField from '@material-ui/core/TextField/index';
 import BasicDateTimePicker from './DateTime';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import SaveIcon from '@material-ui/icons/Save';
 import clsx from 'clsx';
-import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button/index';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
