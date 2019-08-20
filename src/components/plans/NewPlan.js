@@ -10,6 +10,7 @@ import ImageDropZone from "./ImageDropZone";
 import { sizing } from '@material-ui/system';
 import { borders } from '@material-ui/system';
 import Box from '@material-ui/core/Box';
+import Plans from "./Plan";
 
 
 /*Määritellään tyylit lomakkeen eri osille*/
@@ -61,7 +62,7 @@ export default function OutlinedTextFields() {
         setValues({ ...values, [name]: event.target.value });
     };
     return (
-
+      <div>
         <Box borderRadius="borderRadius" {...defaultProps}>
             <div className={classes.menu}><h3>Make a new plan!</h3></div>
             <div className={classes.button} >
@@ -131,7 +132,14 @@ export default function OutlinedTextFields() {
                 Save
                 <SaveIcon className={clsx(classes.rightIcon, classes.iconSmall)} />
             </Button>
-
         </Box>
+
+            <Plans/>
+        </div>
+
+
+
+
+
     );
 }

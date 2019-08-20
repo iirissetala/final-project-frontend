@@ -1,19 +1,19 @@
 import React from 'react';
-/*
 import { Link } from 'react-router-dom';
-*/
 import { Nav, Navbar } from 'react-bootstrap';
 import { Home, Person, Map, Assignment, Info, AccountBox, Settings, ExitToApp } from '@material-ui/icons'
 
 
 export const NavBar = () => (
     <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home"><Home/>Home</Navbar.Brand>
+        <Navbar.Brand href="/"><Home/>Home</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-                <Nav.Link><Assignment/>Plan</Nav.Link>
-                <Nav.Link><Map/>Map</Nav.Link>
+                <Nav.Link>
+                    <Link to="/plan"><Assignment/>Plan</Link></Nav.Link>
+                <Nav.Link>
+                    <Link to="/map"><Map/>Map</Link></Nav.Link>
                 <Nav.Link><Info/>About</Nav.Link>
                 <Nav.Link><ExitToApp/> Log out</Nav.Link>
 
