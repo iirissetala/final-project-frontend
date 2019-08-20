@@ -13,6 +13,11 @@ const useStyles = makeStyles(theme => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
+        // direction: 'row',
+        // justify: 'center',
+        // alignItems: 'center'
+        marginTop: 20,
+        padding: 30
     },
     textField: {
         marginLeft: theme.spacing(1),
@@ -41,6 +46,14 @@ export default function OutlinedTextFields() {
 
     return (
         <div>
+            <div className="buttons" style={{padding: 30}}>
+                <i className="material-icons">clear</i>
+                <i className="material-icons">highlight_off</i>
+            </div>
+        <form className={classes.container}
+              noValidate autoComplete="off">
+    return (
+        <div>
         <form className={classes.container} noValidate autoComplete="off">
 
             <i className="material-icons">clear</i>
@@ -54,6 +67,11 @@ export default function OutlinedTextFields() {
                 onChange={handleChange('name')}
                 margin="normal"
                 variant="outlined"
+                float="center"
+            />
+
+            <TextField
+                id="outlined-participants"
             />
 
             <TextField
@@ -65,6 +83,11 @@ export default function OutlinedTextFields() {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
+                float="center"
+            />
+
+            <TextField
+                id="outlined-notes"
             />
 
             <TextField
@@ -76,6 +99,12 @@ export default function OutlinedTextFields() {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
+                float="center"
+
+            />
+
+        <BasicDateTimePicker/>
+        </form>
             />
 
         </form>
@@ -87,6 +116,11 @@ export default function OutlinedTextFields() {
             </Button>
 
             <Button variant="outlined" size="small" className={classes.button}>
+                Save
+                <SaveIcon className={clsx(classes.rightIcon, classes.iconSmall)} />
+            </Button>
+        </div>
+
                 <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
                 Save
             </Button>
