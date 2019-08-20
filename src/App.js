@@ -1,8 +1,8 @@
 import React from 'react';
 import logo from './logo.png';
 import './App.css';
-import Plan from './components/NewPlan'
-import PreviousPlan from './components/PreviousPlan'
+import NewPlan from './components/plans/NewPlan'
+import Plans from './components/plans/Plan'
 
 function App() {
   return (
@@ -14,8 +14,10 @@ function App() {
         </p>
 
       </header>
-      <Plan/>
-      <PreviousPlan/>
+
+      <NewPlan/>
+      <Plans/>
+
     </div>
   );
 }
