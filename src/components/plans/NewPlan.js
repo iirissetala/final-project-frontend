@@ -7,6 +7,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button/index';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Plans from "./Plan";
 
 
 const useStyles = makeStyles(theme => ({
@@ -45,14 +46,7 @@ export default function OutlinedTextFields() {
     };
 
     return (
-        <div>
-            <div className="buttons" style={{padding: 30}}>
-                <i className="material-icons">clear</i>
-                <i className="material-icons">highlight_off</i>
-            </div>
-        <form className={classes.container}
-              noValidate autoComplete="off">
-    return (
+
         <div>
         <form className={classes.container} noValidate autoComplete="off">
 
@@ -70,9 +64,6 @@ export default function OutlinedTextFields() {
                 float="center"
             />
 
-            <TextField
-                id="outlined-participants"
-            />
 
             <TextField
                 id="outlined-textarea"
@@ -86,9 +77,7 @@ export default function OutlinedTextFields() {
                 float="center"
             />
 
-            <TextField
-                id="outlined-notes"
-            />
+
 
             <TextField
                 id="outlined-textarea"
@@ -103,9 +92,6 @@ export default function OutlinedTextFields() {
 
             />
 
-        <BasicDateTimePicker/>
-        </form>
-            />
 
         </form>
         <BasicDateTimePicker/>
@@ -119,12 +105,11 @@ export default function OutlinedTextFields() {
                 Save
                 <SaveIcon className={clsx(classes.rightIcon, classes.iconSmall)} />
             </Button>
+            <Plans/>
         </div>
 
-                <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
-                Save
-            </Button>
 
-        </div>
+
+
     );
 }
