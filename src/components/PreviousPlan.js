@@ -7,6 +7,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+
 
 const useStyles = makeStyles({
     card: {
@@ -14,9 +17,11 @@ const useStyles = makeStyles({
     },
 });
 
+
 export default function ImgMediaCard() {
     const classes = useStyles();
-
+    // https://material-ui.com/components/grid/
+    
     return (
         <div>
 
