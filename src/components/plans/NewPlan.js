@@ -7,6 +7,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button/index';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Plans from "./Plan";
 
 
 const useStyles = makeStyles(theme => ({
@@ -103,6 +104,12 @@ export default function OutlinedTextFields() {
                 <SaveIcon className={clsx(classes.rightIcon, classes.iconSmall)} />
             </Button>
 
+            <Plans/>
         </div>
+
+
+
+
+
     );
 }
