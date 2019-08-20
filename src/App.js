@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from './logo.png';
 import './App.css';
+import NewPlan from './components/plans/NewPlan'
+import Plans from './components/plans/Plan'
 import Plan from './components/plans/NewPlan'
 import PreviousPlan from './components/plans/PreviousPlan'
 import {NavBar} from './components/navbar/Navbar'
@@ -16,8 +18,10 @@ function App() {
         </p>
 
       </header>
-      <Plan/>
-      <PreviousPlan/>
+
+      <NewPlan/>
+      <Plans/>
+
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers/index";
 import DateFnsUtils from '@date-io/date-fns/build/index';
+import TextField from "@material-ui/core/TextField";
 
  function BasicDateTimePicker() {
     const [selectedDate, handleDateChange] = useState(new Date());
@@ -16,6 +17,7 @@ import DateFnsUtils from '@date-io/date-fns/build/index';
                 onChange={handleDateChange}
                 label="Select Date and Time"
                 showTodayButton
+                margin="normal"
             />
         </MuiPickersUtilsProvider>
 
