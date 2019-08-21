@@ -34,10 +34,10 @@ function Plans(props) {
                             </CardActionArea>
 
                             <CardActions>
-                                <Button size="small" color="grey" variant="outlined">
+                                <Button size="small" color="default" variant="outlined">
                                     Share
                                 </Button>
-                                <Button size="small" color="grey" variant="outlined">
+                                <Button size="small" color="default" variant="outlined">
                                     Modify
                                 </Button>
                             </CardActions>
