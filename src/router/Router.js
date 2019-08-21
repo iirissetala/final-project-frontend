@@ -9,6 +9,7 @@ import { ModalProvider } from "../components/login/ModalContext";
 import { Provider } from "../components/context/Authcontext";
 import Testsite from "../components/Testsite";
 
+
 class Router1 extends Component {
   render() {
     return (
@@ -21,7 +22,7 @@ class Router1 extends Component {
                 <Route path="/" exact component={Homer} />
                 <Route path="/plan" exact component={OutlinedTextFields} />
                 <Route path="/" exact component={Homer} />
-                <Route path="/maps" exact component={Map} />
+                <Route path="/map" exact component={Map} />
                 <Route exact path="/test" component={Testsite} />
               </Switch>
             </>
