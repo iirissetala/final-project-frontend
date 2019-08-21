@@ -1,8 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Nav, Navbar } from 'react-bootstrap';
-import { Home, Person, Map, Assignment, Info, AccountBox, Settings, ExitToApp } from '@material-ui/icons'
-
+import React from "react";
+import { Link } from "react-router-dom";
+import { Nav, Navbar } from "react-bootstrap";
+import {
+  Home,
+  Person,
+  Map,
+  Assignment,
+  Info,
+  AccountBox,
+  Settings,
+  ExitToApp
+} from "@material-ui/icons";
+import LoginModal from "../login/LoginModal";
+import { Consumer } from "../context/Authcontext";
 
 export const NavBar = () => (
     <Navbar bg="light" expand="lg">
@@ -24,6 +34,7 @@ export const NavBar = () => (
         </Navbar.Collapse>
     </Navbar>
 )
+
 
 
 /*
