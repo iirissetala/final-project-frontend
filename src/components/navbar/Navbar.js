@@ -15,7 +15,10 @@ export const NavBar = () => (
                 <Nav.Link>
                     <Link to="/map"><Map/>Map</Link></Nav.Link>
                 <Nav.Link><Info/>About</Nav.Link>
-                <Nav.Link><ExitToApp/> Log out</Nav.Link>
+
+            </Nav>
+            <Nav>
+                <Nav.Link className="justify-content-end"><ExitToApp/> Log out</Nav.Link>
 
             </Nav>
         </Navbar.Collapse>

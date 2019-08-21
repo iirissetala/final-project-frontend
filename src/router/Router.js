@@ -15,7 +15,7 @@ class Router1 extends Component{
                         <Route path="/" exact component={Homer}/>
                         <Route path="/plan" exact component={OutlinedTextFields}/>
                         <Route path="/" exact component={Homer}/>
-                        <Route path="/maps" exact component={Map}/>
+                        <Route path="/map" exact component={Map}/>
 
                     </Switch>
                     </>
