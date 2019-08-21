@@ -5,7 +5,8 @@ class ModaloProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalOpen: false
+      modalOpen: false,
+      signupModalOpen: false
     };
   }
 
@@ -21,13 +22,27 @@ class ModaloProvider extends Component {
     });
   };
 
+  openSignupModal = () => {
+    this.setState({
+      signupModalOpen: true
+    });
+  };
+
+  closeSignupModal = () => {
+    this.setState({
+      signupModalOpen: false
+    });
+  };
+
   render() {
     return (
       <ModaloContext.Provider
         value={{
           ...this.state,
           openModal: this.openModal,
-          closeModal: this.closeModal
+          closeModal: this.closeModal,
+          openSignupModal: this.openSignupModal,
+          closeSignupModal: this.closeSignupModal
         }}
       >
         {this.props.children}

@@ -16,7 +16,7 @@ class AuthProvider extends Component {
     return axios
       .post("http://localhost:8080/login", userData)
       .then(res => {
-        console.log(res);
+        console.log("REDIRECT");
         console.log(res.headers.authorization);
         localStorage.setItem("Token", res.headers.authorization)
         this.setState({
@@ -36,6 +36,16 @@ class AuthProvider extends Component {
       token: ""
     });
   };
+
+  signUp = (userdata) => {
+    console.log(userdata)
+    const email = userdata.email
+    const username = userdata.username
+    const password = userdata.password
+    const sendData = {email, username, password}
+    axios.post("http://localhost:8080/api/users/sign-up", sendData)
+    .then(this.logIn(username, password))
+  }
 
   getData = (params) => {
     return axios
@@ -74,6 +84,7 @@ class AuthProvider extends Component {
           logIn: this.logIn,
           logOut: this.logOut,
           getData: this.getData,
+          signUp: this.signUp,
           AuthContext
         }}
       >

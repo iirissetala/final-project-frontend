@@ -1,5 +1,7 @@
 import React, { Component, useContext } from "react";
 import { Consumer, Provider, AuthContext } from "./context/Authcontext";
+import { ModalConsumer, ModalContext } from './login/ModalContext'
+import Signup from './signup/Signup'
 
 export default class Testsite extends Component {
   state = { loggedIn: false, data: [] };
@@ -31,6 +33,8 @@ export default class Testsite extends Component {
         </Consumer>
         <button onClick={this.testdata}>Test</button>
         {this.state.data ? <p>{resp}</p> : <p>No</p>}
+        
+          <Signup/>
         
       </div>
     );
