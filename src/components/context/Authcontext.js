@@ -1,25 +1,70 @@
 import React, { Component } from "react";
-const AuthContext = React.createContext();
+import axios from "axios";
+export const AuthContext = React.createContext();
 
 class AuthProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false
+      isLoggedIn: localStorage.getItem("Token") === null ? false : true,
+      token: "" || localStorage.getItem("Token")
     };
   }
 
-  logIn = () => {
-    this.setState({
-      isLoggedIn: true
-    });
+  logIn = (username, password) => {
+    const userData = { username, password };
+    return axios
+      .post("http://localhost:8080/login", userData)
+      .then(res => {
+        console.log(res);
+        console.log(res.headers.authorization);
+        localStorage.setItem("Token", res.headers.authorization)
+        this.setState({
+          isLoggedIn: true,
+          token: res.headers.authorization
+        });
+      })
+      .catch(err => {
+       return err
+      });
   };
 
   logOut = () => {
+    localStorage.removeItem("Token")
     this.setState({
-      isLoggedIn: false
+      isLoggedIn: false,
+      token: ""
     });
   };
+
+  getData = (params) => {
+    return axios
+      .get("http://localhost:8080/api/" + params, {
+        headers: {
+          authorization: this.state.token
+        }
+      })
+      .then(res => {
+        return res.data
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+        return err
+      })
+  }
+
+  postData = (params) => {
+    return axios.post("http://localhost:8080/api/" + params, {
+      headers: {
+        authorization: this.state.token
+      }
+    }).then(res => {
+      console.log(res.data)
+      return res.data
+    }).catch(err => {
+      return err
+    })
+  }
 
   render() {
     return (
@@ -27,7 +72,9 @@ class AuthProvider extends Component {
         value={{
           ...this.state,
           logIn: this.logIn,
-          logOut: this.logOut
+          logOut: this.logOut,
+          getData: this.getData,
+          AuthContext
         }}
       >
         {this.props.children}
