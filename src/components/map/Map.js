@@ -23,8 +23,9 @@ const navistyle ={
 };
 
 
-
 export default function Map(){
+    const [marker, setMarker] = useState({ longitude: 24.94, latitude: 60.16})
+    const [events, setEvents] = useState({})
     //Shows coordinates for start position
     const [viewport, setViewport] = useState({
         latitude: 60.16741,
@@ -34,27 +35,45 @@ export default function Map(){
         zoom: 10,
     });
 
+    const logDragEvent = (name, e) => {
+        setEvents({...events, [name]: e.lngLat})
+    }
+
+    const onMarkerDragStart = e => {
+        logDragEvent('onDragStart', e)
+    }
+    const onMarkerDrag = e => {
+        logDragEvent('onDrag', e)
+    }
     const onMarkerDragEnd = event => {
-        this.logDragEvent('onDragEnd', event);
-        this.setState({
+        logDragEvent('onDragEnd', event);
+        /* this.setMarker({
             marker: {
                 longitude: event.lngLat[0],
                 latitude: event.lngLat[1]
             }
+        }); */
+        setMarker({
+            
+                longitude: event.lngLat[0],
+                latitude: event.lngLat[1]
+            
         });
     };
 
     //Escape shuts down popup
     const [selectedPark, setSelectedPark] = useState(null);
     useEffect(()=> {
-        const listener = e =>{
+        setMarker(marker)
+        const listener = e => {
             if (e.key === "Escape"){
                 setSelectedPark(null);
             }
         };
         window.addEventListener("keydown", listener);
     }, []);
-
+console.log(marker.longitude)
+console.log(marker)
 
         return(
             <div>
@@ -92,15 +111,20 @@ export default function Map(){
                         </Popup>
 
                     ): null}
-                    {/*This Marker crashes when let go
-                    <Marker
-                        latitude={60.16}
-                        longitude={24.94}
+                     {/* This Marker crashes when let go  */}
+                    
+                      <Marker
+                        latitude={marker.latitude}
+                        longitude={marker.longitude}
                         draggable
-                        onDragEnd={onMarkerDragEnd}>
+                        onDragEnd={onMarkerDragEnd}
+                        onDragStart={onMarkerDragStart}
+                        onDrag={onMarkerDrag}
+                        >
                         <Place/>
                     </Marker>
-*/}
+                           
+                    
                     <div className="nav" style={navistyle}>
                     <NavigationControl/>
                     <GeolocateControl
