@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
 import {DropzoneArea} from 'material-ui-dropzone'
 import Button from "@material-ui/core/Button";
-
+import {DropzoneDialog} from 'material-ui-dropzone'
 /*
 https://www.npmjs.com/package/material-ui-dropzone
 */
+
+
 
 class ImageDropZone extends Component{
     constructor(props){
@@ -18,6 +20,11 @@ class ImageDropZone extends Component{
             files: files
         });
     }
+    clearAll = () => {
+        this.setState({files: []})
+    }
+
+
     render(){
         return (
             <div>
@@ -25,14 +32,15 @@ class ImageDropZone extends Component{
             <DropzoneArea
                 onChange={this.handleChange.bind(this)}
                 acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
-                // showPreviews={true}
                 maxFileSize={10000000}
                 filesLimit={5}
+                getFileLimitExceedMessage
+
             />
-                <Button size="small" color="grey" variant="outlined" onDelete>
-                    Cancel
+                <Button size="small" color="default" variant="outlined" onClick={this.clearAll}>
+                    Clear All
                 </Button>
-                <Button size="small" color="grey" variant="outlined" onSave>
+                <Button size="small" color="default" variant="outlined" /*onSave*/>
                     Sumbit
                 </Button>
             </div>
