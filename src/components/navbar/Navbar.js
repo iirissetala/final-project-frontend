@@ -11,6 +11,7 @@ import {
   Settings,
   ExitToApp
 } from "@material-ui/icons";
+// https://material-ui.com/components/material-icons icon search from here
 import LoginModal from "../login/LoginModal";
 import { Consumer } from "../context/Authcontext";
 
