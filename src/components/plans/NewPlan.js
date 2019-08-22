@@ -10,6 +10,7 @@ import ImageDropZone from "./ImageDropZone";
 import Box from '@material-ui/core/Box';
 import Plans from "./Plan";
 import ServiceTest, {addNew} from './ServiceTest';
+import Map from '../map/Map';
 
 /*
 https://react-pdf.org/advanced
@@ -49,6 +50,15 @@ const useStyles = makeStyles(theme => ({
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
         width:'75%',
+    },
+    map: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        bgcolor: 'background.paper',
+        borderColor: 'text.primary',
+        m: 1,
+        border: 1,
+        width: '75%',
     }
 }));
 
@@ -59,8 +69,15 @@ const boxWrapper = {
     m: 1,
     border: 1,
     style: { width: '75%' },
-
 };
+
+const mapWrapper= {
+    bgcolor: 'background.paper',
+    borderColor: 'text.primary',
+    m: 1,
+    border: 1,
+    width: '75%',
+}
 
 export default function OutlinedTextFields() {
 
@@ -169,6 +186,11 @@ export default function OutlinedTextFields() {
                 variant="outlined"
                 float="center"
             />
+            <div className={classes.map} style={mapWrapper}>
+                <p>MAP COMES --HERE--  tää muotoilu pitää fiksaa :( </p>
+                <Map />
+            </div>
+
             <div
                 className={classes.calendar}
                 value={values.date}
