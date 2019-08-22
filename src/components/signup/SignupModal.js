@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Consumer as AuthConsumer, Provider, AuthContext } from '../context/Authcontext'
+import {ModalContext} from '../login/ModalContext'
 
 function Copyright() {
     return (
@@ -55,24 +56,42 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SignUp() {
+export default function SignUp(props) {
     const classes = useStyles();
+    /* const modalContext = useContext(ModaloContext) */
     const test = useContext(AuthContext)
     const [values, setValues] = useState({
         username: '',
         email: '',
-        password: ''
+        password: '',
+        errors: ''
     })
 
     const handleChange = name => e => {
-        setValues({ ...values, [name]: e.target.value })
+        setValues({ ...values, [name]: e.target.value, errors: "" })
+        
         console.log(values)
     }
 
     const createUser = e => {
         e.preventDefault();
         test.signUp(values)
+        .then(res => test.logIn(values.username, values.password))
+        .then(props.closeSignupModal)
+             .catch(
+                err => {
+                     console.log(err)
+                     console.log(values)
+                    setValues({...values, errors: String(err)})
+                }
+            )
+        
+        /* return new Promise((resolve, reject) => {
+            test.signUp(values)
+         }) */
     }
+    console.log(props)
+    console.log(props.context)
 
     return (
         <Container component="main" maxWidth="xs">
@@ -97,6 +116,8 @@ export default function SignUp() {
                                 label="Username"
                                 value={values.username}
                                 onChange={handleChange('username')}
+                                error={values.errors}
+                                helperText={values.errors}
                                 autoFocus
                             />
                         </Grid>
@@ -141,6 +162,7 @@ export default function SignUp() {
                         color="primary"
                         className={classes.submit}
                         onClick={createUser}
+                        
                     >
                         Sign Up
           </Button>
@@ -161,3 +183,4 @@ export default function SignUp() {
 }
 
 SignUp.contextType = AuthContext;
+/* SignUp.contextType = ModaloContext; */

@@ -51,7 +51,7 @@ return (
         <div>
           
           <button type="button" onClick={openModal}>
-            Liity SKP:hon
+            Kirjaudu SKP:hon
           </button>
           <Modal
             aria-labelledby="simple-modal-title"
@@ -60,7 +60,7 @@ return (
             onClose={closeModal}
           >
             <div style={modalStyle} className={classes.paper}>
-              <LoginForm />
+              <LoginForm closeModal={closeModal}/>
             </div>
           </Modal>
         </div>

@@ -74,7 +74,7 @@ export default function SignIn(props) {
   const sendLoginData = e => {
     e.preventDefault();
     
-    test.logIn(username, password)
+    test.logIn(username, password).then(props.closeModal)
   }
   
   return (

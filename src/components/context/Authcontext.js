@@ -13,6 +13,7 @@ class AuthProvider extends Component {
 
   logIn = (username, password) => {
     const userData = { username, password };
+    console.log(userData)
     return axios
       .post("http://localhost:8080/login", userData)
       .then(res => {
@@ -43,8 +44,16 @@ class AuthProvider extends Component {
     const username = userdata.username
     const password = userdata.password
     const sendData = {email, username, password}
-    axios.post("http://localhost:8080/api/users/sign-up", sendData)
-    .then(this.logIn(username, password))
+    return axios.post("http://localhost:8080/api/users/sign-up", sendData)
+      .then(res => {
+        return res
+      })
+      .catch(err => {
+        console.log(err.response)
+        throw new Error(err.response.data)
+      })
+      
+      
   }
 
   getData = (params) => {
@@ -55,8 +64,8 @@ class AuthProvider extends Component {
         }
       })
       .then(res => {
+        console.log(res.data)
         return res.data
-        console.log(res)
       }).catch(err => {
         console.log(err)
         return err
@@ -65,6 +74,19 @@ class AuthProvider extends Component {
 
   postData = (params) => {
     return axios.post("http://localhost:8080/api/" + params, {
+      headers: {
+        authorization: this.state.token
+      }
+    }).then(res => {
+      console.log(res.data)
+      return res.data
+    }).catch(err => {
+      return err
+    })
+  }
+
+  updateData = (params) => {
+    return axios.put("http://localhost:8080/api/" + params, {
       headers: {
         authorization: this.state.token
       }

@@ -42,7 +42,8 @@ class ModaloProvider extends Component {
           openModal: this.openModal,
           closeModal: this.closeModal,
           openSignupModal: this.openSignupModal,
-          closeSignupModal: this.closeSignupModal
+          closeSignupModal: this.closeSignupModal,
+          ModaloContext
         }}
       >
         {this.props.children}

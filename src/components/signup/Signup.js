@@ -60,7 +60,7 @@ export default function Signup() {
                             onClose={closeSignupModal}
                         >
                             <div style={modalStyle} className={classes.paper}>
-                                <SignupModal/>
+                                <SignupModal closeSignupModal={closeSignupModal}/>
                             </div>
                         </Modal>
                     </div>

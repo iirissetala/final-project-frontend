@@ -14,8 +14,7 @@ class Router1 extends Component {
   render() {
     return (
       <Router>
-        <ModalProvider>
-          <Provider>
+        
             <NavBar />
             <>
               <Switch>
@@ -26,8 +25,7 @@ class Router1 extends Component {
                 <Route exact path="/test" component={Testsite} />
               </Switch>
             </>
-          </Provider>
-        </ModalProvider>
+          
       </Router>
     );
   }
