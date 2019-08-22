@@ -16,24 +16,27 @@ import LoginModal from "../login/LoginModal";
 import { Consumer } from "../context/Authcontext";
 
 export const NavBar = () => (
-    <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="/"><Home/>Home</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-                <Nav.Link>
-                    <Link to="/plan"><Assignment/>Plan</Link></Nav.Link>
-                <Nav.Link>
-                    <Link to="/map"><Map/>Map</Link></Nav.Link>
-                <Nav.Link><Info/>About</Nav.Link>
+    <Consumer>
+        {({ logOut }) => (
+            <Navbar bg="light" expand="lg">
+                <Navbar.Brand href="/"><Home />Home</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="mr-auto">
+                        <Nav.Link>
+                            <Link to="/plan"><Assignment />Plan</Link></Nav.Link>
+                        <Nav.Link>
+                            <Link to="/map"><Map />Map</Link></Nav.Link>
+                        <Nav.Link><Info />About</Nav.Link>
 
-            </Nav>
-            <Nav>
-                <Nav.Link className="justify-content-end"><ExitToApp/> Log out</Nav.Link>
+                    </Nav>
+                    <Nav>
+                        <Nav.Link className="justify-content-end"><span onClick={logOut}><ExitToApp  /> Log out</span></Nav.Link>
 
-            </Nav>
-        </Navbar.Collapse>
-    </Navbar>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>)}
+    </Consumer>
 )
 
 

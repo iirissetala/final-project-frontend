@@ -13,10 +13,11 @@ class AuthProvider extends Component {
 
   logIn = (username, password) => {
     const userData = { username, password };
+    console.log(userData)
     return axios
       .post("http://localhost:8080/login", userData)
       .then(res => {
-        console.log(res);
+        console.log("REDIRECT");
         console.log(res.headers.authorization);
         localStorage.setItem("Token", res.headers.authorization)
         this.setState({
@@ -37,6 +38,24 @@ class AuthProvider extends Component {
     });
   };
 
+  signUp = (userdata) => {
+    console.log(userdata)
+    const email = userdata.email
+    const username = userdata.username
+    const password = userdata.password
+    const sendData = {email, username, password}
+    return axios.post("http://localhost:8080/api/users/sign-up", sendData)
+      .then(res => {
+        return res
+      })
+      .catch(err => {
+        console.log(err.response)
+        throw new Error(err.response.data)
+      })
+      
+      
+  }
+
   getData = (params) => {
     return axios
       .get("http://localhost:8080/api/" + params, {
@@ -45,8 +64,8 @@ class AuthProvider extends Component {
         }
       })
       .then(res => {
+        console.log(res.data)
         return res.data
-        console.log(res)
       }).catch(err => {
         console.log(err)
         return err
@@ -66,6 +85,19 @@ class AuthProvider extends Component {
     })
   }
 
+  updateData = (params) => {
+    return axios.put("http://localhost:8080/api/" + params, {
+      headers: {
+        authorization: this.state.token
+      }
+    }).then(res => {
+      console.log(res.data)
+      return res.data
+    }).catch(err => {
+      return err
+    })
+  }
+
   render() {
     return (
       <AuthContext.Provider
@@ -74,6 +106,7 @@ class AuthProvider extends Component {
           logIn: this.logIn,
           logOut: this.logOut,
           getData: this.getData,
+          signUp: this.signUp,
           AuthContext
         }}
       >

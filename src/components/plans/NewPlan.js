@@ -79,6 +79,7 @@ export default function OutlinedTextFields() {
      });
     const handleChange = header => event => {
         setValues({ ...values, [header]: event.target.value });
+        console.log(values.referencepictures)
     };
 
     /*kun käyttäjä klikkaa 'save' buttonia, formin tiedot lähetetään kohti titokantaa
