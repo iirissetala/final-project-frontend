@@ -11,9 +11,18 @@ export function getById(id) {
 }
 
 export function addNew(plan) {
-    return axios.post('http://localhost:8080/api/plans', plan, {
+    let formData = new FormData();
+    formData.set("header", plan.header);
+    /* formData.append("date", Date.now()); */
+    formData.set("location", plan.location);
+    formData.set("description", plan.description);
+    formData.set("notes", plan.notes); 
+    formData.set("participants", plan.participants);
+    formData.append("image", plan.referencepictures);
+
+    return axios.post('http://localhost:8080/api/plans', formData, {
         headers: {
-            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbm5hIiwiZXhwIjoxNTY3MjUwOTE4fQ.ZEnYLeY6ZKJSqF7oDfkUU-h9SunhYQSrlnxVE_hsuqgB2J4CSLY_C_NokKCUyPcSNS39JERIbr0Pfgw3QtwkjA"
+            Authorization: "Bearer " + localStorage.getItem("Token")
             /* "Content-Type": "multipart/form-data" */
         }
         })
