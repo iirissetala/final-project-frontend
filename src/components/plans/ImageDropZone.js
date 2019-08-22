@@ -29,10 +29,10 @@ class ImageDropZone extends Component{
                 maxFileSize={10000000}
                 filesLimit={5}
             />
-                <Button size="small" color="grey" variant="outlined" onDelete>
+                <Button size="small" color="default" variant="outlined" /*onDelete*/>
                     Cancel
                 </Button>
-                <Button size="small" color="grey" variant="outlined" onSave>
+                <Button size="small" color="default" variant="outlined" /*onSave*/>
                     Sumbit
                 </Button>
             </div>
