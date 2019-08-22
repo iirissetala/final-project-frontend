@@ -67,7 +67,7 @@ export default function OutlinedTextFields() {
     const classes = useStyles();
     /*asetetaan vastaanottavat parametrit, jotka käyttäjä täyttää
     * päivämäärä käsitellään muodossa: 2019-09-02T06:30:00
-*/
+    */
      const [values, setValues] = React.useState({
          header:'',
          date:'',
@@ -81,12 +81,18 @@ export default function OutlinedTextFields() {
         setValues({ ...values, [header]: event.target.value });
     };
 
-// ++ jos formi pitää palauttaa OG muotoon ( tsekkaa: original state (?))
-    /*kun käyttäjä klikkaa 'save' buttonia, formin tiedot lähetetään kohti titokantaa*/
+    /*kun käyttäjä klikkaa 'save' buttonia, formin tiedot lähetetään kohti titokantaa
+    * ja samalla tyhjennetään formi kun tiedot on lähetetty*/
     const sendData = (event) => {
         event.preventDefault();
-        addNew(values)
+        addNew(values);
+        clearData();
     };
+
+    const clearData = (event) => {
+        setValues({header:'', date:'', location:'', description:'', participants:'', notes: '', referencepictures:''});
+    };
+
 
     return (
       <div>
@@ -178,7 +184,7 @@ export default function OutlinedTextFields() {
         </form>
 
             <div className={classes.button}>
-            <Button variant="outlined" size="small" className={classes.button}>
+            <Button variant="outlined" size="small" className={classes.button} onClick={clearData}>
                 Delete
                 <DeleteIcon className={classes.rightIcon} />
             </Button>
