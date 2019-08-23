@@ -8,9 +8,9 @@ import Button from '@material-ui/core/Button/index';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ImageDropZone from "./ImageDropZone";
 import Box from '@material-ui/core/Box';
-import Plans from "./Plan";
 import ServiceTest, {addNew} from './ServiceTest';
 import Map from '../map/Map';
+import PlanModal from './PlanModal';
 
 /*
 https://react-pdf.org/advanced
@@ -35,13 +35,17 @@ const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(2),
         marginTop: theme.spacing(5),
         marginLeft: theme.spacing(1),
+        padding: 7,
+    },
+    buttonClose: {
+        marginTop: theme.spacing(1),
         marginRight: theme.spacing(1),
-        padding: 10,
-        alignItems: 'right',
+        padding: 3,
     },
     menu: {
         width: 300,
         alignItems: 'left',
+        marginLeft: theme.spacing(2),
     },
     calendar: {
         width:'75%',
@@ -62,6 +66,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+
 /*borderit formia varten, joka on wrapattu Box elementtiin*/
 const boxWrapper = {
     bgcolor: 'background.paper',
@@ -77,9 +82,9 @@ const mapWrapper= {
     m: 1,
     border: 1,
     width: '75%',
-}
+};
 
-export default function OutlinedTextFields() {
+export default function OutlinedTextFields(props) {
 
     const classes = useStyles();
     /*asetetaan vastaanottavat parametrit, jotka käyttäjä täyttää
@@ -99,29 +104,27 @@ export default function OutlinedTextFields() {
         console.log(values.referencepictures)
     };
 
-    /*kun käyttäjä klikkaa 'save' buttonia, formin tiedot lähetetään kohti titokantaa
+    /*kun käyttäjä klikkaa 'save' buttonia, formin tiedot lähetetään kohti tietokantaa
     * ja samalla tyhjennetään formi kun tiedot on lähetetty*/
     const sendData = (event) => {
         event.preventDefault();
         addNew(values);
         clearData();
     };
-
     const clearData = (event) => {
         setValues({header:'', date:'', location:'', description:'', participants:'', notes: '', referencepictures:''});
     };
 
-
     return (
       <div>
         <Box borderRadius="borderRadius" {...boxWrapper}>
-
+            <div className={classes.buttonClose} style={{display: "flex"}} >
+                <i className="material-icons" style={{marginLeft:"auto"}} onClick={props.handleClose}>highlight_off</i>
+            </div>
             <div className={classes.menu}>
                 <h3>Make a new plan!</h3>
             </div>
-            <div className={classes.button} >
-                <i className="material-icons">highlight_off</i>
-            </div>
+
 
             <form className={classes.container} noValidate autoComplete="off">
 
@@ -206,19 +209,17 @@ export default function OutlinedTextFields() {
                 </div>
         </form>
 
-            <div className={classes.button}>
-            <Button variant="outlined" size="small" className={classes.button} onClick={clearData}>
+            <div className={classes.button} style={{display: "flex"}}>
+            <Button variant="outlined" size="small" className={classes.button} style={{marginLeft:"auto"}}  onClick={clearData}>
                 Delete
                 <DeleteIcon className={classes.rightIcon} />
             </Button>
-            <Button variant="outlined" size="small" className={classes.button} onClick={sendData}>
+            <Button variant="outlined" size="small" className={classes.button} style={{marginLeft:"auto"}} onClick={sendData}>
                 Save
                 <SaveIcon className={clsx(classes.rightIcon, classes.iconSmall)} />
             </Button>
             </div>
         </Box>
-
-            <Plans/>
         </div>
 
 
