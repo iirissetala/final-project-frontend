@@ -8,6 +8,9 @@ import ReactMapGL, {
     NavigationControl
 } from "react-map-gl";
 import * as parkDate from "./skatebord"
+ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
+import Geocoder from 'react-map-gl-geocoder' 
+
 
 //geolocation button position
 const geolocateStyle ={
@@ -23,38 +26,51 @@ const navistyle ={
 };
 
 
-
-export default function Map(){
+export default function Map(props){
+    const [marker, setMarker] = useState({ longitude: 24.94, latitude: 60.16})
+    const [events, setEvents] = useState({})
     //Shows coordinates for start position
     const [viewport, setViewport] = useState({
         latitude: 60.16741,
         longitude: 24.942577,
-        height: "100vh",
-        width: "100vw",
+        height: props.height ? props.height : '100vh',
+        width: props.width ? props.width : '100vw',
         zoom: 10,
     });
 
+    
+
+    const logDragEvent = (name, e) => {
+        setEvents({...events, [name]: e.lngLat})
+    }
+
+    const onMarkerDragStart = e => {
+        logDragEvent('onDragStart', e)
+    }
+    const onMarkerDrag = e => {
+        logDragEvent('onDrag', e)
+    }
     const onMarkerDragEnd = event => {
-        this.logDragEvent('onDragEnd', event);
-        this.setState({
-            marker: {
+        logDragEvent('onDragEnd', event);
+        setMarker({    
                 longitude: event.lngLat[0],
                 latitude: event.lngLat[1]
-            }
-        });
+             });
     };
 
     //Escape shuts down popup
     const [selectedPark, setSelectedPark] = useState(null);
     useEffect(()=> {
-        const listener = e =>{
+        setMarker(marker)
+        const listener = e => {
             if (e.key === "Escape"){
                 setSelectedPark(null);
             }
         };
         window.addEventListener("keydown", listener);
     }, []);
-
+console.log(marker.longitude)
+console.log(marker)
 
         return(
             <div>
@@ -92,15 +108,23 @@ export default function Map(){
                         </Popup>
 
                     ): null}
-                    {/*This Marker crashes when let go
-                    <Marker
-                        latitude={60.16}
-                        longitude={24.94}
+                     {/* This Marker crashes when let go  */}
+                    
+                      <Marker
+                        latitude={marker.latitude}
+                        longitude={marker.longitude}
                         draggable
-                        onDragEnd={onMarkerDragEnd}>
+                        onDragEnd={onMarkerDragEnd}
+                        onDragStart={onMarkerDragStart}
+                        onDrag={onMarkerDrag}
+                        >
                         <Place/>
                     </Marker>
-*/}
+                    {/* Geocoder  */}
+
+                    
+                   
+                    
                     <div className="nav" style={navistyle}>
                     <NavigationControl/>
                     <GeolocateControl
