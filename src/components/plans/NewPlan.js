@@ -10,7 +10,7 @@ import ImageDropZone from "./ImageDropZone";
 import Box from '@material-ui/core/Box';
 import Plans from "./Plan";
 import ServiceTest, {addNew} from './ServiceTest';
-
+import Map from '../map/Map'
 /*
 https://react-pdf.org/advanced
 */
@@ -96,7 +96,8 @@ export default function OutlinedTextFields() {
 
 
     return (
-      <div>
+        <div>
+            <Map width={'50vw'} height={'50vh'} />
         <Box borderRadius="borderRadius" {...boxWrapper}>
 
             <div className={classes.menu}>

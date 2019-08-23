@@ -8,6 +8,9 @@ import ReactMapGL, {
     NavigationControl
 } from "react-map-gl";
 import * as parkDate from "./skatebord"
+ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
+import Geocoder from 'react-map-gl-geocoder' 
+
 
 //geolocation button position
 const geolocateStyle ={
@@ -23,17 +26,19 @@ const navistyle ={
 };
 
 
-export default function Map(){
+export default function Map(props){
     const [marker, setMarker] = useState({ longitude: 24.94, latitude: 60.16})
     const [events, setEvents] = useState({})
     //Shows coordinates for start position
     const [viewport, setViewport] = useState({
         latitude: 60.16741,
         longitude: 24.942577,
-        height: "100vh",
-        width: "100vw",
+        height: props.height ? props.height : '100vh',
+        width: props.width ? props.width : '100vw',
         zoom: 10,
     });
+
+    
 
     const logDragEvent = (name, e) => {
         setEvents({...events, [name]: e.lngLat})
@@ -47,18 +52,10 @@ export default function Map(){
     }
     const onMarkerDragEnd = event => {
         logDragEvent('onDragEnd', event);
-        /* this.setMarker({
-            marker: {
+        setMarker({    
                 longitude: event.lngLat[0],
                 latitude: event.lngLat[1]
-            }
-        }); */
-        setMarker({
-            
-                longitude: event.lngLat[0],
-                latitude: event.lngLat[1]
-            
-        });
+             });
     };
 
     //Escape shuts down popup
@@ -123,7 +120,10 @@ console.log(marker)
                         >
                         <Place/>
                     </Marker>
-                           
+                    {/* Geocoder  */}
+
+                    
+                   
                     
                     <div className="nav" style={navistyle}>
                     <NavigationControl/>
