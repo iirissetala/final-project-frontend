@@ -178,6 +178,7 @@ export default function OutlinedTextFields(props) {
                 variant="outlined"
                 float="center"
                 rows="10"
+                rowsMax={"20"}
             />
             <TextField
                 id="outlined-location"
