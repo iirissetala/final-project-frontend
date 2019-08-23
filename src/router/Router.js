@@ -5,6 +5,7 @@ import Homer from "../components/home/Home";
 import Map from "../components/map/Map";
 import Map2 from "../components/map/MapClass";
 import OutlinedTextFields from "../components/plans/NewPlan";
+import Plans from "../components/plans/Plan";
 import LoginModal from "../components/login/LoginModal";
 import { ModalProvider } from "../components/login/ModalContext";
 import { Provider } from "../components/context/Authcontext";
@@ -20,7 +21,7 @@ class Router1 extends Component {
             <>
               <Switch>
                 <Route path="/" exact component={Homer} />
-                <Route path="/plan" exact component={OutlinedTextFields} />
+                <Route path="/plan" exact component={Plans} />
                 <Route path="/" exact component={Homer} />
                 <Route path="/map" exact component={Map} />
                 <Route path="/plan/:id" component={SinglePlan}/>
