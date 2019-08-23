@@ -116,7 +116,8 @@ export default function OutlinedTextFields(props) {
     };
 
     return (
-      <div>
+        <div>
+            <Map width={'50vw'} height={'50vh'} />
         <Box borderRadius="borderRadius" {...boxWrapper}>
             <div className={classes.buttonClose} style={{display: "flex"}} >
                 <i className="material-icons" style={{marginLeft:"auto"}} onClick={props.handleClose}>highlight_off</i>
