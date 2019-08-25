@@ -193,7 +193,7 @@ export default function OutlinedTextFields(props) {
             />
             <div className={classes.map} style={mapWrapper}>
                 <p>MAP COMES --HERE--  tää muotoilu pitää fiksaa :( </p>
-                <Map />
+                {/* <Map /> */}
             </div>
 
             <div

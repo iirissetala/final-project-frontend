@@ -116,7 +116,7 @@ export default class MapClass extends Component {
         const { viewport } = this.state;
 
         /* render photoshoot locations from state */
-        const locationMarkers = this.state.locations.map(loc => {
+        /* const locationMarkers = this.state.locations.map(loc => {
             return <Marker key={loc.id}
                 mapRef={this.mapRef}
                 latitude={60}
@@ -127,7 +127,7 @@ export default class MapClass extends Component {
                 }} />
                 
             </Marker>
-        })
+        }) */
 
         
         return (
@@ -139,7 +139,18 @@ export default class MapClass extends Component {
                     onViewportChange={this.updateViewport}
                 >
                     
-                    {locationMarkers}
+                    {this.state.locations.length ? null : this.state.locations.map(loc => {
+                        return <Marker key={loc.id}
+                            mapRef={this.mapRef}
+                            latitude={60}
+                            longitude={25}>
+                            <CameraAlt mapRef={this.mapRef} onClick={(e) => {
+                                e.preventDefault();
+                                this.setState({ selectedLocation: loc })
+                            }} />
+
+                        </Marker>
+                    }) }
 
                     {/* Popup when clicked photoshoot-location */}
                     {this.state.selectedLocation ? (
