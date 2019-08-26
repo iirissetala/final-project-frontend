@@ -35,7 +35,7 @@ function Plans(props) {
                                     component="img"
                                     alt="Contemplative Reptile"
                                     height="140"
-                                    image={plan.referencePictures}
+                                    image={plan.image1}
                                     title="Contemplative Reptile"
                                 />
                                 <CardContent>
