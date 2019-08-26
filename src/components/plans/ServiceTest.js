@@ -18,8 +18,15 @@ export function addNew(plan) {
     formData.set("description", plan.description);
     formData.set("notes", plan.notes); 
     formData.set("participants", plan.participants);
-    formData.append("image", plan.referencepictures);
+    formData.append("image1", plan.referencephotos[0]);
+    formData.append("image2", plan.referencephotos[1]);
+    formData.append("image3", plan.referencephotos[2]);
+    formData.append("image4", plan.referencephotos[3]);
+    formData.append("image5", plan.referencephotos[4]);
+
     console.log(formData);
+    console.log(plan.image1);
+    console.log(plan.notes);
 
     return axios.post('http://localhost:8080/api/plans', formData, {
         headers: {

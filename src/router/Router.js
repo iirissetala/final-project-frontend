@@ -11,7 +11,7 @@ import { ModalProvider } from "../components/login/ModalContext";
 import { Provider } from "../components/context/Authcontext";
 import Testsite from "../components/Testsite";
 import SinglePlan from '../components/plans/singleplan/SinglePlan'
-
+import Maptest from '../components/map/Maptest'
 class Router1 extends Component {
   render() {
     return (
@@ -23,10 +23,10 @@ class Router1 extends Component {
                 <Route path="/" exact component={Homer} />
                 <Route path="/plan" exact component={Plans} />
                 <Route path="/" exact component={Homer} />
-                <Route path="/map" exact component={Map} />
+                <Route path="/map" exact component={Map2} />
                 <Route path="/plan/:id" component={SinglePlan}/>
                 <Route exact path="/test" component={Testsite} />
-            <Route path="/map2" exact component={Map2} />
+            <Route path="/map2" exact component={Maptest} />
           </Switch>
             </>
           
