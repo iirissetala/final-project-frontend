@@ -4,7 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
-import {Typography} from "@material-ui/core";
+import {Grid, Typography} from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import NewPlan from "./NewPlan";
@@ -54,6 +54,7 @@ export default function PlanModal(){
 
     return (
         <div>
+
             <Card>
                 <CardActionArea>
                     <CardMedia
@@ -87,18 +88,3 @@ export default function PlanModal(){
         </div>
     )
 }
-
-
-
-// const planModal = () => {
-//     const [isShowing, setIsShowing] = useState(false);
-//
-//     function toggle(){
-//         setIsShowing(!isShowing);
-//     }
-//     return {
-//         isShowing,
-//         toggle,
-//     }
-// };
-

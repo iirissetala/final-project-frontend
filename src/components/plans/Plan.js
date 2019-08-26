@@ -14,12 +14,18 @@ import PlanModal from './PlanModal';
 function Plans(props) {
 
     return (
-
-        <div>
-            <PlanModal/>
+    <div>
+        <div style={{ marginTop: 30, padding: 40 }}>
+            <Grid container spacing={1} justify="center">
+                <PlanModal/>
+            </Grid>
+        </div>
 
         <div style={{ marginTop: 20, padding: 30 }}>
             <Grid container spacing={6} justify="center">
+
+                <h2>Here you can check and modify your previous plans:</h2>
+
                 {plans.map(plan => (
                     <Grid item key={plan.header}>
 
@@ -52,7 +58,7 @@ function Plans(props) {
                 ))}
             </Grid>
         </div>
-        </div>
+    </div>
     );
 }
 
