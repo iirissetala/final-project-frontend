@@ -103,11 +103,17 @@ export default function OutlinedTextFields(props) {
          description:'',
          participants:'',
          notes: '',
-         referencepictures:'',
+         referencephotos:[],
      });
+
+
+
     const handleChange = header => event => {
-        setValues({ ...values, [header]: event.target.value });
-        console.log(values.referencepictures)
+        setValues({ ...values, [header]: event.target.value});
+    };
+    const handleChangeTwo = (e) => {
+        setValues({...values, referencephotos: [...values.referencephotos, e.target.files[0]]});
+        console.log(values.referencephotos)
     };
 
     /*kun käyttäjä klikkaa 'save' buttonia, formin tiedot lähetetään kohti tietokantaa
@@ -119,7 +125,7 @@ export default function OutlinedTextFields(props) {
     };
     /*Tyhjennetään data ja suljetaan modaali*/
     const clearData = (event) => {
-        setValues({header:'', date:'', location:'', description:'', participants:'', notes: '', referencepictures:''});
+        setValues({header:'', date:'', location:'', description:'', participants:'', notes: '', image1:''});
         props.handleClose();
     };
 
@@ -212,8 +218,8 @@ export default function OutlinedTextFields(props) {
             </div>
                 <div
                     className={classes.imagedrop}
-                    value={values.referencepictures}
-                    onChange={handleChange('referencepictures')}>
+                    value={values.referencephotos}
+                    onChange={handleChangeTwo}>
                     <p>You upload max. 5 reference pictures in your plan</p>
                     <ImageDropZone/>
                 </div>
