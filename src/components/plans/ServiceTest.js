@@ -13,12 +13,12 @@ export function getById(id) {
 export function addNew(plan) {
     let formData = new FormData();
     formData.set("header", plan.header);
-    // formData.append("date", Date.now());
+    formData.append("date", Date.now());
     formData.set("location", plan.location);
     formData.set("description", plan.description);
     formData.set("notes", plan.notes); 
     formData.set("participants", plan.participants);
-    // formData.append("image", plan.referencepictures);
+    formData.append("image", plan.referencepictures);
     console.log(formData);
 
     return axios.post('http://localhost:8080/api/plans', formData, {

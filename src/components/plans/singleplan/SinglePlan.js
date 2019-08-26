@@ -18,17 +18,15 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardActions from "@material-ui/core/CardActions";
 import {plans} from "../PreviousPlan";
 import Snackbar from '@material-ui/core/Snackbar';
+import SnackBar from './SnackBar';
 
 
 export default class SinglePlan extends Component {
-    delMessage= '';
 
     state = {
         data: {},
         isHidden: true,
         showButton: 'Show',
-        isActive: false,
-
     };
 
     /*Toggle for hiding and showing the map component*/
@@ -39,9 +37,10 @@ export default class SinglePlan extends Component {
         })
     };
 
-    openSnackBar = (delMessage = 'Are you sure you want to delete?') => {
-
-    }
+/*    openSnack = (event) => {
+        event.preventDefault();
+        handleClick
+    }*/
 
 
     AuthContext = this.context;
@@ -53,6 +52,7 @@ export default class SinglePlan extends Component {
     render() {
         const {id, date, description, header, location, notes, participants, coordinates, referencePictures} = this.state.data;
         console.log(this.state);
+
 
         return (
             <div>
@@ -140,24 +140,13 @@ export default class SinglePlan extends Component {
                                     title="Your reference picture"
                                 />
                                 <div style={refButtonArea}>
-                                    <Button style={refButton} size="small" color="default" variant="outlined">
-                                        Delete
-                                    </Button>
+
+                                    <SnackBar/>
 
                                     <Button style={refButton} size="small" color="default" variant="outlined">
                                         Show
                                     </Button>
 
-{/*                                    <Snackbar open={open}
-                                              anchorOrigin={{ vertical, horizontal }}
-                                              key={{vertical, horizontal}}
-                                              open={open}
-                                              onClose={handleClose}
-                                              ContentProps={{
-                                                  'aria-describedby': 'message-id',
-                                              }}
-                                              message={<span id="message-id">Are uou sure you want to delete this picture?</span>}
-                                    />*/}
 
                                 </div>
                             </CardActionArea>
