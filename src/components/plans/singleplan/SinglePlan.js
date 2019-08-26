@@ -7,112 +7,227 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-
 import Container from '@material-ui/core/Container'
 import AwesomeSlider from 'react-awesome-slider';
 import AwsSliderStyles from './AWSSlider.css'
 import 'react-awesome-slider/dist/styles.css';
-
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        padding: theme.spacing(3, 2),
-        width: '75%'
-    },    
-    container: {
-        alignItems: 'center',
-        display: 'flex',
-        flexWrap: 'wrap',
-        direction: 'row',
-        justify: 'center',
-        margin: 'normal',
-    },    
-    textField: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        width: '75%',
-    },    
-    button: {
-        marginBottom: theme.spacing(2),
-        marginTop: theme.spacing(5),
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        padding: 10,
-        alignItems: 'right',
-    },    
-    menu: {
-        width: 300,
-        alignItems: 'left',
-    },    
-    calendar: {
-        width: '75%',
-    },    
-    imagedrop: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        width: '75%',
-    }    
-}));    
-
-const boxWrapper = {
-    bgcolor: 'background.paper',
-    borderColor: 'text.primary',
-    m: 1,
-    border: 1,
-    style: { width: '75%' },
-
-};    
+import CardActionArea from "@material-ui/core/CardActionArea";
+import Button from "@material-ui/core/Button";
+import Map from "../../map/Map";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardActions from "@material-ui/core/CardActions";
+import {plans} from "../PreviousPlan";
+import Snackbar from '@material-ui/core/Snackbar';
 
 
 export default class SinglePlan extends Component {
-    state = { data: {} }
+    delMessage= '';
+
+    state = {
+        data: {},
+        isHidden: true,
+        showButton: 'Show',
+        isActive: false,
+
+    };
+
+    /*Toggle for hiding and showing the map component*/
+    toggleHidden() {
+        this.setState({
+            isHidden: !this.state.isHidden,
+            showButton: 'Hide',
+        })
+    };
+
+    openSnackBar = (delMessage = 'Are you sure you want to delete?') => {
+
+    }
+
+
     AuthContext = this.context;
 
     componentDidMount(props) {
-        this.context.getData("plans/1").then(res => this.setState({data: res}))
-    }    
+        this.context.getData("plans/13").then(res => this.setState({data: res}))
+    }
 
-    
     render() {
-        const {id, date, description, header, location, notes, participants} = this.state.data
-        console.log(this.state)
-        return (
-            <div><Container maxWidth="lg">
-                <Paper className="root" style={sliderStyle}>
-                    <AwesomeSlider cssModule={AwsSliderStyles} >
-                        <div data-src="/pics/junatiimi.png" />
-                        <div data-src="/pics/trump.jpg" />
-                        
-                        </AwesomeSlider>
-                </Paper>
-                        </Container> 
-                
-                <Grid >
-                    <Typography variant="h2" component="h3">
-                        <Card className="paper"><CardContent>{description}</CardContent></Card>
-                    </Typography>
-                </Grid>
-                
-                        {id} {date}  {header} {location} {notes} {participants}
-                    
-                    {/* <Typography variant="h5" component="h3">
-                        teest
-        </Typography>
-                    <Typography component="p">
-                        Paper can be used to build surface or other elements for your application.
-        </Typography> */}
-               </div>
-        )
-    }    
-}    
+        const {id, date, description, header, location, notes, participants, coordinates, referencePictures} = this.state.data;
+        console.log(this.state);
 
+        return (
+            <div>
+                <Box style={boxWrapper}>
+                    <div>
+                        <CardContent>
+                            <Card className="paper">
+                                <Typography variant="h4">
+                                    <CardContent>{header}</CardContent>
+                                    <h6 variant="h6"  style={textStyle}> Date & Time: {date}</h6>
+                                </Typography>
+                            </Card>
+                        </CardContent>
+                            <Container maxWidth="lg">
+                                <Paper className="root" style={sliderStyle}>
+                                    <AwesomeSlider cssModule={AwsSliderStyles} >
+                                        <div data-src="/pics/junatiimi.png" />
+                                        <div data-src="/pics/trump.jpg" />
+                                        <div data-src="https://material-ui.com/static/images/cards/contemplative-reptile.jpg"/>
+                                    </AwesomeSlider>
+                                </Paper>
+                            </Container>
+                        <Grid>
+                            <Grid container style={rootStyle} spacing={2}>
+                                <Grid item xs>
+                                    <CardContent>
+                                        <Card className="paper" style={cardStyle}>
+                                            <Typography variant="h5">
+                                                <CardContent>Description</CardContent>
+                                                <Typography component="p" style={textStyle}>{description}</Typography>
+                                            </Typography>
+                                        </Card>
+                                    </CardContent>
+                                    <CardContent>
+                                        <Card className="paper" style={cardStyle}>
+                                            <Typography variant="h5">
+                                                <CardContent>Participants</CardContent>
+                                                <Typography component="p" style={textStyle}>{participants}</Typography>
+                                            </Typography>
+                                        </Card>
+                                    </CardContent>
+                                    <CardContent>
+                                        <Card className="paper" style={cardStyle}>
+                                            <Typography variant="h5">
+                                                <CardContent>Notes</CardContent>
+                                                <Typography component="p" style={textStyle}>{notes}</Typography>
+                                            </Typography>
+                                        </Card>
+                                    </CardContent>
+                                    <CardContent>
+                                        <Card className="paper" style={cardStyle}>
+                                            <Typography variant="h5">
+                                                <CardContent>Location</CardContent>
+                                                <Typography component="p" style={textStyle}>{location}</Typography>
+                                            </Typography>
+                                        </Card>
+                                    </CardContent>
+                                </Grid>
+                            </Grid>
+
+                    <CardContent>
+                        <Card>
+                        <div>
+                            <Button  style={buttonShow}  variant="outlined" size="small" onClick={this.toggleHidden.bind(this)}>{this.state.showButton}</Button>
+                            <p style={textStyle}>Photoshoots location on map</p>
+                        </div>
+                            {!this.state.isHidden &&
+                            <div  style={mapWrapper}>
+                                <Map width={'65vw'} height={'50vh'}/>
+                            </div>
+                            }
+                        </Card>
+                    </CardContent>
+                </Grid>
+                        {plans.map(plan => (
+                        <Grid>
+                        <Card>
+                            <CardActionArea>
+                                <CardMedia
+                                    component="img"
+                                    alt="Your reference picture"
+                                    height="150"
+                                    image="https://material-ui.com/static/images/cards/contemplative-reptile.jpg"
+                                        //{ referencePictures + {id} }
+                                    title="Your reference picture"
+                                />
+                                <div style={refButtonArea}>
+                                    <Button style={refButton} size="small" color="default" variant="outlined">
+                                        Delete
+                                    </Button>
+
+                                    <Button style={refButton} size="small" color="default" variant="outlined">
+                                        Show
+                                    </Button>
+
+{/*                                    <Snackbar open={open}
+                                              anchorOrigin={{ vertical, horizontal }}
+                                              key={{vertical, horizontal}}
+                                              open={open}
+                                              onClose={handleClose}
+                                              ContentProps={{
+                                                  'aria-describedby': 'message-id',
+                                              }}
+                                              message={<span id="message-id">Are uou sure you want to delete this picture?</span>}
+                                    />*/}
+
+                                </div>
+                            </CardActionArea>
+                        </Card>
+                        </Grid>
+                            ))}
+                    </div>
+                </Box>
+        </div>
+        )
+    }
+}
+
+const rootStyle = {
+    flexGrow: 1,
+    direction: 'row',
+    justify: 'space-evenly',
+    alignItems:'flex-start',
+};
 const sliderStyle = {
     marginBottom: '30px',
     justify: 'center',
     alignItems: 'center',
     maxWidth: '50 %',
     height: 'auto'
-}
-SinglePlan.contextType = AuthContext;
+};
+const boxWrapper = {
+    borderRadius: 'borderRadius',
+    bgcolor: 'background.paper',
+    borderColor: 'text.primary',
+    m: 1,
+    border: 1,
+    width: '75%',
+};
+const menuStyle = {
+    width: '90%',
+    paddingLeft: '15px',
+    marginLeft: '10',
+};
+const textStyle = {
+    marginLeft: '10',
+    width: '90%',
+    paddingLeft: '15px',
+    paddingBottom:'10px',
+};
+const cardStyle = {
+    // width: '50%',
+};
+const mapWrapper= {
+    bgcolor: 'background.paper',
+    borderColor: 'text.primary',
+    m: 1,
+    border: 1,
+    width: '75%',
+    padding: '30px',
+};
+const buttonShow = {
+        alignItems: 'left',
+        display: 'flex',
+        margin:'10px',
+    };
+const refButtonArea = {
+    padding: '10px',
+    display: 'flex',
+};
+const refButton = {
+    backgroundColor: 'ghostwhite',
+    marginLeft:'10px',
+};
+
+    SinglePlan.contextType = AuthContext;
 
 
