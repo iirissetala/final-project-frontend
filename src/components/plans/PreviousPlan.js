@@ -18,7 +18,16 @@
             description: "I just love lizards",
             notes: "Lizards are the best",
             referencePictures: "https://material-ui.com/static/images/cards/contemplative-reptile.jpg",
-        }
+        },
+        {
+            header: "My photoshoot 2",
+            date: "12.08.2019",
+            location: "Oulu",
+            participants: ["Meikkaaja", "Valomies", "Malli"],
+            description: "I just love lizards",
+            notes: "Lizards are the best",
+            referencePictures: "https://material-ui.com/static/images/cards/contemplative-reptile.jpg",
+        },
     ];
 
 export {plans};

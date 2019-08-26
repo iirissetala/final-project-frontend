@@ -48,6 +48,9 @@ const useStyles = makeStyles(theme => ({
         marginLeft: theme.spacing(2),
     },
     calendar: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        marginBottom: theme.spacing(3),
         width:'75%',
     },
     imagedrop: {
@@ -58,12 +61,14 @@ const useStyles = makeStyles(theme => ({
     map: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(3),
         bgcolor: 'background.paper',
         borderColor: 'text.primary',
         m: 1,
         border: 1,
         width: '75%',
-    }
+    },
 }));
 
 
@@ -94,6 +99,7 @@ export default function OutlinedTextFields(props) {
          header:'',
          date:'',
          location:'',
+         coordinates:'',
          description:'',
          participants:'',
          notes: '',
@@ -105,22 +111,24 @@ export default function OutlinedTextFields(props) {
     };
 
     /*kun käyttäjä klikkaa 'save' buttonia, formin tiedot lähetetään kohti tietokantaa
-    * ja samalla tyhjennetään formi kun tiedot on lähetetty*/
+    * ja samalla tyhjennetään formi kun tiedot on lähetetty, modaali suljetaan tallennuksen yhteydessä*/
     const sendData = (event) => {
         event.preventDefault();
         addNew(values);
         clearData();
     };
+    /*Tyhjennetään data ja suljetaan modaali*/
     const clearData = (event) => {
         setValues({header:'', date:'', location:'', description:'', participants:'', notes: '', referencepictures:''});
+        props.handleClose();
     };
 
     return (
         <div>
-            <Map width={'50vw'} height={'50vh'} />
+
         <Box borderRadius="borderRadius" {...boxWrapper}>
             <div className={classes.buttonClose} style={{display: "flex"}} >
-                <i className="material-icons" style={{marginLeft:"auto"}} onClick={props.handleClose}>highlight_off</i>
+                <Button  variant="outlined" size="small" style={{marginLeft:"auto"}} onClick={clearData}>X</Button>
             </div>
             <div className={classes.menu}>
                 <h3>Make a new plan!</h3>
@@ -131,7 +139,7 @@ export default function OutlinedTextFields(props) {
 
             <TextField
                 id="outlined-name"
-                label="Project header"
+                label="Photoshoot name"
                 className={classes.textField}
                 placeholder="Project name"
                 value={values.header}
@@ -182,7 +190,7 @@ export default function OutlinedTextFields(props) {
             />
             <TextField
                 id="outlined-location"
-                label="Project location"
+                label="Photoshoot location"
                 className={classes.textField}
                 placeholder="Project name"
                 value={values.location}
@@ -192,8 +200,8 @@ export default function OutlinedTextFields(props) {
                 float="center"
             />
             <div className={classes.map} style={mapWrapper}>
-                <p>MAP COMES --HERE--  tää muotoilu pitää fiksaa :( </p>
-                {/* <Map /> */}
+                <p>You can also pinpoint your planned location on map </p>
+                <Map width={'65vw'} height={'50vh'} value={values.coordinates}/>
             </div>
 
             <div
@@ -206,6 +214,7 @@ export default function OutlinedTextFields(props) {
                     className={classes.imagedrop}
                     value={values.referencepictures}
                     onChange={handleChange('referencepictures')}>
+                    <p>You upload max. 5 reference pictures in your plan</p>
                     <ImageDropZone/>
                 </div>
         </form>
@@ -222,10 +231,5 @@ export default function OutlinedTextFields(props) {
             </div>
         </Box>
         </div>
-
-
-
-
-
     );
 }
