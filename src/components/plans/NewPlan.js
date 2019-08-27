@@ -100,7 +100,10 @@ export default function OutlinedTextFields(props) {
          header:'',
          date:'',
          location:'',
-         coordinates:'',
+         coordinates:{
+             latitude: '',
+             longitude: '',
+         },
          description:'',
          participants:'',
          notes: '',
@@ -110,6 +113,7 @@ export default function OutlinedTextFields(props) {
 
 
     const handleChange = header => event => {
+        console.log("handleChange", header, ":", event.target);
         setValues({ ...values, [header]: event.target.value});
     };
     const handleChangeTwo = (e) => {
@@ -126,7 +130,7 @@ export default function OutlinedTextFields(props) {
     };
     /*Tyhjennetään data ja suljetaan modaali*/
     const clearData = (event) => {
-        setValues({header:'', date:'', location:'', description:'', participants:'', notes: '', image1:''});
+        setValues({header:'', date:'', location:'', description:'', coordinates:{latitude:'', longitude:''}, participants:'', notes: '', image1:''});
         props.handleClose();
     };
 
@@ -199,7 +203,7 @@ export default function OutlinedTextFields(props) {
                 id="outlined-location"
                 label="Photoshoot location"
                 className={classes.textField}
-                placeholder="Project name"
+                placeholder="Location"
                 value={values.location}
                 onChange={handleChange('location')}
                 margin="normal"
@@ -208,7 +212,13 @@ export default function OutlinedTextFields(props) {
             />
             <div className={classes.map} style={mapWrapper}>
                 <p>You can also pinpoint your planned location on map </p>
-                <Map width={'65vw'} height={'50vh'} value={values.coordinates}/>
+                <Map
+                    width={'65vw'}
+                    height={'50vh'}
+                    value={values.coordinates}
+                    onChange={handleChange('coordinates')}
+                    draggedCb={handleChange('coordinates')}
+                />
             </div>
 
             <div

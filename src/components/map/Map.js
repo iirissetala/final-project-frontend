@@ -56,6 +56,7 @@ export default function Map(props){
                 longitude: event.lngLat[0],
                 latitude: event.lngLat[1]
              });
+        props.draggedCb({target: {longitude: event.lngLat[0], latitude: event.lngLat[1]}});
     };
 
     //Escape shuts down popup
