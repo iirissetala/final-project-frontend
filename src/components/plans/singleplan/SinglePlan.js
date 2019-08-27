@@ -44,6 +44,7 @@ export default class SinglePlan extends Component {
         this.context.getData("plans/" + this.props.match.params.id).then(res => this.setState({data: res}))
         console.log( "componentDidMount: " + this.state.data)
 
+
     }
 
     render() {

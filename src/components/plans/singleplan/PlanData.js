@@ -12,28 +12,17 @@ import Button from "@material-ui/core/Button";
 
 
 const planUrl = '/plans/';
-// const picUrl = "/" + this.props.plans.referencePictures[0].url;
 
 class PlanData extends Component {
-
-    getImage = () =>{
-        return this.props.plans.referencePictures ? "/"+this.props.plans.referencePictures[0].url : "/liskodisko.jpg"
-    };
-
 
     render() {
 
         return (
             <div>
-                {/*<NewPlan addNew={this.props.addNew}/>*/}
-{/*
-                {plandata}
-*/}
-
 
                 {this.props.plans.map(plan => (
-                    <Grid item key={plan.header}>
 
+                    <Grid item key={plan.header}>
                         <Card>
                             <Link href={planUrl + plan.id}  color={"inherit"} variant={"body2"}>
                                 <CardActionArea className={plan.id}>
@@ -41,7 +30,7 @@ class PlanData extends Component {
                                         component="img"
                                         alt="Contemplative Reptile"
                                         height="140"
-                                        image={this.getImage()}
+                                        image= {plan.referencePictures.length ? "/"+plan.referencePictures[0].url : "/liskodisko.jpg"}
                                         title="Contemplative Reptile"
 
                                     />
@@ -49,8 +38,6 @@ class PlanData extends Component {
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="h2">{plan.header}</Typography>
                                         <Typography component="h3">{plan.date}</Typography>
-                                        <Typography component="h3">{"ID: " + plan.id}</Typography>
-
                                         <Typography component="p">{plan.description}</Typography>
                                     </CardContent>
                                 </CardActionArea>
@@ -73,15 +60,3 @@ class PlanData extends Component {
 }
 
 export default PlanData;
-
-/*
-id: this.props.id,
-    header: this.props.header,
-    date:this.props.date,
-    location:this.props.location,
-    latitude: this.props.latitude,
-    longitude: this.props.longitude,
-    participants:this.props.participants,
-    description:this.props.description,
-    notes:this.props.notes,
-    referencePictures: this.props.referencePictures*/

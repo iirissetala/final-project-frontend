@@ -1,4 +1,7 @@
 import React, {Component} from 'react'
+import {AuthContext} from "../context/Authcontext";
+
+const plans = [];
 
 class EditPreviousPlan extends Component {
 /*Propsit tuodaan luokasta .singleplan/PlanData */
@@ -15,6 +18,7 @@ class EditPreviousPlan extends Component {
         referencePictures: this.props.referencePictures
     };
 
+    AuthContext = this.context;
 
     headerChange = (event) => {this.setState({header: event.target.value})};
     dateChange = (event) => {this.setState({date: event.target.value})};
@@ -46,11 +50,5 @@ class EditPreviousPlan extends Component {
     }
 }
 
-const plans = [
-
-    {
-    },
-
-];
 
 export {plans};
