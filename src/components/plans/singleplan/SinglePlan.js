@@ -53,6 +53,7 @@ export default class SinglePlan extends Component {
     render() {
         const {id, date, description, header, location, notes, participants, coordinates, referencePictures} = this.state.data;
         console.log(this.state);
+        console.log(this.props.match.params)
 
         return (
             <div>

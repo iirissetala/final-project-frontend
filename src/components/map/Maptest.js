@@ -12,13 +12,12 @@ import { LineLayer } from '@deck.gl/layers';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import Geocoder from 'react-map-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import Pin from './pin'
 import { AuthContext } from '../context/Authcontext'
 import { Link } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import {testSun} from './suncalc'
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
+import DatePicker from './DatePicker';
+import { Box } from '@material-ui/core';
 
 var SunCalc = require('suncalc');
 
@@ -50,7 +49,8 @@ export default class MapClass extends Component {
             popupInfo: null,
             locations: [],
             selectedLocation: null,
-            date: new Date()
+            date: new Date(),
+            suncalc: {}
         }
     }
     componentDidMount() {
@@ -64,6 +64,10 @@ export default class MapClass extends Component {
             }
         };
         window.addEventListener("keydown", listener);
+        const suncalc = SunCalc.getTimes(this.state.date, this.state.marker.latitude, this.state.marker.longitude);
+        
+        this.setState({ suncalc: SunCalc.getTimes(this.state.date, this.state.marker.latitude, this.state.marker.longitude) })
+        console.log(suncalc)
         const map = this.mapRef.current.getMap();
         map.on('load', function () {
             
@@ -136,7 +140,6 @@ export default class MapClass extends Component {
     }
     
     testRef = (x, y) =>  {
-        console.log(this.mapRef.current.getMap())
         const map = this.mapRef.current.getMap()
         
 map.getSource("sun").setData({
@@ -147,7 +150,7 @@ map.getSource("sun").setData({
                             "type": "LineString",
                             "coordinates": [
                                 [y, x],
-                                [this.state.marker.longitude, this.state.marker.latitude]
+                                [this.state.viewport.longitude, this.state.viewport.latitude]
                                 
                             ]
                      
@@ -194,23 +197,15 @@ map.getSource("sun").setData({
                 latitude: event.lngLat[1]
             }
         });
-        /* var times = SunCalc.getTimes(new Date(), event.lngLat[1], event.lngLat[0]);
-        var sunrisePos = SunCalc.getPosition(this.state.date, event.lngLat[1], event.lngLat[0]);
-        var sunriseAzimuth = sunrisePos.azimuth * 180 / Math.PI;
-        const coords = testSun(event.lngLat[1], event.lngLat[0], sunriseAzimuth, 100)
-        console.log(sunriseAzimuth)
-        console.log(coords)
-        console.log(times)
-        console.log(this.state.marker)
-        this.testRef(coords.x, coords.y); */
-        this.handleDateChange()
+        this.handleViewportChange({longitude: event.lngLat[0], latitude: event.lngLat[1]})
+        
     };
     
     handleDateChange = () => {
-        var times = SunCalc.getTimes(this.state.date, this.state.marker.latitude, this.state.marker.longitude);
-        var sunrisePos = SunCalc.getPosition(this.state.date, this.state.marker.latitude, this.state.marker.longitude);
+        var times = SunCalc.getTimes(this.state.date, this.state.viewport.latitude, this.state.viewport.longitude);
+        var sunrisePos = SunCalc.getPosition(this.state.date, this.state.viewport.latitude, this.state.viewport.longitude);
         var sunriseAzimuth = sunrisePos.azimuth * 180 / Math.PI;
-        const coords = testSun(this.state.marker.latitude, this.state.marker.longitude, sunriseAzimuth, 100)
+        const coords = testSun(this.state.viewport.latitude, this.state.viewport.longitude, sunriseAzimuth, 100)
         this.testRef(coords.x, coords.y);
         
     }
@@ -219,6 +214,7 @@ map.getSource("sun").setData({
         this.setState({
             viewport: { ...this.state.viewport, ...viewport }
         })
+        this.handleDateChange()
     }
     
     handleGeocoderViewportChange = (viewport) => {
@@ -228,38 +224,45 @@ map.getSource("sun").setData({
             ...viewport,
             ...geocoderDefaultOverrides
         })
+        
     }
     
 
-    handleChange = (e, value) => {
+    handleHourChange = (e, value) => {
+        console.log(value)
         const olddate = this.state.date
         olddate.setHours(value)
         this.setState({date: olddate})
-        console.log(this.state.date)
-        console.log(value)
         this.handleDateChange();
+    }
+    
+    handleMinuteChange = (e, value) => {
+        const olddate = this.state.date
+        olddate.setMinutes(value)
+        this.setState({date: olddate})
+        this.handleDateChange();
+    }
+
+    handleCalendarChange = date => {
+        this.setState({ date: date })
+        this.handleDateChange()
     }
     render() {
 
 console.log(this.state)
         const { viewport } = this.state;
         
-        
-        
-        
         return (
-            <div>
-                <Slider
-                    defaultValue={12}
-                    
-                    aria-labelledby="discrete-slider"
-                    valueLabelDisplay="auto"
-                    step={1}
-                    marks
-                    min={1}
-                    max={24}
-                    onChange={this.handleChange}
-                />
+            <Box style={{height: '100%', width: '100%'}}>
+                <DatePicker latitude={this.state.viewport.latitude}
+                    longitude={this.state.viewport.longitude}
+                    date={this.state.date}
+                    suncalc={this.state.suncalc}
+                    handleHourChange={this.handleHourChange}
+                    handleMinuteChange={this.handleMinuteChange}
+                    handleCalendarChange={this.handleCalendarChange}/>
+                
+                <div>
                 <MapGL
                     ref={this.mapRef}
                     {...viewport}
@@ -360,7 +363,8 @@ console.log(this.state)
                         />
                     </div>
                 </MapGL>
-            </div>
+                </div>
+            </Box>
         );
     }
 }

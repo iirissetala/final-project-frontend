@@ -12,6 +12,7 @@ import { Provider } from "../components/context/Authcontext";
 import Testsite from "../components/Testsite";
 import SinglePlan from '../components/plans/singleplan/SinglePlan'
 import Maptest from '../components/map/Maptest'
+import AllContent from "../components/content/AllContent";
 class Router1 extends Component {
   render() {
     return (
@@ -25,7 +26,8 @@ class Router1 extends Component {
                 <Route path="/" exact component={Homer} />
                 <Route path="/map" exact component={Map2} />
                 <Route path="/plan/:id" component={SinglePlan}/>
-                <Route exact path="/test" component={Testsite} />
+            <Route exact path="/test" component={Testsite} />
+            <Route exact path="/content" component={AllContent} />
             <Route path="/map2" exact component={Maptest} />
           </Switch>
             </>
