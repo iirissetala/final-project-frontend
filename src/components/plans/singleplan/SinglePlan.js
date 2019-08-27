@@ -16,6 +16,11 @@ import Button from "@material-ui/core/Button";
 import Map from "../../map/Map";
 import CardMedia from "@material-ui/core/CardMedia";
 import {plans} from "../EditPreviousPlan";
+import CardActions from "@material-ui/core/CardActions";
+import {plans} from "../PreviousPlan";
+import Snackbar from '@material-ui/core/Snackbar';
+import Download from "./Download";
+import moment from 'moment';
 import SnackBar from './SnackBar';
 
 export default class SinglePlan extends Component {
@@ -43,17 +48,21 @@ export default class SinglePlan extends Component {
     render() {
         const {id, date, description, header, location, notes, participants, coordinates, referencePictures} = this.state.data;
         console.log(this.state);
+        console.log(description)
+        console.log(id)
 
 
         return (
             <div>
                 <Box style={boxWrapper}>
                     <div>
+                        <Download id={id} date={date} header={header} description={description} participants={participants} location={location} notes={notes} coordinates={coordinates} referencePictures={referencePictures}/>
+
                         <CardContent>
                             <Card className="paper">
                                 <Typography variant="h4">
                                     <CardContent>{header}</CardContent>
-                                    <h6 variant="h6"  style={textStyle}> Date & Time: {date}</h6>
+                                    <h6 variant="h6"  style={textStyle}> Date & Time: {moment(date).format('LLLL')}</h6>
                                 </Typography>
                             </Card>
                         </CardContent>
@@ -116,6 +125,7 @@ export default class SinglePlan extends Component {
                             </div>
                             }
                         </Card>
+
                     </CardContent>
                 </Grid>
                         {plans.map(plan => (
@@ -137,6 +147,18 @@ export default class SinglePlan extends Component {
                                     <Button style={refButton} size="small" color="default" variant="outlined">
                                         Show
                                     </Button>
+
+
+                                    {/*                                    <Snackbar open={open}
+                                              anchorOrigin={{ vertical, horizontal }}
+                                              key={{vertical, horizontal}}
+                                              open={open}
+                                              onClose={handleClose}
+                                              ContentProps={{
+                                                  'aria-describedby': 'message-id',
+                                              }}
+                                              message={<span id="message-id">Are uou sure you want to delete this picture?</span>}
+                                    />*/}
 
 
                                 </div>
