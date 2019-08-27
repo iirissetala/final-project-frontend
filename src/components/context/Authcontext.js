@@ -91,12 +91,22 @@ class AuthProvider extends Component {
         authorization: this.state.token
       }
     }).then(res => {
-      console.log(res.data)
+      console.log(res.data);
       return res.data
     }).catch(err => {
       return err
     })
-  }
+  };
+
+  //lisäys 26.08.2019 klo20:45
+  getById = (id) => {
+    return axios.get('http://localhost:8080/api/plans/' + id)
+        .then((response) => response)
+        .catch(err => {
+          return err
+        })
+  };
+
 
   render() {
     return (

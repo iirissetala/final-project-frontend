@@ -24,7 +24,7 @@ class Router1 extends Component {
                 <Route path="/plan" exact component={Plans} />
                 <Route path="/" exact component={Homer} />
                 <Route path="/map" exact component={Map2} />
-                <Route path="/plan/:id" component={SinglePlan}/>
+                <Route path="/plans/:id" component={SinglePlan}/>
                 <Route exact path="/test" component={Testsite} />
             <Route path="/map2" exact component={Maptest} />
           </Switch>
