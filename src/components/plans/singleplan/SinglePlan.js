@@ -43,6 +43,7 @@ export default class SinglePlan extends Component {
     componentDidMount(props) {
         this.context.getData("plans/" + this.props.match.params.id).then(res => this.setState({data: res}))
         console.log( "componentDidMount: " + this.state.data)
+
     }
 
     render() {
@@ -59,7 +60,9 @@ export default class SinglePlan extends Component {
             <div>
                 <Box style={boxWrapper}>
                     <div>
+
                         <Download id={id} date={date} header={header} description={description} participants={participants} location={location} notes={notes} latitude={latitude} longitude={longitude} referencePictures={referencePictures}/>
+
 
                         <CardContent>
                             <Card className="paper">
