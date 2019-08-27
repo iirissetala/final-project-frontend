@@ -56,6 +56,7 @@ export default function Map(props){
                 longitude: event.lngLat[0],
                 latitude: event.lngLat[1]
              });
+        props.handleCoordinates({target: {longitude: event.lngLat[0], latitude: event.lngLat[1]}});
     };
 
     //Escape shuts down popup
@@ -69,8 +70,8 @@ export default function Map(props){
         };
         window.addEventListener("keydown", listener);
     }, []);
-console.log(marker.longitude)
-console.log(marker)
+// console.log(marker.longitude)
+// console.log(marker)
 
         return(
             <div>
