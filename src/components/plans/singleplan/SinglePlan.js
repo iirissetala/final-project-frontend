@@ -21,12 +21,11 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Download from "./Download";
 import moment from 'moment';
 import SnackBar from './SnackBar';
-import {getById} from "../ServiceTest";
 
 export default class SinglePlan extends Component {
 
     state = {
-        data: {},
+        data: '',
         isHidden: true,
         showButton: 'Show',
     };
@@ -42,8 +41,8 @@ export default class SinglePlan extends Component {
     AuthContext = this.context;
 
     componentDidMount(props) {
-
-        this.context.getData("plans/1").then(res => this.setState({data: res}))
+        this.context.getData("plans/" + this.props.match.params.id).then(res => this.setState({data: res}))
+        console.log( "componentDidMount: " + this.state.data)
     }
 
     render() {
@@ -51,7 +50,7 @@ export default class SinglePlan extends Component {
         console.log(this.state);
         console.log(header);
         if (referencePictures) {
-            console.log(referencePictures[0].url);
+            // console.log(referencePictures[0].url);
         }
 
 
