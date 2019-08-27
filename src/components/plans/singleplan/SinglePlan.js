@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Consumer, AuthContext } from "../../context/Authcontext";
-import { makeStyles } from '@material-ui/core/styles';
+import {getById} from "../ServiceTest";
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -15,11 +15,8 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import Button from "@material-ui/core/Button";
 import Map from "../../map/Map";
 import CardMedia from "@material-ui/core/CardMedia";
-import CardActions from "@material-ui/core/CardActions";
-import {plans} from "../PreviousPlan";
-import Snackbar from '@material-ui/core/Snackbar';
+import {plans} from "../EditPreviousPlan";
 import SnackBar from './SnackBar';
-
 
 export default class SinglePlan extends Component {
 
@@ -37,16 +34,10 @@ export default class SinglePlan extends Component {
         })
     };
 
-/*    openSnack = (event) => {
-        event.preventDefault();
-        handleClick
-    }*/
-
-
     AuthContext = this.context;
 
     componentDidMount(props) {
-        this.context.getData("plans/13").then(res => this.setState({data: res}))
+        this.context.getData("plans/1").then(res => this.setState({data: res}))
     }
 
     render() {

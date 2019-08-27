@@ -13,7 +13,7 @@ export function getById(id) {
 export function addNew(plan) {
     let formData = new FormData();
     formData.set("header", plan.header);
-    formData.append("date", Date.now());
+    // formData.append("date", Date.now());
     formData.set("location", plan.location);
     formData.set("description", plan.description);
     formData.set("notes", plan.notes); 
