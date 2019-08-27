@@ -50,8 +50,5 @@ class EditPreviousPlan extends Component {
     }
 }
 
-const plans = [
-
-]
 
 export {plans};
