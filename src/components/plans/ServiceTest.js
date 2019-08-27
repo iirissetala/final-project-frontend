@@ -19,6 +19,8 @@ export function addNew(plan) {
     formData.set("description", plan.description);
     formData.set("notes", plan.notes); 
     formData.set("participants", plan.participants);
+    formData.set("latitude", plan.latitude);
+    formData.set("longitude", plan.longitude);
     formData.append("image1", plan.referencephotos[0]);
     formData.append("image2", plan.referencephotos[1]);
     formData.append("image3", plan.referencephotos[2]);

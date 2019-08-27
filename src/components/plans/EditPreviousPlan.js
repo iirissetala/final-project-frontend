@@ -50,9 +50,8 @@ class EditPreviousPlan extends Component {
     }
 }
 
+const plans = [
 
-component.componentDidMount()
-     this.context.getData("plans").push.plans;
-}
+]
 
 export {plans};

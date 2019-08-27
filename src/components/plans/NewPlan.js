@@ -100,7 +100,9 @@ export default function OutlinedTextFields(props) {
          header:'',
          date:'',
          location:'',
-         coordinates:'',
+         coordinates:[],
+         latitude:'',
+         longitude:'',
          description:'',
          participants:'',
          notes: '',
@@ -116,6 +118,12 @@ export default function OutlinedTextFields(props) {
         setValues({...values, referencephotos: [...values.referencephotos, e.target.files[0]]});
         console.log(values.referencephotos)
     };
+    const handleCoordinates = header => event => {
+        console.log("handleCoordinates", header, ":", event.target);
+        setValues({...values, longitude: event.target.longitude, latitude: event.target.latitude, coordinates: event.target});
+        console.log("uudet arvot: ", event.target.latitude, event.target.longitude);
+    }
+
 
     /*kun käyttäjä klikkaa 'save' buttonia, formin tiedot lähetetään kohti tietokantaa
     * ja samalla tyhjennetään formi kun tiedot on lähetetty, modaali suljetaan tallennuksen yhteydessä*/
@@ -208,7 +216,11 @@ export default function OutlinedTextFields(props) {
             />
             <div className={classes.map} style={mapWrapper}>
                 <p>You can also pinpoint your planned location on map </p>
-                <Map width={'65vw'} height={'50vh'} value={values.coordinates}/>
+                <Map width={'65vw'} height={'50vh'} value={values.coordinates}
+                onChange={handleCoordinates('coordinates')}
+                     handleCoordinates={handleCoordinates('coordinates')} />
+
+
             </div>
 
             <div
