@@ -25,7 +25,7 @@ import SnackBar from './SnackBar';
 export default class SinglePlan extends Component {
 
     state = {
-        data: {},
+        data: '',
         isHidden: true,
         showButton: 'Show',
     };
@@ -41,21 +41,28 @@ export default class SinglePlan extends Component {
     AuthContext = this.context;
 
     componentDidMount(props) {
-        this.context.getData("plans/1").then(res => this.setState({data: res}))
+        this.context.getData("plans/" + this.props.match.params.id).then(res => this.setState({data: res}))
+        console.log( "componentDidMount: " + this.state.data)
+
     }
 
     render() {
-        const {id, date, description, header, location, notes, participants, coordinates, referencePictures} = this.state.data;
+        const {id, date, description, header, location, notes, participants, latitude, longitude, referencePictures} = this.state.data;
         console.log(this.state);
-        console.log(description)
-        console.log(id)
+        console.log(header);
+        if (referencePictures) {
+            // console.log(referencePictures[0].url);
+        }
+
 
 
         return (
             <div>
                 <Box style={boxWrapper}>
                     <div>
-                        <Download id={id} date={date} header={header} description={description} participants={participants} location={location} notes={notes} coordinates={coordinates} referencePictures={referencePictures}/>
+
+                        <Download id={id} date={date} header={header} description={description} participants={participants} location={location} notes={notes} latitude={latitude} longitude={longitude} referencePictures={referencePictures}/>
+
 
                         <CardContent>
                             <Card className="paper">
@@ -65,15 +72,14 @@ export default class SinglePlan extends Component {
                                 </Typography>
                             </Card>
                         </CardContent>
-                            <Container maxWidth="lg">
+                        {referencePictures && <Container maxWidth="lg">
                                 <Paper className="root" style={sliderStyle}>
                                     <AwesomeSlider cssModule={AwsSliderStyles} >
-                                        <div data-src="/pics/junatiimi.png" />
-                                        <div data-src="/pics/trump.jpg" />
-                                        <div data-src="https://material-ui.com/static/images/cards/contemplative-reptile.jpg"/>
+                                        {referencePictures.map(picture => (
+                                        <div data-src={"/"+picture.url}/>))}
                                     </AwesomeSlider>
                                 </Paper>
-                            </Container>
+                            </Container>}
                         <Grid>
                             <Grid container style={rootStyle} spacing={2}>
                                 <Grid item xs>
@@ -146,19 +152,6 @@ export default class SinglePlan extends Component {
                                     <Button style={refButton} size="small" color="default" variant="outlined">
                                         Show
                                     </Button>
-
-
-                                    {/*                                    <Snackbar open={open}
-                                              anchorOrigin={{ vertical, horizontal }}
-                                              key={{vertical, horizontal}}
-                                              open={open}
-                                              onClose={handleClose}
-                                              ContentProps={{
-                                                  'aria-describedby': 'message-id',
-                                              }}
-                                              message={<span id="message-id">Are uou sure you want to delete this picture?</span>}
-                                    />*/}
-
 
                                 </div>
                             </CardActionArea>

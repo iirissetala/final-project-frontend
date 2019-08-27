@@ -46,40 +46,11 @@ class EditPreviousPlan extends Component {
     }
 }
 
+const plans = [
 
+    {
+    },
 
-    const plans = [
-
-        {
-            id: 1,
-            header: "My photoshoot",
-            date: "11.10.2019",
-            location: "Oulu",
-            participants: ["Meikkaaja", "Valomies", "Malli"],
-            description: "I just love lizards",
-            notes: "Lizards are the best",
-            image1: "https://material-ui.com/static/images/cards/contemplative-reptile.jpg",
-        },
-        {
-            id: 2,
-            header: "My photo",
-            date: "21.07.2019",
-            location: "Turku",
-            participants: ["Meikkaaja", "Valomies", "Malli"],
-            description: "I <3 lizards",
-            notes: "Lizards are the best",
-            image1: "https://material-ui.com/static/images/cards/contemplative-reptile.jpg",
-        },
-        {
-            id: 3,
-            header: "My photoshoot 999",
-            date: "12.08.2019",
-            location: "Oulu",
-            participants: ["Meikkaaja", "Valomies", "Malli"],
-            description: "I love wizards",
-            notes: "Lizards are the best",
-            image1: "https://material-ui.com/static/images/cards/contemplative-reptile.jpg",
-        },
-    ];
+];
 
 export {plans};
