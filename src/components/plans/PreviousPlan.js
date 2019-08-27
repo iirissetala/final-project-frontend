@@ -8,7 +8,7 @@
             participants: ["Meikkaaja", "Valomies", "Malli"],
             description: "I just love lizards",
             notes: "Lizards are the best",
-            referencePictures: "https://material-ui.com/static/images/cards/contemplative-reptile.jpg",
+            image1: "https://material-ui.com/static/images/cards/contemplative-reptile.jpg",
         },
         {
             header: "My photoshoot 2",
@@ -17,7 +17,7 @@
             participants: ["Meikkaaja", "Valomies", "Malli"],
             description: "I just love lizards",
             notes: "Lizards are the best",
-            referencePictures: "https://material-ui.com/static/images/cards/contemplative-reptile.jpg",
+            image1: "https://material-ui.com/static/images/cards/contemplative-reptile.jpg",
         },
         {
             header: "My photoshoot 2",
@@ -26,7 +26,7 @@
             participants: ["Meikkaaja", "Valomies", "Malli"],
             description: "I just love lizards",
             notes: "Lizards are the best",
-            referencePictures: "https://material-ui.com/static/images/cards/contemplative-reptile.jpg",
+            image1: "https://material-ui.com/static/images/cards/contemplative-reptile.jpg",
         },
     ];
 

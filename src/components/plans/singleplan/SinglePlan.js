@@ -20,16 +20,14 @@ import {plans} from "../PreviousPlan";
 import Snackbar from '@material-ui/core/Snackbar';
 import Download from "./Download";
 import moment from 'moment';
+import SnackBar from './SnackBar';
 
 export default class SinglePlan extends Component {
-    delMessage= '';
 
     state = {
         data: {},
         isHidden: true,
         showButton: 'Show',
-        isActive: false,
-
     };
 
     /*Toggle for hiding and showing the map component*/
@@ -40,9 +38,10 @@ export default class SinglePlan extends Component {
         })
     };
 
-    openSnackBar = (delMessage = 'Are you sure you want to delete?') => {
-
-    }
+/*    openSnack = (event) => {
+        event.preventDefault();
+        handleClick
+    }*/
 
 
     AuthContext = this.context;
@@ -56,6 +55,7 @@ export default class SinglePlan extends Component {
         console.log(this.state);
         console.log(description)
         console.log(id)
+
 
         return (
             <div>
@@ -146,9 +146,8 @@ export default class SinglePlan extends Component {
                                     title="Your reference picture"
                                 />
                                 <div style={refButtonArea}>
-                                    <Button style={refButton} size="small" color="default" variant="outlined">
-                                        Delete
-                                    </Button>
+
+                                    <SnackBar/>
 
                                     <Button style={refButton} size="small" color="default" variant="outlined">
                                         Show
@@ -165,6 +164,7 @@ export default class SinglePlan extends Component {
                                               }}
                                               message={<span id="message-id">Are uou sure you want to delete this picture?</span>}
                                     />*/}
+
 
                                 </div>
                             </CardActionArea>
