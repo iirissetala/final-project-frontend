@@ -21,6 +21,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Download from "./Download";
 import moment from 'moment';
 import SnackBar from './SnackBar';
+import {getById} from "../ServiceTest";
 
 export default class SinglePlan extends Component {
 
@@ -40,15 +41,18 @@ export default class SinglePlan extends Component {
 
     AuthContext = this.context;
 
-    componentDidMount(props) {
-        this.context.getData("plans/17").then(res => this.setState({data: res}))
+    componentDidMount(props) 
+        this.context.getData("plans/1").then(res => this.setState({data: res}))
     }
 
     render() {
         const {id, date, description, header, location, notes, participants, latitude, longitude, referencePictures} = this.state.data;
         console.log(this.state);
-        console.log(description)
-        console.log(id)
+        console.log(header);
+        if (referencePictures) {
+            console.log(referencePictures[0].url);
+        }
+
 
 
         return (
@@ -66,15 +70,14 @@ export default class SinglePlan extends Component {
                                 </Typography>
                             </Card>
                         </CardContent>
-                            <Container maxWidth="lg">
+                        {referencePictures && <Container maxWidth="lg">
                                 <Paper className="root" style={sliderStyle}>
                                     <AwesomeSlider cssModule={AwsSliderStyles} >
-                                        <div data-src="/pics/junatiimi.png" />
-                                        <div data-src="/pics/trump.jpg" />
-                                        <div data-src="https://material-ui.com/static/images/cards/contemplative-reptile.jpg"/>
+                                        {referencePictures.map(picture => (
+                                        <div data-src={"/"+picture.url}/>))}
                                     </AwesomeSlider>
                                 </Paper>
-                            </Container>
+                            </Container>}
                         <Grid>
                             <Grid container style={rootStyle} spacing={2}>
                                 <Grid item xs>
