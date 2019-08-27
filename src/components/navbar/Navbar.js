@@ -9,8 +9,9 @@ import {
   Info,
   AccountBox,
   Settings,
-  ExitToApp
+    ExitToApp,
 } from "@material-ui/icons";
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 // https://material-ui.com/components/material-icons icon search from here
 import LoginModal from "../login/LoginModal";
 import { Consumer } from "../context/Authcontext";
@@ -19,7 +20,7 @@ export const NavBar = () => (
     <Consumer>
         {({ logOut }) => (
             <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="/"><Home />Home</Navbar.Brand>
+                <Link to="/"><Navbar.Brand><Home />Home</Navbar.Brand></Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
@@ -27,6 +28,8 @@ export const NavBar = () => (
                             <Link to="/plan"><Assignment />Plan</Link></Nav.Link>
                         <Nav.Link>
                             <Link to="/map"><Map />Map</Link></Nav.Link>
+                        <Nav.Link>
+                            <Link to="/feed"><PhotoLibraryIcon />Feed</Link></Nav.Link>
                         <Nav.Link><Info />About</Nav.Link>
 
                     </Nav>
