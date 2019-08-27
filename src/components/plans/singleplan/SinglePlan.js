@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Consumer, AuthContext } from "../../context/Authcontext";
-import { makeStyles } from '@material-ui/core/styles';
+import {getById} from "../ServiceTest";
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -15,20 +15,19 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import Button from "@material-ui/core/Button";
 import Map from "../../map/Map";
 import CardMedia from "@material-ui/core/CardMedia";
+import {plans} from "../EditPreviousPlan";
 import CardActions from "@material-ui/core/CardActions";
-import {plans} from "../PreviousPlan";
 import Snackbar from '@material-ui/core/Snackbar';
-
+import Download from "./Download";
+import moment from 'moment';
+import SnackBar from './SnackBar';
 
 export default class SinglePlan extends Component {
-    delMessage= '';
 
     state = {
-        data: {},
+        data: '',
         isHidden: true,
         showButton: 'Show',
-        isActive: false,
-
     };
 
     /*Toggle for hiding and showing the map component*/
@@ -39,43 +38,49 @@ export default class SinglePlan extends Component {
         })
     };
 
-    openSnackBar = (delMessage = 'Are you sure you want to delete?') => {
-
-    }
-
-
     AuthContext = this.context;
 
     componentDidMount(props) {
-        this.context.getData("plans/13").then(res => this.setState({data: res}))
+        this.context.getData("plans/" + this.props.match.params.id).then(res => this.setState({data: res}))
+        console.log( "componentDidMount: " + this.state.data)
+
+
     }
 
     render() {
-        const {id, date, description, header, location, notes, participants, coordinates, referencePictures} = this.state.data;
+        const {id, date, description, header, location, notes, participants, latitude, longitude, referencePictures} = this.state.data;
         console.log(this.state);
-        console.log(this.props.match.params)
+        console.log(header);
+        if (referencePictures) {
+            // console.log(referencePictures[0].url);
+        }
+
+
 
         return (
             <div>
                 <Box style={boxWrapper}>
                     <div>
+
+                        <Download id={id} date={date} header={header} description={description} participants={participants} location={location} notes={notes} latitude={latitude} longitude={longitude} referencePictures={referencePictures}/>
+
+
                         <CardContent>
                             <Card className="paper">
                                 <Typography variant="h4">
                                     <CardContent>{header}</CardContent>
-                                    <h6 variant="h6"  style={textStyle}> Date & Time: {date}</h6>
+                                    <h6 variant="h6"  style={textStyle}> Date & Time: {moment(date).format('LLLL')}</h6>
                                 </Typography>
                             </Card>
                         </CardContent>
-                            <Container maxWidth="lg">
+                        {referencePictures && <Container maxWidth="lg">
                                 <Paper className="root" style={sliderStyle}>
                                     <AwesomeSlider cssModule={AwsSliderStyles} >
-                                        <div data-src="/pics/junatiimi.png" />
-                                        <div data-src="/pics/trump.jpg" />
-                                        <div data-src="https://material-ui.com/static/images/cards/contemplative-reptile.jpg"/>
+                                        {referencePictures.map(picture => (
+                                        <div data-src={"/"+picture.url}/>))}
                                     </AwesomeSlider>
                                 </Paper>
-                            </Container>
+                            </Container>}
                         <Grid>
                             <Grid container style={rootStyle} spacing={2}>
                                 <Grid item xs>
@@ -126,6 +131,7 @@ export default class SinglePlan extends Component {
                             </div>
                             }
                         </Card>
+
                     </CardContent>
                 </Grid>
                         {plans.map(plan => (
@@ -141,24 +147,12 @@ export default class SinglePlan extends Component {
                                     title="Your reference picture"
                                 />
                                 <div style={refButtonArea}>
-                                    <Button style={refButton} size="small" color="default" variant="outlined">
-                                        Delete
-                                    </Button>
+
+                                    <SnackBar/>
 
                                     <Button style={refButton} size="small" color="default" variant="outlined">
                                         Show
                                     </Button>
-
-{/*                                    <Snackbar open={open}
-                                              anchorOrigin={{ vertical, horizontal }}
-                                              key={{vertical, horizontal}}
-                                              open={open}
-                                              onClose={handleClose}
-                                              ContentProps={{
-                                                  'aria-describedby': 'message-id',
-                                              }}
-                                              message={<span id="message-id">Are uou sure you want to delete this picture?</span>}
-                                    />*/}
 
                                 </div>
                             </CardActionArea>

@@ -14,6 +14,7 @@ import PlanModal from './PlanModal';
 
 /*
 https://react-pdf.org/advanced
+https://material-ui-pickers.dev/api/DateTimePicker
 */
 
 /*Määritellään tyylit lomakkeen eri osille*/
@@ -99,16 +100,30 @@ export default function OutlinedTextFields(props) {
          header:'',
          date:'',
          location:'',
-         coordinates:'',
+         coordinates:[],
+         latitude:'',
+         longitude:'',
          description:'',
          participants:'',
          notes: '',
-         referencepictures:'',
+         referencephotos:[],
      });
+
+
+
     const handleChange = header => event => {
-        setValues({ ...values, [header]: event.target.value });
-        console.log(values.referencepictures)
+        setValues({ ...values, [header]: event.target.value});
     };
+    const handleChangeTwo = (e) => {
+        setValues({...values, referencephotos: [...values.referencephotos, e.target.files[0]]});
+        console.log(values.referencephotos)
+    };
+    const handleCoordinates = header => event => {
+        console.log("handleCoordinates", header, ":", event.target);
+        setValues({...values, longitude: event.target.longitude, latitude: event.target.latitude, coordinates: event.target});
+        console.log("uudet arvot: ", event.target.latitude, event.target.longitude);
+    }
+
 
     /*kun käyttäjä klikkaa 'save' buttonia, formin tiedot lähetetään kohti tietokantaa
     * ja samalla tyhjennetään formi kun tiedot on lähetetty, modaali suljetaan tallennuksen yhteydessä*/
@@ -119,7 +134,7 @@ export default function OutlinedTextFields(props) {
     };
     /*Tyhjennetään data ja suljetaan modaali*/
     const clearData = (event) => {
-        setValues({header:'', date:'', location:'', description:'', participants:'', notes: '', referencepictures:''});
+        setValues({header:'', date:'', location:'', description:'', participants:'', notes: '', image1:''});
         props.handleClose();
     };
 
@@ -201,7 +216,11 @@ export default function OutlinedTextFields(props) {
             />
             <div className={classes.map} style={mapWrapper}>
                 <p>You can also pinpoint your planned location on map </p>
-                <Map width={'65vw'} height={'50vh'} value={values.coordinates}/>
+                <Map width={'65vw'} height={'50vh'} value={values.coordinates}
+                onChange={handleCoordinates('coordinates')}
+                     handleCoordinates={handleCoordinates('coordinates')} />
+
+
             </div>
 
             <div
@@ -212,8 +231,8 @@ export default function OutlinedTextFields(props) {
             </div>
                 <div
                     className={classes.imagedrop}
-                    value={values.referencepictures}
-                    onChange={handleChange('referencepictures')}>
+                    value={values.referencephotos}
+                    onChange={handleChangeTwo}>
                     <p>You upload max. 5 reference pictures in your plan</p>
                     <ImageDropZone/>
                 </div>

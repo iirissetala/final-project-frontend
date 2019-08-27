@@ -1,65 +1,66 @@
-import React, { useState} from 'react';
+import React, { Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Button from "@material-ui/core/Button";
-import { plans } from "./PreviousPlan";
+import PlanData from './singleplan/PlanData'
+import {AuthContext } from "../context/Authcontext";
+import { plans } from "./EditPreviousPlan";
 import PlanModal from './PlanModal';
 
 
-function Plans(props) {
+class Plan extends Component {
 
-    return (
-    <div>
-        <div style={{ marginTop: 30, padding: 40 }}>
-            <Grid container spacing={1} justify="center">
-                <PlanModal/>
-            </Grid>
-        </div>
+    state = {
+        plans: []
+    };
 
-        <div style={{ marginTop: 20, padding: 30 }}>
-            <Grid container spacing={6} justify="center">
+    AuthContext = this.context;
 
-                <h2>Here you can check and modify your previous plans:</h2>
+    componentDidMount(props) {
+        this.context.getData("plans/" ).then(res => {
+            console.log(res)
+            this.setState({plans: res})})
+        console.log("componentDidMount: ", this.state.plans)
+    };
 
-                {plans.map(plan => (
-                    <Grid item key={plan.header}>
 
-                        <Card>
-                            <CardActionArea>
-                                <CardMedia
-                                    component="img"
-                                    alt="Contemplative Reptile"
-                                    height="140"
-                                    image={plan.referencePictures}
-                                    title="Contemplative Reptile"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">{plan.header}</Typography>
-                                    <Typography component="h3">{plan.date}</Typography>
-                                    <Typography component="p">{plan.description}</Typography>
-                                </CardContent>
-                            </CardActionArea>
+    render() {
+        console.log("Renderissa: ", this.state.plans);
 
-                            <CardActions>
-                                <Button size="small" color="default" variant="outlined">
-                                    Share
-                                </Button>
-                                <Button size="small" color="default" variant="outlined">
-                                    Modify
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                ))}
-            </Grid>
-        </div>
-    </div>
-    );
+        return (
+
+                <div>
+                    <div style={{ marginTop: 30, padding: 40 }}>
+                        <Grid container spacing={1} justify="center">
+                            <PlanModal/>
+                        </Grid>
+                    </div>
+
+                    <div style={{ marginTop: 20, padding: 30 }}>
+                        <Grid container spacing={6} justify="center">
+
+                            <h2>Here you can check and modify your previous plans:</h2>
+                            {plans && <PlanData plans ={this.state.plans}/> }
+
+                        </Grid>
+                    </div>
+                </div>
+
+        );
+    }
 }
 
-export default Plans;
+export default Plan;
+
+Plan.contextType = AuthContext;
+
+
+
+/*
+    const classes = useStyles();
+
+const useStyles = makeStyles(theme => ({
+    link: {
+        color: "inherit",
+        variant: "body2"
+    },
+}));*/

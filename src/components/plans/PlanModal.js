@@ -79,6 +79,7 @@ export default function PlanModal(){
                         open={open}
                         onClose={handleClose}
                         className={classes.paper}
+                        disableBackdropClick={true}
                     >
                         <NewPlan handleClose={handleClose}/>
                     </Modal>

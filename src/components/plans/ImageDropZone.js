@@ -19,6 +19,7 @@ class ImageDropZone extends Component{
         this.setState({
             files: files
         });
+        console.log(files);
     }
     clearAll = () => {
         this.setState({files: []})
@@ -37,12 +38,14 @@ class ImageDropZone extends Component{
                 getFileLimitExceedMessage
 
             />
+
                 <Button size="small" color="default" variant="outlined" onClick={this.clearAll}>
                     Clear All
                 </Button>
-                <Button size="small" color="default" variant="outlined" /*onSave*/>
+                <Button size="small" color="default" variant="outlined">
                     Sumbit
                 </Button>
+
             </div>
         )
     }
