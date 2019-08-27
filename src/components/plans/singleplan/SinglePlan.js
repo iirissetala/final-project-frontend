@@ -17,12 +17,10 @@ import Map from "../../map/Map";
 import CardMedia from "@material-ui/core/CardMedia";
 import {plans} from "../EditPreviousPlan";
 import CardActions from "@material-ui/core/CardActions";
-import {plans} from "../PreviousPlan";
 import Snackbar from '@material-ui/core/Snackbar';
 import Download from "./Download";
 import moment from 'moment';
 import SnackBar from './SnackBar';
-import {getById} from "../ServiceTest";
 
 export default class SinglePlan extends Component {
 
@@ -44,7 +42,7 @@ export default class SinglePlan extends Component {
 
     componentDidMount(props) {
 
-        this.context.getData("plans/1").then(res => this.setState({data: res}))
+        this.context.getData(this.props.id).then(res => this.setState({data: res}))
     }
 
     render() {
