@@ -62,7 +62,7 @@ const MyDoc = (props)=>(
                 <Text style={styles.body}>Date & Time: {moment(props.date).format('LLLL')}</Text>
                 <Image
                     style={styles.image}
-                    src="https://deadhomersociety.files.wordpress.com/2016/04/round-springfield17.png"/>
+                    />
                 <Text style={styles.text}>Description: {props.description}</Text>
 
                 <Text style={styles.text}>Notes: {props.notes}</Text>
