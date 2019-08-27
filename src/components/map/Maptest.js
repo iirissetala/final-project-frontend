@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { CameraAlt, Place } from "@material-ui/icons";
 import MapGL, {
@@ -7,18 +6,16 @@ import MapGL, {
     Popup,
     NavigationControl
 } from "react-map-gl";
-import DeckGL from '@deck.gl/react';
-import { LineLayer } from '@deck.gl/layers';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import Geocoder from 'react-map-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import Pin from './pin'
 import { AuthContext } from '../context/Authcontext'
 import { Link } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import {testSun} from './suncalc'
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
+import DatePicker from './DatePicker';
+import { Box } from '@material-ui/core';
+import {addMapLayers} from './mapsetup.js'
 
 var SunCalc = require('suncalc');
 
@@ -50,11 +47,15 @@ export default class MapClass extends Component {
             popupInfo: null,
             locations: [],
             selectedLocation: null,
-            date: new Date()
+            date: new Date(),
+            suncalc: {},
+            sunriseHour: null,
+            sunriseMin: null,
+            sunsetHour: null,
+            sunsetMin: null
         }
     }
     componentDidMount() {
-        console.log(this.mapRef.current.getMap())
         this.setState({ marker: this.state.marker })
         this.context.getData("plans").then(res => this.setState({ locations: res }))
         
@@ -64,82 +65,25 @@ export default class MapClass extends Component {
             }
         };
         window.addEventListener("keydown", listener);
+        
+        const suncalc = SunCalc.getTimes(this.state.date, this.state.viewport.latitude, this.state.viewport.longitude);
+        this.setState({ suncalc: SunCalc.getTimes(this.state.date, this.state.marker.latitude, this.state.marker.longitude) })
+        const sunrise = suncalc.sunrise
+        this.setState({sunriseMin: sunrise.getMinutes(), sunriseHour: sunrise.getHours()})
+        const sunset = suncalc.sunset
+        this.setState({ sunsetMin: sunset.getMinutes(), sunsetHour: sunset.getHours() })
+        
         const map = this.mapRef.current.getMap();
-        map.on('load', function () {
-            
-            map.addLayer({
-                "id": "sun",
-                "type": "line",
-                "source": {
-                    "type": "geojson",
-                    "data": {
-                        "type": "Feature",
-                        "properties": {},
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
-                                [24.942577, 60.16741],
-                                [25, 60]
-                                
-                            ]
-                        }
-                    }
-                },
-                "layout": {
-                    "line-join": "round",
-                    "line-cap": "round"
-                },
-                "paint": {
-                    "line-color": "#888",
-                    "line-width": 8
-                }
-            });
-        });
-        map.on('load', function () {
-            
-            var layers = map.getStyle().layers;
-
-            var labelLayerId;
-            for (var i = 0; i < layers.length; i++) {
-                if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
-                    labelLayerId = layers[i].id;
-                    break;
-                }
-            }
-
-            map.addLayer({
-                'id': '3d-buildings',
-                'source': 'composite',
-                'source-layer': 'building',
-                'filter': ['==', 'extrude', 'true'],
-                'type': 'fill-extrusion',
-                'minzoom': 15,
-                'paint': {
-                    'fill-extrusion-color': '#aaa',
-                    'fill-extrusion-height': [
-                        "interpolate", ["linear"], ["zoom"],
-                        15, 0,
-                        15.05, ["get", "height"]
-                    ],
-                    'fill-extrusion-base': [
-                        "interpolate", ["linear"], ["zoom"],
-                        15, 0,
-                        15.05, ["get", "min_height"]
-                    ],
-                    'fill-extrusion-opacity': .6
-                }
-            }, labelLayerId);
-        });
+        addMapLayers(map);
     }
     
     componentDidUpdate() {
     }
     
     testRef = (x, y) =>  {
-        console.log(this.mapRef.current.getMap())
         const map = this.mapRef.current.getMap()
         
-map.getSource("sun").setData({
+            map.getSource("sun").setData({
                 
                         "type": "Feature",
                         "properties": {},
@@ -147,10 +91,8 @@ map.getSource("sun").setData({
                             "type": "LineString",
                             "coordinates": [
                                 [y, x],
-                                [this.state.marker.longitude, this.state.marker.latitude]
-                                
+                                [this.state.viewport.longitude, this.state.viewport.latitude]                    
                             ]
-                     
                 },
                 "layout": {
                     "line-join": "round",
@@ -161,11 +103,11 @@ map.getSource("sun").setData({
                     "line-width": 8
                 }
             });
-        
-        
     }
+
     updateViewport = viewport => {
-        this.setState({ viewport });
+        this.setState({ viewport });   
+        this.setState({marker: viewport})
     };
     
     logDragEvent(name, event) {
@@ -187,31 +129,31 @@ map.getSource("sun").setData({
     
     onMarkerDragEnd = event => {
         this.logDragEvent('onDragEnd', event);
-        console.log(event.lngLat[0])
         this.setState({
             marker: {
                 longitude: event.lngLat[0],
                 latitude: event.lngLat[1]
             }
         });
-        /* var times = SunCalc.getTimes(new Date(), event.lngLat[1], event.lngLat[0]);
-        var sunrisePos = SunCalc.getPosition(this.state.date, event.lngLat[1], event.lngLat[0]);
-        var sunriseAzimuth = sunrisePos.azimuth * 180 / Math.PI;
-        const coords = testSun(event.lngLat[1], event.lngLat[0], sunriseAzimuth, 100)
-        console.log(sunriseAzimuth)
-        console.log(coords)
-        console.log(times)
-        console.log(this.state.marker)
-        this.testRef(coords.x, coords.y); */
-        this.handleDateChange()
+        this.handleViewportChange({longitude: event.lngLat[0], latitude: event.lngLat[1]})
+        
     };
     
     handleDateChange = () => {
-        var times = SunCalc.getTimes(this.state.date, this.state.marker.latitude, this.state.marker.longitude);
-        var sunrisePos = SunCalc.getPosition(this.state.date, this.state.marker.latitude, this.state.marker.longitude);
+        var times = SunCalc.getTimes(this.state.date, this.state.viewport.latitude, this.state.viewport.longitude);
+        var sunrisePos = SunCalc.getPosition(this.state.date, this.state.viewport.latitude, this.state.viewport.longitude);
+        this.setState({suncalc: times})
         var sunriseAzimuth = sunrisePos.azimuth * 180 / Math.PI;
-        const coords = testSun(this.state.marker.latitude, this.state.marker.longitude, sunriseAzimuth, 100)
+        const coords = testSun(this.state.viewport.latitude, this.state.viewport.longitude, sunriseAzimuth, 100)
+        
+        const suncalc = SunCalc.getTimes(this.state.date, this.state.viewport.latitude, this.state.viewport.longitude);
+        this.setState({ suncalc: SunCalc.getTimes(this.state.date, this.state.marker.latitude, this.state.marker.longitude) })
+        const sunrise = suncalc.sunrise
+        this.setState({ sunriseMin: sunrise.getMinutes(), sunriseHour: sunrise.getHours() })
+        const sunset = suncalc.sunset
+        this.setState({ sunsetMin: sunset.getMinutes(), sunsetHour: sunset.getHours() })
         this.testRef(coords.x, coords.y);
+        
         
     }
     
@@ -219,6 +161,7 @@ map.getSource("sun").setData({
         this.setState({
             viewport: { ...this.state.viewport, ...viewport }
         })
+        this.handleDateChange()
     }
     
     handleGeocoderViewportChange = (viewport) => {
@@ -228,38 +171,43 @@ map.getSource("sun").setData({
             ...viewport,
             ...geocoderDefaultOverrides
         })
+        
     }
     
 
-    handleChange = (e, value) => {
+    handleHourChange = (e, value) => {
         const olddate = this.state.date
         olddate.setHours(value)
         this.setState({date: olddate})
-        console.log(this.state.date)
-        console.log(value)
         this.handleDateChange();
+    }
+    
+    handleMinuteChange = (e, value) => {
+        const olddate = this.state.date
+        olddate.setMinutes(value)
+        this.setState({date: olddate})
+        this.handleDateChange();
+    }
+
+    handleCalendarChange = date => {
+        this.setState({ date: date })
+        this.handleDateChange()
     }
     render() {
 
-console.log(this.state)
-        const { viewport } = this.state;
-        
-        
-        
+        const { viewport, sunriseMin, sunriseHour, sunsetMin, sunsetHour } = this.state;
         
         return (
-            <div>
-                <Slider
-                    defaultValue={12}
-                    
-                    aria-labelledby="discrete-slider"
-                    valueLabelDisplay="auto"
-                    step={1}
-                    marks
-                    min={1}
-                    max={24}
-                    onChange={this.handleChange}
-                />
+            <Box style={{height: '100%', width: '100%'}}>
+                <DatePicker 
+                    date={this.state.date}
+                    handleHourChange={this.handleHourChange}
+                    handleMinuteChange={this.handleMinuteChange}
+                    handleCalendarChange={this.handleCalendarChange}
+                    sunriseHour={sunriseHour}
+                    sunsetHour={sunsetHour}/>
+                
+                <div>
                 <MapGL
                     ref={this.mapRef}
                     {...viewport}
@@ -276,7 +224,7 @@ console.log(this.state)
                                 e.preventDefault();
                                 this.setState({ selectedLocation: loc })
                             }} />
-
+                        
                         </Marker>
                     })}
 
@@ -360,7 +308,8 @@ console.log(this.state)
                         />
                     </div>
                 </MapGL>
-            </div>
+                </div>
+            </Box>
         );
     }
 }
