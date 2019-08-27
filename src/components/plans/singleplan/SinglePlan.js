@@ -17,7 +17,6 @@ import Map from "../../map/Map";
 import CardMedia from "@material-ui/core/CardMedia";
 import {plans} from "../EditPreviousPlan";
 import CardActions from "@material-ui/core/CardActions";
-import {plans} from "../PreviousPlan";
 import Snackbar from '@material-ui/core/Snackbar';
 import Download from "./Download";
 import moment from 'moment';
@@ -46,7 +45,7 @@ export default class SinglePlan extends Component {
     }
 
     render() {
-        const {id, date, description, header, location, notes, participants, coordinates, referencePictures} = this.state.data;
+        const {id, date, description, header, location, notes, participants, latitude, longitude, referencePictures} = this.state.data;
         console.log(this.state);
         console.log(description)
         console.log(id)
@@ -56,7 +55,7 @@ export default class SinglePlan extends Component {
             <div>
                 <Box style={boxWrapper}>
                     <div>
-                        <Download id={id} date={date} header={header} description={description} participants={participants} location={location} notes={notes} coordinates={coordinates} referencePictures={referencePictures}/>
+                        <Download id={id} date={date} header={header} description={description} participants={participants} location={location} notes={notes} latitude={latitude} longitude={longitude} referencePictures={referencePictures}/>
 
                         <CardContent>
                             <Card className="paper">
@@ -147,19 +146,6 @@ export default class SinglePlan extends Component {
                                     <Button style={refButton} size="small" color="default" variant="outlined">
                                         Show
                                     </Button>
-
-
-                                    {/*                                    <Snackbar open={open}
-                                              anchorOrigin={{ vertical, horizontal }}
-                                              key={{vertical, horizontal}}
-                                              open={open}
-                                              onClose={handleClose}
-                                              ContentProps={{
-                                                  'aria-describedby': 'message-id',
-                                              }}
-                                              message={<span id="message-id">Are uou sure you want to delete this picture?</span>}
-                                    />*/}
-
 
                                 </div>
                             </CardActionArea>
