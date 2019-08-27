@@ -11,43 +11,15 @@ import {
 var SunCalc = require('suncalc');
 
 export default class DatePicker extends Component {
-    state = {
-        suncalc: this.props.suncalc,
-        sunriseHour: null,
-        sunriseMin: null,
-        sunsetHour: null,
-        sunsetMin: null,
-        date: this.props.date
-    }
-    
-    componentDidMount() {
-        console.log(this.state)
-        this.suncalcUpdate()
-    }
-    
-        componentDidUpdate() {
-            
-        }
-        
-        suncalcUpdate() {
-            console.log("UDPDSAPPDSA    ")
-            const suncalc = SunCalc.getTimes(this.props.date, this.props.latitude, this.props.longitude);
-            this.setState({ suncalc })
-            const sunrise = suncalc.sunrise
-            this.setState({ sunriseHour: sunrise.getHours(), sunriseMin: sunrise.getMinutes() })
-            const sunset = suncalc.sunset
-            this.setState({ sunsetHour: sunset.getHours(), sunsetMin: sunset.getMinutes() })
-        }
         
         handleDateChange(e) {
             this.setState({date: e.target.value})
-            /* this.props.handleCalendarChange(); */
+            this.props.handleCalendarChange(e.target.value);
         }
         
         render() {
-        const { sunriseHour, sunriseMin, sunsetHour, sunsetMin } = this.state
-        console.log(this.state)
-        console.log(this.props)
+        const { sunriseHour, sunsetHour} = this.props
+        
         return (
             <div>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -67,30 +39,30 @@ export default class DatePicker extends Component {
                         />
                     
                     </MuiPickersUtilsProvider>
-                <div >
+                <div  >
                     
                 <Slider
-                    style={sliderStyle}
+                    
                     defaultValue={12}
                     
                     aria-labelledby="discrete-slider-always"
                     valueLabelDisplay="on"
                     step={1}
                     
-                    min={sunriseHour}
-                    max={sunsetHour}
+                        min={sunriseHour ? sunriseHour : 0}
+                        max={sunsetHour ? sunsetHour : 23}
                     onChange={this.props.handleHourChange}
                     />
                 <Slider
-                    style={sliderStyle}
+                    
                     defaultValue={30}
                     
                     aria-labelledby="discrete-slider-always"
                     valueLabelDisplay="on"
                     step={5}
                     
-                    min={sunriseMin ? sunriseMin : 0}
-                    max={sunsetMin ? sunsetMin : 59}
+                        min={0}
+                        max={59}
                     onChange={this.props.handleMinuteChange}
                     />
                 </div>
@@ -100,6 +72,6 @@ export default class DatePicker extends Component {
 }
 
 const sliderStyle = {
-    /* marginLeft: '10px',
-    marginRight: '10px' */
+    marginLeft: '10px',
+    marginRight: '10px'
 }
