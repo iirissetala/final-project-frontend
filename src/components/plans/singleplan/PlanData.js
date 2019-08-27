@@ -18,19 +18,16 @@ class PlanData extends Component {
 
     getImage = () =>{
         return this.props.plans.referencePictures ? "/"+this.props.plans.referencePictures[0].url : "/liskodisko.jpg"
+        console.log("getImage funktio: ", this.props.referencePictures)
     };
 
 
     render() {
 
+
+
         return (
             <div>
-                {/*<NewPlan addNew={this.props.addNew}/>*/}
-{/*
-                {plandata}
-*/}
-
-
                 {this.props.plans.map(plan => (
                     <Grid item key={plan.header}>
 
@@ -39,7 +36,7 @@ class PlanData extends Component {
                                 <CardActionArea className={plan.id}>
                                     <CardMedia
                                         component="img"
-                                        alt="Contemplative Reptile"
+                                        alt="Coverphoto"
                                         height="140"
                                         image={this.getImage()}
                                         title="Contemplative Reptile"
