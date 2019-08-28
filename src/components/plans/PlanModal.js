@@ -12,20 +12,20 @@ import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
 
 
-function rand() {
-    return Math.round(Math.random() * 20) - 10;
-}
+// function rand() {
+//     return Math.round(Math.random() * 20) - 10;
+// }
 
-function getModalStyle() {
-    const top = 50 + rand();
-    const left = 50 + rand();
-
-    return {
-        top: `${top}%`,
-        left: `${left}%`,
-        transform: `translate(-${top}%, -${left}%)`,
-    };
-}
+// function getModalStyle() {
+//     const top = 50 + rand();
+//     const left = 50 + rand();
+//
+//     return {
+//         top: `${top}%`,
+//         left: `${left}%`,
+//         transform: `translate(-${top}%, -${left}%)`,
+//     };
+// }
 
 
 const useStyles = makeStyles(theme => ({
@@ -35,14 +35,15 @@ const useStyles = makeStyles(theme => ({
         boxShadow: theme.shadows[5],
         position: 'absolute',
         overflow: 'scroll',
+        scroll: 'paper',
         padding: theme.spacing(2),
+    },
 
-    }
 }));
 
 export default function PlanModal(){
     const classes = useStyles();
-    const [modalStyle] = React.useState(getModalStyle);
+    // const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
 
     const handleOpen = () => {
@@ -62,7 +63,8 @@ export default function PlanModal(){
                         alt="Your coverphoto"
                         height="140"
                         image="https://images.unsplash.com/photo-1566410854867-0fdf0b435ffa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-                        title="Your plan cover photo"
+                        title="Your plan coverphoto"
+                        onClick={handleOpen}
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">Make a new plan!</Typography>
