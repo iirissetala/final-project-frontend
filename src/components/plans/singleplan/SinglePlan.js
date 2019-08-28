@@ -13,7 +13,7 @@ import AwsSliderStyles from './AWSSlider.css'
 import 'react-awesome-slider/dist/styles.css';
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Button from "@material-ui/core/Button";
-import Map from "../../map/Map";
+import Map from "../../map/Maptest";
 import CardMedia from "@material-ui/core/CardMedia";
 import {plans} from "../EditPreviousPlan";
 import CardActions from "@material-ui/core/CardActions";

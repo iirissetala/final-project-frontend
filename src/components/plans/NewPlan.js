@@ -9,7 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ImageDropZone from "./ImageDropZone";
 import Box from '@material-ui/core/Box';
 import ServiceTest, {addNew} from './ServiceTest';
-import Map from '../map/Map';
+import Map from '../map/Maptest';
 import PlanModal from './PlanModal';
 
 /*
