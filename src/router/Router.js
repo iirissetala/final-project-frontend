@@ -8,6 +8,7 @@ import Testsite from "../components/Testsite";
 import SinglePlan from '../components/plans/singleplan/SinglePlan'
 import Maptest from '../components/map/Maptest'
 import AllContent from "../components/content/AllContent";
+import EditPreviousPlan from "../components/plans/EditPreviousPlan";
 class Router1 extends Component {
   render() {
     return (
@@ -21,9 +22,10 @@ class Router1 extends Component {
             <Route path="/map" exact component={Maptest} />
             <Route exact path="/content" component={AllContent} />
                 <Route path="/map2" exact component={Map2} />
-            <Route path="/plans/:id" component={SinglePlan} />
+            <Route exact path="/plans/:id" component={SinglePlan} />
             <Route path="/feed" component={AllContent}/>
             <Route exact path="/test" component={Testsite} />
+            <Route exact path="/plans/:id/edit" component={EditPreviousPlan}/>
           </Switch>
             </>
           

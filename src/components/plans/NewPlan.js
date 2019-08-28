@@ -10,6 +10,7 @@ import ImageDropZone from "./ImageDropZone";
 import Box from '@material-ui/core/Box';
 import ServiceTest, {addNew} from './ServiceTest';
 import Map from '../map/Maptest';
+//import Map from '../map/Maptest';
 import PlanModal from './PlanModal';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers/index";
 import DateFnsUtils from '@date-io/date-fns/build/index';
@@ -121,9 +122,9 @@ export default function OutlinedTextFields(props) {
         console.log(values.referencephotos)
     };
     const handleCoordinates = header => event => {
-        console.log("handleCoordinates", header, ":", event.target);
+        // console.log("handleCoordinates", header, ":", event.target);
         setValues({...values, longitude: event.target.longitude, latitude: event.target.latitude, coordinates: event.target});
-        console.log("uudet arvot: ", event.target.latitude, event.target.longitude);
+        // console.log("uudet arvot: ", event.target.latitude, event.target.longitude);
     }
 
 
