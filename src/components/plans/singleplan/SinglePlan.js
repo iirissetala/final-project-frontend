@@ -30,6 +30,7 @@ export default class SinglePlan extends Component {
         showButton: 'Show',
     };
 
+
     /*Toggle for hiding and showing the map component*/
     toggleHidden() {
         this.setState({
@@ -43,18 +44,20 @@ export default class SinglePlan extends Component {
     componentDidMount(props) {
         this.context.getData("plans/" + this.props.match.params.id).then(res => this.setState({data: res}))
         console.log( "componentDidMount: " + this.state.data)
-
-
     }
+    /*Muutos method hides AwsomeSlider if ready pictures do not exist. If they do, then they are shown in a slider.*/
+
+    muutos = () =>{
+        return {
+            display: this.state.data.referencePictures && this.state.data.referencePictures.length ===0? 'none':'visible'}}
 
     render() {
-        const {id, date, description, header, location, notes, participants, latitude, longitude, referencePictures} = this.state.data;
+        const {id, date, description, header, location, notes, participants, latitude, longitude, referencePictures, readyPictures} = this.state.data;
         console.log(this.state);
         console.log(header);
         if (referencePictures) {
             // console.log(referencePictures[0].url);
         }
-
 
 
         return (
@@ -69,11 +72,11 @@ export default class SinglePlan extends Component {
                             <Card className="paper">
                                 <Typography variant="h4">
                                     <CardContent>{header}</CardContent>
-                                    <h6 variant="h6"  style={textStyle}> Date & Time: {moment(date).format('LLLL')}</h6>
+                                    {<h6 variant="h6"  style={textStyle}> Date & Time: {moment(date).format('LLLL')}</h6>}
                                 </Typography>
                             </Card>
                         </CardContent>
-                        {referencePictures && <Container maxWidth="lg">
+                        {referencePictures && <Container maxWidth="lg"style={this.muutos()}>
                                 <Paper className="root" style={sliderStyle}>
                                     <AwesomeSlider cssModule={AwsSliderStyles} >
                                         {referencePictures.map(picture => (

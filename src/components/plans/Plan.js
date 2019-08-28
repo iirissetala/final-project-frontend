@@ -47,7 +47,7 @@ class Plan extends Component {
                                 alignItems="center"
                                 container spacing={3}
                             >
-                            {plans && <PlanData plans ={this.state.plans}/> }
+                            {this.state.plans && <PlanData plans ={this.state.plans}/> }
                             </Grid>
                         </Grid>
                     </div>
