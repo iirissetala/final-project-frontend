@@ -22,12 +22,11 @@ class Router1 extends Component {
               <Switch>
                 <Route path="/" exact component={Homer} />
                 <Route path="/plan" exact component={Plans} />
-                <Route path="/" exact component={Homer} />
                 <Route path="/map" exact component={Map2} />
                 <Route path="/plans/:id" component={SinglePlan}/>
                 <Route exact path="/test" component={Testsite} />
-            <Route path="/map2" exact component={Maptest} />
-          </Switch>
+                <Route path="/map2" exact component={Maptest} />
+              </Switch>
             </>
           
       </Router>

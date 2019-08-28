@@ -3,12 +3,9 @@ import { Link } from "react-router-dom";
 import { Nav, Navbar } from "react-bootstrap";
 import {
   Home,
-  Person,
   Map,
   Assignment,
   Info,
-  AccountBox,
-  Settings,
   ExitToApp
 } from "@material-ui/icons";
 // https://material-ui.com/components/material-icons icon search from here
@@ -23,11 +20,11 @@ export const NavBar = () => (
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link>
-                            <Link to="/plan"><Assignment />Plan</Link></Nav.Link>
-                        <Nav.Link>
-                            <Link to="/map"><Map />Map</Link></Nav.Link>
-                        <Nav.Link><Info />About</Nav.Link>
+                            <Link to="/plan"><Assignment />Plan</Link>
+
+                            <Link to="/map"><Map />Map</Link>
+
+                            <Link to="/"><Info />About</Link>
 
                     </Nav>
                     <Nav>

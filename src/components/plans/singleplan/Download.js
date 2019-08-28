@@ -60,9 +60,7 @@ const MyDoc = (props)=>(
 
 
                 <Text style={styles.body}>Date & Time: {moment(props.date).format('LLLL')}</Text>
-                <Image
-                    style={styles.image}
-                    />
+
                 <Text style={styles.text}>Description: {props.description}</Text>
 
                 <Text style={styles.text}>Notes: {props.notes}</Text>
