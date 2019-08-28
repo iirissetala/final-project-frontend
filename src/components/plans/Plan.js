@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 import PlanData from './singleplan/PlanData'
 import {AuthContext } from "../context/Authcontext";
-import { plans } from "./EditPreviousPlan";
+import plans from "./EditPreviousPlan";
 import PlanModal from './PlanModal';
 import Box from '@material-ui/core/Box';
 

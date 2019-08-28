@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import { Consumer, AuthContext } from "../../context/Authcontext";
 import {getById} from "../ServiceTest";
@@ -21,6 +22,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Download from "./Download";
 import moment from 'moment';
 import SnackBar from './SnackBar';
+import {Link} from "react-router-dom";
 
 export default class SinglePlan extends Component {
 
@@ -29,6 +31,7 @@ export default class SinglePlan extends Component {
         isHidden: true,
         showButton: 'Show',
     };
+
 
     /*Toggle for hiding and showing the map component*/
     toggleHidden() {
@@ -43,18 +46,20 @@ export default class SinglePlan extends Component {
     componentDidMount(props) {
         this.context.getData("plans/" + this.props.match.params.id).then(res => this.setState({data: res}))
         console.log( "componentDidMount: " + this.state.data)
-
-
     }
+    /*Muutos method hides AwsomeSlider if ready pictures do not exist. If they do, then they are shown in a slider.*/
+
+    muutos = () =>{
+        return {
+            display: this.state.data.readyPictures && this.state.data.readyPictures.length ===0? 'none':'visible'}}
 
     render() {
-        const {id, date, description, header, location, notes, participants, latitude, longitude, referencePictures} = this.state.data;
+        const {id, date, description, header, location, notes, participants, latitude, longitude, referencePictures, readyPictures} = this.state.data;
         console.log(this.state);
         console.log(header);
         if (referencePictures) {
             // console.log(referencePictures[0].url);
         }
-
 
 
         return (
@@ -69,14 +74,14 @@ export default class SinglePlan extends Component {
                             <Card className="paper">
                                 <Typography variant="h4">
                                     <CardContent>{header}</CardContent>
-                                    <h6 variant="h6"  style={textStyle}> Date & Time: {moment(date).format('LLLL')}</h6>
+                                    {<h6 variant="h6"  style={textStyle}> Date & Time: {moment(date).format('LLLL')}</h6>}
                                 </Typography>
                             </Card>
                         </CardContent>
-                        {referencePictures && <Container maxWidth="lg">
+                        {readyPictures && <Container maxWidth="lg"style={this.muutos()}>
                                 <Paper className="root" style={sliderStyle}>
                                     <AwesomeSlider cssModule={AwsSliderStyles} >
-                                        {referencePictures.map(picture => (
+                                        {readyPictures.map(picture => (
                                         <div data-src={"/"+picture.url}/>))}
                                     </AwesomeSlider>
                                 </Paper>
@@ -134,36 +139,50 @@ export default class SinglePlan extends Component {
 
                     </CardContent>
                 </Grid>
-                        {this.plans.map(plan => (
-                        <Grid>
-                        <Card>
+
+                        {referencePictures && <div>
+                        {referencePictures.map(picture => (
+                        <Grid container spacing={1}>
+
+                        <Grid style={gridPic}>
+                            
                             <CardActionArea>
                                 <CardMedia
                                     component="img"
                                     alt="Your reference picture"
                                     height="150"
-                                    image="https://material-ui.com/static/images/cards/contemplative-reptile.jpg"
-                                        //{ referencePictures + {id} }
+                                    maxWidth="150px"
+                                    image={"/"+picture.url}
                                     title="Your reference picture"
-                                />
-                                <div style={refButtonArea}>
-
-                                    <SnackBar/>
-
-                                    <Button style={refButton} size="small" color="default" variant="outlined">
-                                        Show
-                                    </Button>
-
-                                </div>
+                               style={pic} />
+                               
                             </CardActionArea>
-                        </Card>
+                        </Grid>
                         </Grid>
                             ))}
+                            </div>}
                     </div>
+                    <Link to={{pathname:'/plans/'+ this.state.data.id + '/edit'}}>
+                        <Button size="small" color="default" variant="outlined">
+                            Modify
+                        </Button>
+                    </Link>
                 </Box>
         </div>
         )
     }
+}
+const pic ={
+
+    justify: 'center',
+    alignItems: 'center'
+}
+const gridPic = {
+    justify: 'center',
+    alignItems: 'center',
+    margin: '0 auto',
+    paddingTop: '5%',
+    borderRadius: 'borderRadius',
 }
 
 const rootStyle = {
@@ -224,5 +243,3 @@ const refButton = {
 };
 
     SinglePlan.contextType = AuthContext;
-
-
