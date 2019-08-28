@@ -19,16 +19,15 @@ class PlanData extends Component {
 
         return (
             <div>
-
                 {this.props.plans.map(plan => (
 
-                    <Grid item key={plan.header}>
-                        <Card>
+                    <Grid item key={plan.header} style={{maxWidth: '600px'}}>
+                        <Card style={cardStyle}>
                             <Link href={planUrl + plan.id}  color={"inherit"} variant={"body2"}>
                                 <CardActionArea className={plan.id}>
                                     <CardMedia
                                         component="img"
-                                        alt="Contemplative Reptile"
+                                        alt="Coverphoto"
                                         height="140"
                                         image= {plan.referencePictures.length ? "/"+plan.referencePictures[0].url : "/liskodisko.jpg"}
                                         title="Contemplative Reptile"
@@ -60,3 +59,8 @@ class PlanData extends Component {
 }
 
 export default PlanData;
+
+
+const cardStyle = {
+    marginBottom: '10%',
+};

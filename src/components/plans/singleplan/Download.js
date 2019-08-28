@@ -60,9 +60,7 @@ const MyDoc = (props)=>(
 
 
                 <Text style={styles.body}>Date & Time: {moment(props.date).format('LLLL')}</Text>
-                <Image
-                    style={styles.image}
-                    />
+
                 <Text style={styles.text}>Description: {props.description}</Text>
 
                 <Text style={styles.text}>Notes: {props.notes}</Text>
@@ -79,7 +77,7 @@ const MyDoc = (props)=>(
 const Download = (props) => (
     <div>
         <PDFDownloadLink
-            document={<MyDoc id={props.id} date={props.date} header={props.header} description={props.description} participants={props.participants} location={props.location} notes={props.notes} coordinates={props.coordinates} referencePictures={props.referencePictures}/>}
+            document={<MyDoc id={props.id} date={props.date} header={props.header} description={props.description} participants={props.participants} location={props.location} notes={props.notes} longitude={props.longitude} latitude={props.latitude} referencePictures={props.referencePictures}/>}
             fileName="myplan.pdf"
             style={{
                 textDecoration: "none",

@@ -5,6 +5,7 @@ import PlanData from './singleplan/PlanData'
 import {AuthContext } from "../context/Authcontext";
 import { plans } from "./EditPreviousPlan";
 import PlanModal from './PlanModal';
+import Box from '@material-ui/core/Box';
 
 
 class Plan extends Component {
@@ -29,6 +30,7 @@ class Plan extends Component {
         return (
 
                 <div>
+                    <Box style={gridWrapper}>
                     <div style={{ marginTop: 30, padding: 40 }}>
                         <Grid container spacing={1} justify="center">
                             <PlanModal/>
@@ -36,13 +38,20 @@ class Plan extends Component {
                     </div>
 
                     <div style={{ marginTop: 20, padding: 30 }}>
-                        <Grid container spacing={6} justify="center">
-
-                            <h2>Here you can check and modify your previous plans:</h2>
+                        <Grid container spacing={2} justify="center">
+                            <h2 style={{ marginTop: 20, padding: 30 }}>Here you can check and modify your previous plans:</h2>
+                            <Grid
+                                container
+                                direction="row"
+                                justify="space-around"
+                                alignItems="center"
+                                container spacing={3}
+                            >
                             {plans && <PlanData plans ={this.state.plans}/> }
-
+                            </Grid>
                         </Grid>
                     </div>
+                    </Box>
                 </div>
 
         );
@@ -55,12 +64,11 @@ Plan.contextType = AuthContext;
 
 
 
-/*
-    const classes = useStyles();
+/*Border styles for grid that displays prev. plans*/
+const gridWrapper = {
+    bgcolor: 'background.paper',
+    borderColor: 'text.primary',
+    m: 1,
+    border: 1,
+};
 
-const useStyles = makeStyles(theme => ({
-    link: {
-        color: "inherit",
-        variant: "body2"
-    },
-}));*/
