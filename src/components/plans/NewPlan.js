@@ -11,6 +11,8 @@ import Box from '@material-ui/core/Box';
 import ServiceTest, {addNew} from './ServiceTest';
 import Map from '../map/Maptest';
 import PlanModal from './PlanModal';
+import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers/index";
+import DateFnsUtils from '@date-io/date-fns/build/index';
 
 /*
 https://react-pdf.org/advanced
@@ -109,7 +111,7 @@ export default function OutlinedTextFields(props) {
          referencephotos:[],
      });
 
-
+    const onChange = date => setValues({...values, date })
 
     const handleChange = header => event => {
         setValues({ ...values, [header]: event.target.value});
@@ -129,6 +131,7 @@ export default function OutlinedTextFields(props) {
     * ja samalla tyhjennetään formi kun tiedot on lähetetty, modaali suljetaan tallennuksen yhteydessä*/
     const sendData = (event) => {
         event.preventDefault();
+        console.log(values)
         addNew(values);
         clearData();
     };
@@ -227,7 +230,18 @@ export default function OutlinedTextFields(props) {
                 className={classes.calendar}
                 value={values.date}
                 onChange={handleChange('date')}>
-                <BasicDateTimePicker/>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DateTimePicker
+                        // autoOk <- halutaanko tämä?
+                        ampm={false}
+                        inputVariant="outlined"
+
+                        onChange={onChange}
+                        label="Select Date and Time"
+                        showTodayButton
+                        margin="normal"
+                    />
+                </MuiPickersUtilsProvider>
             </div>
                 <div
                     className={classes.imagedrop}

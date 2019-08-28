@@ -21,6 +21,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Download from "./Download";
 import moment from 'moment';
 import SnackBar from './SnackBar';
+import {Link} from "react-router-dom";
 
 export default class SinglePlan extends Component {
 
@@ -49,7 +50,7 @@ export default class SinglePlan extends Component {
 
     muutos = () =>{
         return {
-            display: this.state.data.referencePictures && this.state.data.referencePictures.length ===0? 'none':'visible'}}
+            display: this.state.data.readyPictures && this.state.data.readyPictures.length ===0? 'none':'visible'}}
 
     render() {
         const {id, date, description, header, location, notes, participants, latitude, longitude, referencePictures, readyPictures} = this.state.data;
@@ -76,10 +77,10 @@ export default class SinglePlan extends Component {
                                 </Typography>
                             </Card>
                         </CardContent>
-                        {referencePictures && <Container maxWidth="lg"style={this.muutos()}>
+                        {readyPictures && <Container maxWidth="lg"style={this.muutos()}>
                                 <Paper className="root" style={sliderStyle}>
                                     <AwesomeSlider cssModule={AwsSliderStyles} >
-                                        {referencePictures.map(picture => (
+                                        {readyPictures.map(picture => (
                                         <div data-src={"/"+picture.url}/>))}
                                     </AwesomeSlider>
                                 </Paper>
@@ -137,36 +138,49 @@ export default class SinglePlan extends Component {
 
                     </CardContent>
                 </Grid>
-                        {plans.map(plan => (
-                        <Grid>
-                        <Card>
+                        {referencePictures && <div>
+                        {referencePictures.map(picture => (
+                        <Grid container spacing={1}>
+
+                        <Grid style={gridPic}>
+
                             <CardActionArea>
                                 <CardMedia
                                     component="img"
                                     alt="Your reference picture"
                                     height="150"
-                                    image="https://material-ui.com/static/images/cards/contemplative-reptile.jpg"
-                                        //{ referencePictures + {id} }
+                                    maxWidth="150px"
+                                    image={"/"+picture.url}
                                     title="Your reference picture"
-                                />
-                                <div style={refButtonArea}>
-
-                                    <SnackBar/>
-
-                                    <Button style={refButton} size="small" color="default" variant="outlined">
-                                        Show
-                                    </Button>
-
-                                </div>
+                               style={pic} />
+                               
                             </CardActionArea>
-                        </Card>
+                        </Grid>
                         </Grid>
                             ))}
+                            </div>}
                     </div>
+                    <Link to={{pathname:'/plans/'+ this.state.data.id + '/edit'}}>
+                        <Button size="small" color="default" variant="outlined">
+                            Modify
+                        </Button>
+                    </Link>
                 </Box>
         </div>
         )
     }
+}
+const pic ={
+
+    justify: 'center',
+    alignItems: 'center'
+}
+const gridPic = {
+    justify: 'center',
+    alignItems: 'center',
+    margin: '0 auto',
+    paddingTop: '5%',
+    borderRadius: 'borderRadius',
 }
 
 const rootStyle = {
