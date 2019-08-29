@@ -27,7 +27,7 @@ export const NavBar = () => (
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link>
-                            <Link to="/plan"><Assignment />Plan</Link></Nav.Link>
+                            <Link to="/plan" ><Assignment color="inherit" />Plan</Link></Nav.Link>
                         <Nav.Link>
                             <Link to="/map"><Map />Map</Link></Nav.Link>
                         <Nav.Link>
@@ -37,9 +37,9 @@ export const NavBar = () => (
                     </Nav>
                     <Avatar aria-label="recipe" style={avatarStyle}>
                         {username.substring(0, 1).toUpperCase()}
+                        <span className="link-unstyled">{username.substring(1)}</span>
                     </Avatar>
                     
-                    {username.substring(1)}
                     &nbsp;
                     <Nav>
                         <Nav.Link className="justify-content-end"><span onClick={logOut}><ExitToApp  /> Log out</span></Nav.Link>

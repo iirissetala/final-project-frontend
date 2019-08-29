@@ -5,13 +5,71 @@ import { AuthContext } from '../context/Authcontext';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import AddContent from './AddContent';
+import axios from 'axios';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default class Content extends Component {
-    state = { content: [], showModal: false }
+    state = { content: [], showModal: false, page: 1, isLoading: false }
 
     componentDidMount() {
-        this.context.getData("content").then(res => this.setState({content: res}))
+        const token = localStorage.getItem("Token")
+        
+        axios
+            .get("http://localhost:8080/api/content/?page=0", {
+                headers: {
+                    authorization: token
+                }
+            })
+            .then(res => {
+                console.log(res)
+                this.setState({ content: res.data.content })
+                
+                console.log(this.state)
+            }).catch(err => {
+                console.log(err)
+                throw new Error(err.response.data)
+            })
+
+        window.addEventListener('scroll', this.onScroll, false);
     }
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.onScroll, false);
+    }
+
+    onScroll = () => {
+        if (
+            (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500) && !this.state.isLoading /* &&
+            this.props.list.length */
+        ) {
+            this.getPaginatedData();
+            
+        }
+    }
+
+    getPaginatedData = () => {
+        const token = localStorage.getItem("Token");
+        this.setState({isLoading: true})
+        axios
+            .get("http://localhost:8080/api/content/?page="+this.state.page, {
+                headers: {
+                    authorization: token
+                }
+            })
+            .then(res => {
+                console.log(res.data.content)
+                this.setState({ content: this.state.content.concat(res.data.content), page: this.state.page + 1 })
+                if (res.data.last) {
+                    window.removeEventListener('scroll', this.onScroll, false);
+                }
+                console.log(this.state)
+            }).then(this.setState({isLoading: false}))
+            .catch(err => {
+                console.log(err)
+                throw new Error(err.response.data)
+            })
+
+    }
+
 
     handleClickOpen = () => {
         this.setState({showModal: true})
@@ -50,6 +108,7 @@ export default class Content extends Component {
                         postMsg={this.postMsg}
                         onHide={() => this.setState({ showModal: false })}/>
                 </div>
+                {this.state.isLoading ? <CircularProgress /> : null}
             </div>
         )
     }
