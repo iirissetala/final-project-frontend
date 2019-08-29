@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
-        width: '75%',
+        width: '85%',
     },
     button: {
         marginBottom: theme.spacing(2),
@@ -52,12 +52,12 @@ const useStyles = makeStyles(theme => ({
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
         marginBottom: theme.spacing(3),
-        width:'75%',
+        width:'100%',
     },
     imagedrop: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
-        width:'75%',
+        width:'85%',
     },
     map: {
         marginLeft: theme.spacing(1),
@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme => ({
         borderColor: 'text.primary',
         m: 1,
         border: 1,
-        width: '75%',
+        width: '85%',
     },
 }));
 
@@ -79,7 +79,7 @@ const boxWrapper = {
     borderColor: 'text.primary',
     m: 1,
     border: 1,
-    style: { width: '75%' },
+    width: '75%',
 };
 
 const mapWrapper= {
@@ -88,6 +88,7 @@ const mapWrapper= {
     m: 1,
     border: 1,
     width: '75%',
+
 };
 
 export default function OutlinedTextFields(props) {
@@ -125,15 +126,14 @@ export default function OutlinedTextFields(props) {
     }
 
 
-    /*kun käyttäjä klikkaa 'save' buttonia, formin tiedot lähetetään kohti tietokantaa
-    * ja samalla tyhjennetään formi kun tiedot on lähetetty, modaali suljetaan tallennuksen yhteydessä*/
+    /* sendData sends a POST request to database and cleares + closes the modal*/
     const sendData = (event) => {
         event.preventDefault();
         console.log(values)
         addNew(values);
         clearData();
     };
-    /*Tyhjennetään data ja suljetaan modaali*/
+    /*Clears data and closes the modal*/
     const clearData = (event) => {
         setValues({header:'', date:'', location:'', description:'', participants:'', notes: '', image1:''});
         props.handleClose();
@@ -230,7 +230,6 @@ export default function OutlinedTextFields(props) {
                 onChange={handleChange('date')}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <DateTimePicker
-                        // autoOk <- halutaanko tämä?
                         ampm={false}
                         inputVariant="outlined"
                         value={values.date}

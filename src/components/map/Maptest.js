@@ -199,8 +199,8 @@ export default class MapClass extends Component {
         const { viewport, sunriseMin, sunriseHour, sunsetMin, sunsetHour } = this.state;
         
         return (
-            <Box style={{height: '100%', width: '100%'}}>
-                <DatePicker 
+            <Box style={{height: '100%', width: '100%', paddingLeft:2}}>
+                <DatePicker
                     date={this.state.date}
                     handleHourChange={this.handleHourChange}
                     handleMinuteChange={this.handleMinuteChange}

@@ -10,6 +10,7 @@ import Maptest from '../components/map/Maptest'
 import AllContent from "../components/content/AllContent";
 import EditPreviousPlan from "../components/plans/EditPreviousPlan";
 import AddReferencePictures from "../components/plans/AddReferencePictures";
+
 class Router1 extends Component {
   render() {
     return (
@@ -30,7 +31,6 @@ class Router1 extends Component {
             <Route exact path="/plans/:id/addpictures" component={AddReferencePictures}/>
           </Switch>
             </>
-          
       </Router>
     );
   }

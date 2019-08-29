@@ -21,14 +21,14 @@ class PlanData extends Component {
     AuthContext = this.context;
 
     render() {
-
+        console.log(this.props.plans)
         return (
             <div>
                 {this.props.plans.map(plan => (
 
                     <Grid item key={plan.header} style={{maxWidth: '600px'}}>
                         <Card style={cardStyle}>
-                            <Link to={{pathname:'/plans/'+ plan.id}}  color={"inherit"} variant={"body2"}>
+                            <Link to={{pathname:'/plans/'+ plan.id, state:{plan}}}  color={"inherit"} variant={"body2"}>
                                 <CardActionArea className={plan.id}>
                                     <CardMedia
                                         component="img"
@@ -39,7 +39,7 @@ class PlanData extends Component {
 
                                     />
 
-                                    <CardContent>
+                                    <CardContent   style={{color: 'black'}}>
                                         <Typography gutterBottom variant="h5" component="h2">{plan.header}</Typography>
                                         <Typography component="h3">{moment(plan.date).format('LLLL')}</Typography>
                                         <Typography component="p">{plan.description}</Typography>
@@ -67,4 +67,5 @@ export default PlanData;
 
 const cardStyle = {
     marginBottom: '10%',
+    backgroundColor: 'whitesmoke',
 };

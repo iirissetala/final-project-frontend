@@ -12,7 +12,7 @@ import DateFnsUtils from "@date-io/date-fns";
 const plans = [];
 
 class EditPreviousPlan extends Component {
-/*Propsit tuodaan luokasta .singleplan/PlanData */
+/*Propsit tuodaan luokasta .singlePlan/PlanData */
     state= {
         id: this.props.location.state.plan.id,
         header: this.props.location.state.plan.header,
@@ -46,6 +46,11 @@ class EditPreviousPlan extends Component {
     descriptionChange = (event) => {this.setState({description: event.target.value})};
     notesChange = (event) => {this.setState({notes: event.target.value})};
 
+/*
+    referencePicChange = (event) => {this.setState({referencePictures: event.target.value})};
+*/
+
+
 
     deleteThisPlan = (event) => {
         event.preventDefault();
@@ -68,15 +73,18 @@ class EditPreviousPlan extends Component {
 
     render (){
         console.log(this.props.location.state);
+
         return (
         <div>
             <Box borderRadius="borderRadius" {...boxWrapper}>
-                <div style={styling.buttonClose} style={{display: "flex"}} >
+                <div >
                     {this.renderRedirect()}
-                    <Button  variant="outlined" size="small" style={{marginLeft:"auto"}} onClick={this.setRedirect}>X</Button>
+                    <Button  variant="outlined" size="small" style={styling.button} onClick={this.setRedirect}>X</Button>
                 </div>
                 <div style={styling.menu}>
+
                     <h3>Edit your plan details</h3>
+
                 </div>
 
 
@@ -144,11 +152,28 @@ class EditPreviousPlan extends Component {
                         variant="outlined"
                         float="center"
                     />
-                    <div style={styling.map} style={mapWrapper}>
-                        <p>You can also pinpoint your planned location on map </p>
+                    <div  style={styling.mapWrapper}>
+                        <h6>You can also pinpoint your planned location on map
+                            <br></br>
+                        </h6>
+                        <p>By changing the date shown on map, the suns location will change.</p>
+
                         <Map width={'65vw'} height={'50vh'} value={this.state.coordinates}
                              onChange={this.coordinatesChange}
                              handleCoordinates={this.coordinatesChange} />
+
+/*
+                    <div
+                        style={styling.imagedrop}
+                        value={this.state.referencePictures}
+                        onChange={this.referencePicChange}>
+
+                        <h6>You can upload max. 5 reference pictures in your plan.
+                        </h6>
+                        <ImageDropZone/>
+                    </div>
+                    */
+
 
                     </div>
 
@@ -170,15 +195,14 @@ class EditPreviousPlan extends Component {
                         </MuiPickersUtilsProvider>
                     </div>
 
+
                 </form>
 
-                <div style={styling.button} style={{display: "flex"}}>
-                    <Button size="small" color="default" variant="outlined" onClick={this.editPlan}>
+                <div>
+                    <Button  style={styling.button} size="small" color="default" variant="outlined" onClick={this.editPlan}>
                         Save
                     </Button>
-                    <Button size="small" color="default" variant="outlined" onClick={this.deleteThisPlan}>
-                        Delete
-                    </Button>
+
                 </div>
             </Box>
         </div>
@@ -187,6 +211,12 @@ class EditPreviousPlan extends Component {
     }
 }
 
+/*
+*                 <div style={styling.buttonClose} >
+                    {this.renderRedirect()}
+                    <Button  variant="outlined" size="small" style={{marginLeft:"auto"}} onClick={this.setRedirect}>X</Button>
+                </div>
+* */
 
 const styling = {
     container: {
@@ -195,50 +225,33 @@ const styling = {
         flexWrap: 'wrap',
         direction: 'row',
         justify: 'center',
-        margin: 'normal',
+        marginLeft: '20',
     },
     textField: {
-        /*marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),*/
         width: '75%',
     },
     button: {
-        /*marginBottom: theme.spacing(2),
-        marginTop: theme.spacing(5),
-        marginLeft: theme.spacing(1),*/
-        padding: 7,
+        backgroundColor: 'ghostwhite',
+        marginLeft:'85%',
+        marginTop: 30,
+        marginBottom: 30
     },
     buttonClose: {
-       /* marginTop: theme.spacing(1),
-        marginRight: theme.spacing(1),*/
+        display: 'flex',
         padding: 3,
     },
     menu: {
         width: 300,
         alignItems: 'left',
-       /* marginLeft: theme.spacing(2),*/
+        margin: 20,
     },
     calendar: {
-       /* marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        marginBottom: theme.spacing(3),*/
-        width:'75%',
+        width:'100%',
+        marginTop: 30,
+        marginBottom: 30,
     },
     imagedrop: {
-       /* marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),*/
         width:'75%',
-    },
-    map: {
-       /* marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(3),*/
-        bgcolor: 'background.paper',
-        borderColor: 'text.primary',
-        m: 1,
-        border: 1,
-        width: '75%',
     },
 };
 
@@ -247,7 +260,8 @@ const boxWrapper = {
     borderColor: 'text.primary',
     m: 1,
     border: 1,
-    style: { width: '75%' },
+    width: '85%',
+    paddingLeft: 3,
 };
 
 const mapWrapper= {
@@ -255,7 +269,8 @@ const mapWrapper= {
     borderColor: 'text.primary',
     m: 1,
     border: 1,
-    width: '75%',
+    width: '100%',
+
 };
 
 
