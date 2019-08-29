@@ -162,19 +162,6 @@ class EditPreviousPlan extends Component {
                              onChange={this.coordinatesChange}
                              handleCoordinates={this.coordinatesChange} />
 
-/*
-                    <div
-                        style={styling.imagedrop}
-                        value={this.state.referencePictures}
-                        onChange={this.referencePicChange}>
-
-                        <h6>You can upload max. 5 reference pictures in your plan.
-                        </h6>
-                        <ImageDropZone/>
-                    </div>
-                    */
-
-
                     </div>
 
                     <div
@@ -202,7 +189,11 @@ class EditPreviousPlan extends Component {
                     <Button  style={styling.button} size="small" color="default" variant="outlined" onClick={this.editPlan}>
                         Save
                     </Button>
-
+                </div>
+                <div>
+                    <Button style={styling.button} size="small" color="default" variant="outlined" onClick={this.deleteThisPlan}>
+                        Delete
+                    </Button>
                 </div>
             </Box>
         </div>
@@ -233,7 +224,6 @@ const styling = {
     button: {
         backgroundColor: 'ghostwhite',
         marginLeft:'85%',
-        marginTop: 30,
         marginBottom: 30
     },
     buttonClose: {
@@ -276,3 +266,16 @@ const mapWrapper= {
 
 EditPreviousPlan.contextType = AuthContext;
 export default EditPreviousPlan;
+
+
+/*
+                    <div
+                        style={styling.imagedrop}
+                        value={this.state.referencePictures}
+                        onChange={this.referencePicChange}>
+
+                        <h6>You can upload max. 5 reference pictures in your plan.
+                        </h6>
+                        <ImageDropZone/>
+                    </div>
+*/

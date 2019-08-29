@@ -135,8 +135,8 @@ export default class MapClass extends Component {
                 latitude: event.lngLat[1]
             }
         });
-        this.handleViewportChange({longitude: event.lngLat[0], latitude: event.lngLat[1]})
-
+        this.handleViewportChange({longitude: event.lngLat[0], latitude: event.lngLat[1]});
+        // this.props.handleCoordinates({target: {longitude: event.lngLat[0], latitude: event.lngLat[1]}});
 
     };
     

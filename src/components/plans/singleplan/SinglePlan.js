@@ -11,7 +11,7 @@ import AwesomeSlider from 'react-awesome-slider';
 import AwsSliderStyles from './AWSSlider.css'
 import 'react-awesome-slider/dist/styles.css';
 import CardActionArea from "@material-ui/core/CardActionArea";
-import Map from "../../map/Map";
+import Map from "../../map/Maptest";
 import CardMedia from "@material-ui/core/CardMedia";
 import {plans} from "../EditPreviousPlan";
 import Download from "./Download";
@@ -59,7 +59,7 @@ export default class SinglePlan extends Component {
     muutos = () =>{
         return {
 
-            display: this.state.data.referencePictures && this.state.data.referencePictures.length ===0? 'none':'visible'}}
+            display: this.state.plan.referencePictures && this.state.plan.referencePictures.length ===0? 'none':'visible'}}
 
     render() {
 
@@ -93,7 +93,7 @@ export default class SinglePlan extends Component {
                         </CardContent>
 
                         {referencePictures && <Container maxWidth="lg"style={this.muutos()}>
-                                <Paper className="root" style={sliderStyle}>
+                                <Paper className="root" style={style.sliderStyle}>
                                     <AwesomeSlider cssModule={AwsSliderStyles} >
                                         {referencePictures.map(picture => (
                                         <div data-src={"/pictures/"+picture.url}/>))}
@@ -156,7 +156,11 @@ export default class SinglePlan extends Component {
 
 
                     </div>
-
+                    <Link to={{pathname:'/plans/'+ this.state.plan.id + '/edit', state: this.state}}>
+                        <Button size="small" color="default" variant="outlined" style={style.button}>
+                            Modify
+                        </Button>
+                    </Link>
                 </Box>
         </div>
         )
