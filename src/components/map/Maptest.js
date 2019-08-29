@@ -15,7 +15,9 @@ import { Nav } from "react-bootstrap";
 import {testSun} from './suncalc'
 import DatePicker from './DatePicker';
 import { Box } from '@material-ui/core';
-import {addMapLayers} from './mapsetup.js'
+import { addMapLayers } from './mapsetup.js'
+import Typography from '@material-ui/core/Typography';
+import moment from 'moment'
 
 var SunCalc = require('suncalc');
 
@@ -197,7 +199,7 @@ export default class MapClass extends Component {
     render() {
 
         const { viewport, sunriseMin, sunriseHour, sunsetMin, sunsetHour } = this.state;
-        
+        console.log(this.state)
         return (
             <Box style={{height: '100%', width: '100%', paddingLeft:2}}>
                 <DatePicker
@@ -241,10 +243,14 @@ export default class MapClass extends Component {
                             onClose={() => this.setState({ selectedLocation: null })}
                         >
                             <div>
-                                <h2>{this.state.selectedLocation.description}</h2>
-                                {this.state.selectedLocation.date}
+                                    <Typography variant="h2" gutterBottom>
+                                        {this.state.selectedLocation.description}
+                                    </Typography>
+                                    <Typography variant="subtitle2" gutterBottom>
+                                        {moment(this.state.selectedLocation.date).format('MMMM Do YYYY, h:mm:ss a')}
+                                    </Typography>
                                 <Nav.Link>
-                                    <Link to={{ pathname: "/plan/" + this.state.selectedLocation.id, }}
+                                    <Link to={{ pathname: "/plans/" + this.state.selectedLocation.id, }}
                                     >Photoshoot
                                     </Link>
                                 </Nav.Link>
@@ -271,14 +277,20 @@ export default class MapClass extends Component {
 
                                 tipSize={5}
                                 anchor="top"
-                                longitude={25 /* this.state.selectedLocation.location */}
-                                latitude={60 /* this.state.selectedLocation.location */}
+                                longitude={this.state.selectedLocation.location}
+                                latitude={this.state.selectedLocation.location}
                                 closeOnClick={false}
                                 onClose={() => this.setState({ popupInfo: null })}
                             >
-                                <div>
-                                    <h2>{this.state.selectedLocation.description}</h2>
-                                    <p>{this.state.selectedLocation.date}</p>
+                                    <div>
+                                        <Typography variant="h2" gutterBottom>
+                                            {this.state.selectedLocation.description}
+                                        </Typography>
+                                        <Typography variant="subtitle2" gutterBottom>
+                                            {moment(this.state.selectedLocation.date).format('MMMM Do YYYY, h:mm:ss a')}
+                                        </Typography>
+                                    {/* <h2>{this.state.selectedLocation.description}</h2>
+                                    <p>{this.state.selectedLocation.date}</p> */}
                                     <Nav.Link>
                                         <Link to={{ pathname: "/plans/" + this.state.selectedLocation.id, }}
                                         >Photoshoot

@@ -21,7 +21,7 @@ export default class DatePicker extends Component {
         const { sunriseHour, sunsetHour} = this.props
         
         return (
-            <div  style={{backgroundColor:'whitesmoke', paddingLeft:5}}>
+            <div style={{ backgroundColor: 'whitesmoke', paddingLeft: 5 }} >
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     
                         <KeyboardDatePicker
@@ -32,7 +32,8 @@ export default class DatePicker extends Component {
                             id="date-picker-inline"
                             label="Date/time for the sun position"
                             value={this.props.date}
-                            onChange={this.props.handleCalendarChange}
+                        onChange={this.props.handleCalendarChange}
+                        
                             KeyboardButtonProps={{
                                 'aria-label': 'change date',
                             }}

@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 export function getAll() {
-    return axios.get('http://localhost:8080/api/plans/')
+    return axios.get('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/')
         .then((response) => response.data)
 }
 
 export function getById(id) {
-    return axios.get('http://localhost:8080/api/plans/' +id)
+    return axios.get('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/' + id)
         .then((response) => response)
 }
 
@@ -31,7 +31,7 @@ export function addNew(plan) {
     console.log(plan.image1);
     console.log(plan.notes);
 
-    return axios.post('http://localhost:8080/api/plans', formData, {
+    return axios.post('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans', formData, {
         headers: {
             Authorization: "Bearer " + localStorage.getItem("Token")
             /* "Content-Type": "multipart/form-data" */
@@ -59,9 +59,9 @@ export function updatePlan(id, plan) {
     formData.set("longitude", plan.longitude);
 
 
-    return axios.put('http://localhost:8080/api/plans/'+ id, plan)
+    return axios.put('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/'+ id, plan)
 }
 
 export function deletePlan(id) {
-    return axios.delete('http://localhost:8080/api/plans/' +id)
+    return axios.delete('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/' + id)
 }

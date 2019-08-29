@@ -7,7 +7,7 @@ import Plans from "../components/plans/Plan";
 import Testsite from "../components/Testsite";
 import SinglePlan from '../components/plans/singleplan/SinglePlan'
 import Maptest from '../components/map/Maptest'
-import AllContent from "../components/content/AllContent";
+import Content from "../components/content/Content";
 import EditPreviousPlan from "../components/plans/EditPreviousPlan";
 import AddReferencePictures from "../components/plans/AddReferencePictures";
 
@@ -22,11 +22,8 @@ class Router1 extends Component {
                 <Route path="/" exact component={Homer} />
                 <Route path="/plan" exact component={Plans} />
             <Route path="/map" exact component={Maptest} />
-            <Route exact path="/content" component={AllContent} />
-                <Route path="/map2" exact component={Map2} />
             <Route exact path="/plans/:id" component={SinglePlan} />
-            <Route path="/feed" component={AllContent}/>
-            <Route exact path="/test" component={Testsite} />
+            <Route path="/feed" component={Content}/>
             <Route exact path="/plans/:id/edit" component={EditPreviousPlan}/>
             <Route exact path="/plans/:id/addpictures" component={AddReferencePictures}/>
           </Switch>
