@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles/index';
 import TextField from '@material-ui/core/TextField/index';
-import BasicDateTimePicker from './DateTime';
 import SaveIcon from '@material-ui/icons/Save';
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button/index';
@@ -9,9 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ImageDropZone from "./ImageDropZone";
 import Box from '@material-ui/core/Box';
 import ServiceTest, {addNew} from './ServiceTest';
-import Map from '../map/Maptest';
-//import Map from '../map/Maptest';
-import PlanModal from './PlanModal';
+import Map from '../map/Map';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers/index";
 import DateFnsUtils from '@date-io/date-fns/build/index';
 
@@ -248,7 +245,7 @@ export default function OutlinedTextFields(props) {
                     className={classes.imagedrop}
                     value={values.referencephotos}
                     onChange={handleChangeTwo}>
-                    <p>You upload max. 5 reference pictures in your plan</p>
+                    <p>You can upload max. 5 reference pictures in your plan</p>
                     <ImageDropZone/>
                 </div>
         </form>

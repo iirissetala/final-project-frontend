@@ -10,12 +10,15 @@ import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
 import moment from 'moment';
-
+import {AuthContext} from "../../context/Authcontext";
 
 
 const planUrl = '/plans/';
 
+
 class PlanData extends Component {
+
+    AuthContext = this.context;
 
     render() {
 
@@ -45,14 +48,10 @@ class PlanData extends Component {
                             </Link>
 
                             <CardActions>
-                                <Button size="small" color="default" variant="outlined">
-                                    Share
-                                </Button>
                                 <Link to={{pathname:'/plans/'+ plan.id + '/edit', state: {plan}}}>
                                 <Button size="small" color="default" variant="outlined" >
                                     Modify
-                                </Button>
-                                </Link>
+                                </Button></Link>
                             </CardActions>
                         </Card>
                     </Grid>
@@ -62,6 +61,7 @@ class PlanData extends Component {
     }
 }
 
+PlanData.contextType = AuthContext;
 export default PlanData;
 
 

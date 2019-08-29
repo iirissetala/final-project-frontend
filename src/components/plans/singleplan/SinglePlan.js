@@ -47,7 +47,7 @@ export default class SinglePlan extends Component {
 
     muutos = () =>{
         return {
-            display: this.state.data.readyPictures && this.state.data.readyPictures.length ===0? 'none':'visible'}}
+            display: this.state.data.referencePictures && this.state.data.referencePictures.length ===0? 'none':'visible'}}
 
     render() {
         const {id, date, description, header, location, notes, participants, latitude, longitude, referencePictures, readyPictures} = this.state.data;
@@ -74,11 +74,11 @@ export default class SinglePlan extends Component {
                                 </Typography>
                             </Card>
                         </CardContent>
-                        {readyPictures && <Container maxWidth="lg"style={this.muutos()}>
+                        {referencePictures && <Container maxWidth="lg"style={this.muutos()}>
                                 <Paper className="root" style={sliderStyle}>
                                     <AwesomeSlider cssModule={AwsSliderStyles} >
-                                        {readyPictures.map(picture => (
-                                        <div data-src={"/"+picture.url}/>))}
+                                        {referencePictures.map(picture => (
+                                        <div data-src={"/pictures/"+picture.url}/>))}
                                     </AwesomeSlider>
                                 </Paper>
                             </Container>}
@@ -135,27 +135,7 @@ export default class SinglePlan extends Component {
 
                     </CardContent>
                 </Grid>
-                        {referencePictures && <div>
-                        {referencePictures.map(picture => (
-                        <Grid container spacing={1}>
 
-                        <Grid style={gridPic}>
-
-                            <CardActionArea>
-                                <CardMedia
-                                    component="img"
-                                    alt="Your reference picture"
-                                    height="150"
-                                    maxWidth="150px"
-                                    image={"/pictures/"+picture.url}
-                                    title="Your reference picture"
-                               style={pic} />
-                               
-                            </CardActionArea>
-                        </Grid>
-                        </Grid>
-                            ))}
-                            </div>}
                     </div>
                 </Box>
         </div>
