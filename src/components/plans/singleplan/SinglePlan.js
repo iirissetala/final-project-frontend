@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Consumer, AuthContext } from "../../context/Authcontext";
-import {getById} from "../ServiceTest";
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -12,22 +11,24 @@ import AwesomeSlider from 'react-awesome-slider';
 import AwsSliderStyles from './AWSSlider.css'
 import 'react-awesome-slider/dist/styles.css';
 import CardActionArea from "@material-ui/core/CardActionArea";
-import Button from "@material-ui/core/Button";
 import Map from "../../map/Maptest";
 import CardMedia from "@material-ui/core/CardMedia";
 import {plans} from "../EditPreviousPlan";
-import CardActions from "@material-ui/core/CardActions";
-import Snackbar from '@material-ui/core/Snackbar';
 import Download from "./Download";
 import moment from 'moment';
-import SnackBar from './SnackBar';
+import Button from '@material-ui/core/Button/index';
+import {Link} from "react-router-dom";
+import {Redirect} from "react-router-dom";
+
+
 
 export default class SinglePlan extends Component {
 
     state = {
-        data: '',
+        plan: "",
         isHidden: true,
         showButton: 'Show',
+        redirect: false,
     };
 
 
@@ -39,30 +40,44 @@ export default class SinglePlan extends Component {
         })
     };
 
+    /*Redirecting back to the /plan site*/
+    setRedirect = () => {this.setState({redirect: true})}
+    renderRedirect = () => {
+        if (this.state.redirect) {
+            return <Redirect to='/plan' />
+        }
+    };
+
     AuthContext = this.context;
 
     componentDidMount(props) {
-        this.context.getData("plans/" + this.props.match.params.id).then(res => this.setState({data: res}))
-        console.log( "componentDidMount: " + this.state.data)
+        this.context.getData("plans/" + this.props.match.params.id).then(res => this.setState({plan: res}))
+        console.log( "componentDidMount: " + this.state.plan)
     }
     /*Muutos method hides AwsomeSlider if ready pictures do not exist. If they do, then they are shown in a slider.*/
 
     muutos = () =>{
         return {
-            display: this.state.data.referencePictures && this.state.data.referencePictures.length ===0? 'none':'visible'}}
+
+            display: this.state.plan.referencePictures && this.state.plan.referencePictures.length ===0? 'none':'visible'}}
 
     render() {
-        const {id, date, description, header, location, notes, participants, latitude, longitude, referencePictures, readyPictures} = this.state.data;
-        console.log(this.state);
-        console.log(header);
-        if (referencePictures) {
-            // console.log(referencePictures[0].url);
-        }
 
+        const {id, date, description, header, location, notes, participants, latitude, longitude, referencePictures, readyPictures} = this.state.plan;
+
+        console.log(this.state);
+        console.log("header: " + header);
+        console.log("this.state.data renderissa SinglePlan: ", this.state.data);
+        console.log(this.state)
 
         return (
             <div>
-                <Box style={boxWrapper}>
+                <Box style={style.boxWrapper}>
+
+                    <div>
+                        {this.renderRedirect()}
+                        <Button  variant="outlined" size="small" style={style.buttonClose} onClick={this.setRedirect}>X</Button>
+                    </div>
                     <div>
 
                         <Download id={id} date={date} header={header} description={description} participants={participants} location={location} notes={notes} latitude={latitude} longitude={longitude} referencePictures={referencePictures}/>
@@ -72,50 +87,51 @@ export default class SinglePlan extends Component {
                             <Card className="paper">
                                 <Typography variant="h4">
                                     <CardContent>{header}</CardContent>
-                                    {<h6 variant="h6"  style={textStyle}> Date & Time: {moment(date).format('LLLL')}</h6>}
+                                    {<h6 variant="h6"  style={style.textStyle}> Date & Time: {moment(date).format('LLLL')}</h6>}
                                 </Typography>
                             </Card>
                         </CardContent>
+
                         {referencePictures && <Container maxWidth="lg"style={this.muutos()}>
-                                <Paper className="root" style={sliderStyle}>
+                                <Paper className="root" style={style.sliderStyle}>
                                     <AwesomeSlider cssModule={AwsSliderStyles} >
                                         {referencePictures.map(picture => (
-                                        <div data-src={"/"+picture.url}/>))}
+                                        <div data-src={"/pictures/"+picture.url}/>))}
                                     </AwesomeSlider>
                                 </Paper>
                             </Container>}
                         <Grid>
-                            <Grid container style={rootStyle} spacing={2}>
+                            <Grid container style={style.rootStyle} spacing={2}>
                                 <Grid item xs>
                                     <CardContent>
-                                        <Card className="paper" style={cardStyle}>
+                                        <Card className="paper" style={style.cardStyle}>
                                             <Typography variant="h5">
                                                 <CardContent>Description</CardContent>
-                                                <Typography component="p" style={textStyle}>{description}</Typography>
+                                                <Typography component="p" style={style.textStyle}>{description}</Typography>
                                             </Typography>
                                         </Card>
                                     </CardContent>
                                     <CardContent>
-                                        <Card className="paper" style={cardStyle}>
+                                        <Card className="paper" style={style.cardStyle}>
                                             <Typography variant="h5">
                                                 <CardContent>Participants</CardContent>
-                                                <Typography component="p" style={textStyle}>{participants}</Typography>
+                                                <Typography component="p" style={style.textStyle}>{participants}</Typography>
                                             </Typography>
                                         </Card>
                                     </CardContent>
                                     <CardContent>
-                                        <Card className="paper" style={cardStyle}>
+                                        <Card className="paper" style={style.cardStyle}>
                                             <Typography variant="h5">
                                                 <CardContent>Notes</CardContent>
-                                                <Typography component="p" style={textStyle}>{notes}</Typography>
+                                                <Typography component="p" style={style.textStyle}>{notes}</Typography>
                                             </Typography>
                                         </Card>
                                     </CardContent>
                                     <CardContent>
-                                        <Card className="paper" style={cardStyle}>
+                                        <Card className="paper" style={style.cardStyle}>
                                             <Typography variant="h5">
                                                 <CardContent>Location</CardContent>
-                                                <Typography component="p" style={textStyle}>{location}</Typography>
+                                                <Typography component="p" style={style.textStyle}>{location}</Typography>
                                             </Typography>
                                         </Card>
                                     </CardContent>
@@ -125,11 +141,11 @@ export default class SinglePlan extends Component {
                     <CardContent>
                         <Card>
                         <div>
-                            <Button  style={buttonShow}  variant="outlined" size="small" onClick={this.toggleHidden.bind(this)}>{this.state.showButton}</Button>
-                            <p style={textStyle}>Photoshoots location on map</p>
+                            <Button  style={style.buttonShow}  variant="outlined" size="small" onClick={this.toggleHidden.bind(this)}>{this.state.showButton}</Button>
+                            <p style={style.textStyle}>Photoshoots location on map</p>
                         </div>
                             {!this.state.isHidden &&
-                            <div  style={mapWrapper}>
+                            <div  style={style.mapWrapper}>
                                 <Map width={'65vw'} height={'50vh'}/>
                             </div>
                             }
@@ -137,95 +153,100 @@ export default class SinglePlan extends Component {
 
                     </CardContent>
                 </Grid>
-                        {plans.map(plan => (
-                        <Grid>
-                        <Card>
-                            <CardActionArea>
-                                <CardMedia
-                                    component="img"
-                                    alt="Your reference picture"
-                                    height="150"
-                                    image="https://material-ui.com/static/images/cards/contemplative-reptile.jpg"
-                                        //{ referencePictures + {id} }
-                                    title="Your reference picture"
-                                />
-                                <div style={refButtonArea}>
 
-                                    <SnackBar/>
 
-                                    <Button style={refButton} size="small" color="default" variant="outlined">
-                                        Show
-                                    </Button>
-
-                                </div>
-                            </CardActionArea>
-                        </Card>
-                        </Grid>
-                            ))}
                     </div>
+                    <Link to={{pathname:'/plans/'+ this.state.plan.id + '/edit', state: this.state}}>
+                        <Button size="small" color="default" variant="outlined" style={style.button}>
+                            Modify
+                        </Button>
+                    </Link>
                 </Box>
         </div>
         )
     }
 }
 
-const rootStyle = {
-    flexGrow: 1,
-    direction: 'row',
-    justify: 'space-evenly',
-    alignItems:'flex-start',
-};
-const sliderStyle = {
-    marginBottom: '30px',
-    justify: 'center',
-    alignItems: 'center',
-    maxWidth: '50 %',
-    height: 'auto'
-};
-const boxWrapper = {
-    borderRadius: 'borderRadius',
-    bgcolor: 'background.paper',
-    borderColor: 'text.primary',
-    m: 1,
-    border: 1,
-    width: '75%',
-};
-const menuStyle = {
-    width: '90%',
-    paddingLeft: '15px',
-    marginLeft: '10',
-};
-const textStyle = {
-    marginLeft: '10',
-    width: '90%',
-    paddingLeft: '15px',
-    paddingBottom:'10px',
-};
-const cardStyle = {
+const style = {
+
+    pic :{
+        justify: 'center',
+        alignItems: 'center'
+},
+    gridPic: {
+        justify: 'center',
+        alignItems: 'center',
+        margin: '0 auto',
+        paddingTop: '5%',
+        borderRadius: 'borderRadius',
+},
+    rootStyle: {
+        flexGrow: 1,
+        direction: 'row',
+        justify: 'space-evenly',
+        alignItems:'flex-start',
+},
+    sliderStyle: {
+        marginBottom: '30px',
+        justify: 'center',
+        alignItems: 'center',
+        maxWidth: '50 %',
+        height: 'auto'
+},
+    boxWrapper: {
+        borderRadius: 'borderRadius',
+        bgcolor: 'background.paper',
+        borderColor: 'text.primary',
+        m: 1,
+        border: 1,
+        width: '75%',
+},
+    menuStyle: {
+        width: '90%',
+        paddingLeft: '15px',
+        marginLeft: '10',
+},
+    textStyle: {
+        marginLeft: '10',
+        width: '90%',
+        paddingLeft: '15px',
+        paddingBottom:'10px',
+},
+    cardStyle: {
     // width: '50%',
-};
-const mapWrapper= {
-    bgcolor: 'background.paper',
-    borderColor: 'text.primary',
-    m: 1,
-    border: 1,
-    width: '75%',
-    padding: '30px',
-};
-const buttonShow = {
+    },
+    mapWrapper: {
+        bgcolor: 'background.paper',
+        borderColor: 'text.primary',
+        m: 1,
+        border: 1,
+        width: '75%',
+        padding: '3%',
+    },
+    buttonShow: {
         alignItems: 'left',
         display: 'flex',
         margin:'10px',
-    };
-const refButtonArea = {
-    padding: '10px',
-    display: 'flex',
-};
-const refButton = {
-    backgroundColor: 'ghostwhite',
-    marginLeft:'10px',
-};
+    },
+    refButtonArea: {
+        margin: '10px',
+        // display: 'flex',
+    },
+    button: {
+        backgroundColor: 'ghostwhite',
+        display: 'flex',
+        marginLeft:'auto',
+        marginBottom: 10,
 
+    },
+    buttonClose: {
+        display: 'flex',
+        padding: 7,
+        margin: 10,
+        backgroundColor: 'ghostwhite',
+        marginLeft:'auto',
+        border: "1px solid #4a4a4a",
+    }
+
+};
     SinglePlan.contextType = AuthContext;
-
-

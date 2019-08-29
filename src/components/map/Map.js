@@ -7,9 +7,8 @@ import ReactMapGL, {
     Popup,
     NavigationControl
 } from "react-map-gl";
-import * as parkDate from "./skatebord"
  import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
-import Geocoder from 'react-map-gl-geocoder' 
+
 
 
 //geolocation button position
@@ -57,6 +56,7 @@ export default function Map(props){
                 latitude: event.lngLat[1]
              });
         props.handleCoordinates({target: {longitude: event.lngLat[0], latitude: event.lngLat[1]}});
+
     };
 
     //Escape shuts down popup
@@ -70,8 +70,6 @@ export default function Map(props){
         };
         window.addEventListener("keydown", listener);
     }, []);
-// console.log(marker.longitude)
-// console.log(marker)
 
         return(
             <div>
@@ -82,18 +80,7 @@ export default function Map(props){
                         setViewport(viewport);
                     }}
                 >
-                    {/*Previous photoshootlocations loaded*/}
-                    {parkDate.features.map((park)=>(
-                            <Marker key={park.properties.PARK_ID}
-                                    latitude={park.geometry.coordinates[1]}
-                                    longitude={park.geometry.coordinates[0]}>
-                                <CameraAlt onClick={(e)=>{
-                                    e.preventDefault();
-                                    setSelectedPark(park)
-                                }}/>
-                            </Marker>
 
-                        ))}
                     {selectedPark ?(
                         <Popup
                             latitude={selectedPark.geometry.coordinates[1]}
@@ -109,7 +96,7 @@ export default function Map(props){
                         </Popup>
 
                     ): null}
-                     {/* This Marker crashes when let go  */}
+                    {/* /!* This Marker crashes when let go  *!/*/}
                     
                       <Marker
                         latitude={marker.latitude}

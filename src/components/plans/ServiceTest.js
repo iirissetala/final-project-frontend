@@ -1,12 +1,14 @@
 import axios from 'axios';
 
 export function getAll() {
-    return axios.get('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/')
+/*     return axios.get('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/') */
+    return axios.get('http://localhost:8080/api/plans/')
         .then((response) => response.data)
 }
 
 export function getById(id) {
-    return axios.get('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/' + id)
+    /* return axios.get('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/' + id) */
+    return axios.get('http://localhost:8080/api/plans/' + id)
         .then((response) => response)
 }
 
@@ -14,7 +16,7 @@ export function addNew(plan) {
     let formData = new FormData();
     formData.set("header", plan.header);
 
-    // formData.append("date", Date.now());
+    formData.append("date", plan.date);
     formData.set("location", plan.location);
     formData.set("description", plan.description);
     formData.set("notes", plan.notes); 
@@ -31,7 +33,7 @@ export function addNew(plan) {
     console.log(plan.image1);
     console.log(plan.notes);
 
-    return axios.post('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans', formData, {
+    return axios.post('http://localhost:8080/api/plans', formData, {
         headers: {
             Authorization: "Bearer " + localStorage.getItem("Token")
             /* "Content-Type": "multipart/form-data" */
@@ -47,9 +49,22 @@ export function addNew(plan) {
 
 
 export function updatePlan(id, plan) {
-    return axios.put('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/' + id, plan)
+    let formData = new FormData();
+    formData.set("header", plan.header);
+
+    formData.append("date", plan.date);
+    formData.set("location", plan.location);
+    formData.set("description", plan.description);
+    formData.set("notes", plan.notes);
+    formData.set("participants", plan.participants);
+    formData.set("latitude", plan.latitude);
+    formData.set("longitude", plan.longitude);
+
+
+    return axios.put('http://localhost:8080/api/plans/'+ id, plan)
 }
 
 export function deletePlan(id) {
-    return axios.delete('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/' + id)
+    /* return axios.delete('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/' + id) */
+    return axios.delete('http://localhost:8080/api/plans/' + id)
 }

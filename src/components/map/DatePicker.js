@@ -21,8 +21,8 @@ export default class DatePicker extends Component {
         const { sunriseHour, sunsetHour} = this.props
         
         return (
-            <div style={{alignItems: 'center'}}>
-                <MuiPickersUtilsProvider utils={DateFnsUtils} style={{float: 'center'}}>
+            <div style={{ backgroundColor: 'whitesmoke', alignItems: 'center', paddingLeft:5}}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     
                         <KeyboardDatePicker
                             disableToolbar
@@ -30,7 +30,7 @@ export default class DatePicker extends Component {
                             format="MM/dd/yyyy"
                             margin="normal"
                             id="date-picker-inline"
-                            label="Pick a date"
+                            label="Date/time for the sun position"
                             value={this.props.date}
                         onChange={this.props.handleCalendarChange}
                         style={{ marginLeft: '20%' }}

@@ -91,8 +91,8 @@ class AuthProvider extends Component {
     })
   }
 
-  updateData = (params) => {
-    return axios.put("http://localhost:8080/api/" + params, {
+  updateData = (id, params) => {
+    return axios.put("http://localhost:8080/api/plans/" + id, params, {
       headers: {
         authorization: this.state.token
       }
@@ -113,6 +113,27 @@ class AuthProvider extends Component {
         })
   };
 
+  deletePlan = (id) => {
+    return axios.delete('http://localhost:8080/api/plans/' +id,{
+      headers: {
+        authorization: this.state.token
+      }})
+  };
+
+  addReferencepictures = (id, params) => {
+      return axios.put("http://localhost:8080/api/plans/" + id + "/pictures", params, {
+          headers: {
+              authorization: this.state.token
+          }
+      }).then(res => {
+          console.log(res.data);
+          return res.data
+      }).catch(err => {
+          return err
+      })
+  };
+
+
 
   render() {
     return (
@@ -125,6 +146,9 @@ class AuthProvider extends Component {
           signUp: this.signUp,
           postData: this.postData,
           username: this.state.username,
+          updateData: this.updateData,
+          deletePlan: this.deletePlan,
+            addReferencePictures: this.addReferencepictures,
           AuthContext
         }}
       >

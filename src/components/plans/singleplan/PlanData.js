@@ -1,54 +1,57 @@
 import React, {Component} from 'react';
-import  {plans} from '../EditPreviousPlan';
+import EditPreviousPlan, {plans} from '../EditPreviousPlan';
 import NewPlan from '../NewPlan';
 import {Grid, Typography} from "@material-ui/core";
 import Card from "@material-ui/core/Card";
-import Link from "@material-ui/core/Link";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
+import {Link} from "react-router-dom";
+import moment from 'moment';
+import {AuthContext} from "../../context/Authcontext";
 
 
 const planUrl = '/plans/';
 
+
 class PlanData extends Component {
 
-    render() {
+    AuthContext = this.context;
 
+    render() {
+        console.log(this.props.plans)
         return (
             <div>
                 {this.props.plans.map(plan => (
 
                     <Grid item key={plan.header} style={{maxWidth: '600px'}}>
                         <Card style={cardStyle}>
-                            <Link href={planUrl + plan.id}  color={"inherit"} variant={"body2"}>
+                            <Link to={{pathname:'/plans/'+ plan.id, state:{plan}}}  color={"inherit"} variant={"body2"}>
                                 <CardActionArea className={plan.id}>
                                     <CardMedia
                                         component="img"
                                         alt="Coverphoto"
                                         height="140"
-                                        image= {plan.referencePictures.length ? "/"+plan.referencePictures[0].url : "/liskodisko.jpg"}
+                                        image= {plan.referencePictures.length ? "/pictures/"+plan.referencePictures[0].url : "/liskodisko.jpg"}
                                         title="Contemplative Reptile"
 
                                     />
 
-                                    <CardContent>
+                                    <CardContent   style={{color: 'black'}}>
                                         <Typography gutterBottom variant="h5" component="h2">{plan.header}</Typography>
-                                        <Typography component="h3">{plan.date}</Typography>
+                                        <Typography component="h3">{moment(plan.date).format('LLLL')}</Typography>
                                         <Typography component="p">{plan.description}</Typography>
                                     </CardContent>
                                 </CardActionArea>
                             </Link>
 
                             <CardActions>
-                                <Button size="small" color="default" variant="outlined">
-                                    Share
-                                </Button>
-                                <Button size="small" color="default" variant="outlined">
+                                <Link to={{pathname:'/plans/'+ plan.id + '/edit', state: {plan}}}>
+                                <Button size="small" color="default" variant="outlined" >
                                     Modify
-                                </Button>
+                                </Button></Link>
                             </CardActions>
                         </Card>
                     </Grid>
@@ -58,9 +61,11 @@ class PlanData extends Component {
     }
 }
 
+PlanData.contextType = AuthContext;
 export default PlanData;
 
 
 const cardStyle = {
     marginBottom: '10%',
+    backgroundColor: 'whitesmoke',
 };

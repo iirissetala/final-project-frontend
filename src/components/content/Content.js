@@ -29,7 +29,7 @@ export default class Content extends Component {
                 console.log(err)
                 throw new Error(err.response.data)
             })
-
+            
         window.addEventListener('scroll', this.onScroll, false);
     }
     componentWillUnmount() {
@@ -38,8 +38,8 @@ export default class Content extends Component {
 
     onScroll = () => {
         if (
-            (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500) && !this.state.isLoading /* &&
-            this.props.list.length */
+            (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500) && !this.state.isLoading &&
+            this.state.content.length
         ) {
             this.getPaginatedData();
             

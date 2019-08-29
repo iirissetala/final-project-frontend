@@ -23,28 +23,24 @@ class ImageDropZone extends Component{
     }
     clearAll = () => {
         this.setState({files: []})
-    }
+    };
 
 
     render(){
         return (
             <div>
-                {/*määritellään, millaisia tiedostoja hyväksytään*/}
+                {/*Defining what are the allowed file types and how many etc*/}
             <DropzoneArea
                 onChange={this.handleChange.bind(this)}
+                onDrop={this.handleChange.bind(this)}
                 acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
                 maxFileSize={10000000}
                 filesLimit={5}
-                getFileLimitExceedMessage
+                onDropRejected={this.handleChange.bind(this)}
+                getFileLimitExceedMessage={this.handleChange.bind(this)}
 
             />
 
-                <Button size="small" color="default" variant="outlined" onClick={this.clearAll}>
-                    Clear All
-                </Button>
-                <Button size="small" color="default" variant="outlined">
-                    Sumbit
-                </Button>
 
             </div>
         )
@@ -52,3 +48,12 @@ class ImageDropZone extends Component{
 }
 
 export default ImageDropZone;
+/*
+
+<Button size="small" color="default" variant="outlined" onClick={this.clearAll}>
+    Clear All
+</Button>
+<Button size="small" color="default" variant="outlined">
+    Sumbit
+    </Button>
+*/

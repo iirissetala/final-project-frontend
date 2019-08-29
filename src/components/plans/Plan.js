@@ -3,9 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 import PlanData from './singleplan/PlanData'
 import {AuthContext } from "../context/Authcontext";
-import { plans } from "./EditPreviousPlan";
+import plans from "./EditPreviousPlan";
 import PlanModal from './PlanModal';
 import Box from '@material-ui/core/Box';
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import FooterPage from "../home/FooterPage";
 
 
 class Plan extends Component {
@@ -39,8 +42,10 @@ class Plan extends Component {
 
                     <div style={{ marginTop: 20, padding: 30 }}>
                         <Grid container spacing={2} justify="center">
-                            <h2 style={{ marginTop: 20, padding: 30 }}>Here you can check and modify your previous plans:</h2>
-                            <Grid
+                            <Card style={{marginBottom:40, backgroundColor:'whitesmoke'}}>
+                            <h2 style={{ marginTop: 20, padding: 20}}>Here you can check and modify your previous plans:</h2>
+                            </Card>
+                                <Grid
                                 container
                                 direction="row"
                                 justify="space-around"

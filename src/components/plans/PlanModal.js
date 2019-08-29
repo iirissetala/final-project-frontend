@@ -56,7 +56,7 @@ export default function PlanModal(){
     return (
         <div>
 
-            <Card>
+            <Card style={{backgroundColor:'whitesmoke'}}>
                 <CardActionArea>
                     <CardMedia
                         component="img"

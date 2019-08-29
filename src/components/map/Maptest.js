@@ -137,7 +137,7 @@ export default class MapClass extends Component {
                 latitude: event.lngLat[1]
             }
         });
-        this.handleViewportChange({longitude: event.lngLat[0], latitude: event.lngLat[1]})
+        this.handleViewportChange({longitude: event.lngLat[0], latitude: event.lngLat[1]});
         // this.props.handleCoordinates({target: {longitude: event.lngLat[0], latitude: event.lngLat[1]}});
 
     };
@@ -201,8 +201,8 @@ export default class MapClass extends Component {
         const { viewport, sunriseMin, sunriseHour, sunsetMin, sunsetHour } = this.state;
         console.log(this.state)
         return (
-            <Box style={{height: '100%', width: '100%'}}>
-                <DatePicker 
+            <Box style={{height: '100%', width: '100%', paddingLeft:2}}>
+                <DatePicker
                     date={this.state.date}
                     handleHourChange={this.handleHourChange}
                     handleMinuteChange={this.handleMinuteChange}
@@ -250,7 +250,7 @@ export default class MapClass extends Component {
                                         {moment(this.state.selectedLocation.date).format('MMMM Do YYYY, h:mm:ss a')}
                                     </Typography>
                                 <Nav.Link>
-                                    <Link to={{ pathname: "/plan/" + this.state.selectedLocation.id, }}
+                                    <Link to={{ pathname: "/plans/" + this.state.selectedLocation.id, }}
                                     >Photoshoot
                                     </Link>
                                 </Nav.Link>

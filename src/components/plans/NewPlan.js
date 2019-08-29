@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles/index';
 import TextField from '@material-ui/core/TextField/index';
-import BasicDateTimePicker from './DateTime';
 import SaveIcon from '@material-ui/icons/Save';
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button/index';
@@ -9,8 +8,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ImageDropZone from "./ImageDropZone";
 import Box from '@material-ui/core/Box';
 import ServiceTest, {addNew} from './ServiceTest';
-import Map from '../map/Maptest';
-import PlanModal from './PlanModal';
+import Map from '../map/Map';
+import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers/index";
+import DateFnsUtils from '@date-io/date-fns/build/index';
 
 /*
 https://react-pdf.org/advanced
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
-        width: '75%',
+        width: '85%',
     },
     button: {
         marginBottom: theme.spacing(2),
@@ -52,12 +52,12 @@ const useStyles = makeStyles(theme => ({
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
         marginBottom: theme.spacing(3),
-        width:'75%',
+        width:'100%',
     },
     imagedrop: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
-        width:'75%',
+        width:'85%',
     },
     map: {
         marginLeft: theme.spacing(1),
@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme => ({
         borderColor: 'text.primary',
         m: 1,
         border: 1,
-        width: '75%',
+        width: '85%',
     },
 }));
 
@@ -79,7 +79,7 @@ const boxWrapper = {
     borderColor: 'text.primary',
     m: 1,
     border: 1,
-    style: { width: '75%' },
+    width: '75%',
 };
 
 const mapWrapper= {
@@ -88,6 +88,7 @@ const mapWrapper= {
     m: 1,
     border: 1,
     width: '75%',
+
 };
 
 export default function OutlinedTextFields(props) {
@@ -98,7 +99,7 @@ export default function OutlinedTextFields(props) {
     */
      const [values, setValues] = React.useState({
          header:'',
-         date:'',
+         date: new Date,
          location:'',
          coordinates:[],
          latitude:'',
@@ -109,7 +110,7 @@ export default function OutlinedTextFields(props) {
          referencephotos:[],
      });
 
-
+    const onChange = date => setValues({...values, date })
 
     const handleChange = header => event => {
         setValues({ ...values, [header]: event.target.value});
@@ -119,20 +120,20 @@ export default function OutlinedTextFields(props) {
         console.log(values.referencephotos)
     };
     const handleCoordinates = header => event => {
-        console.log("handleCoordinates", header, ":", event.target);
+        // console.log("handleCoordinates", header, ":", event.target);
         setValues({...values, longitude: event.target.longitude, latitude: event.target.latitude, coordinates: event.target});
-        console.log("uudet arvot: ", event.target.latitude, event.target.longitude);
+        // console.log("uudet arvot: ", event.target.latitude, event.target.longitude);
     }
 
 
-    /*kun käyttäjä klikkaa 'save' buttonia, formin tiedot lähetetään kohti tietokantaa
-    * ja samalla tyhjennetään formi kun tiedot on lähetetty, modaali suljetaan tallennuksen yhteydessä*/
+    /* sendData sends a POST request to database and cleares + closes the modal*/
     const sendData = (event) => {
         event.preventDefault();
+        console.log(values)
         addNew(values);
         clearData();
     };
-    /*Tyhjennetään data ja suljetaan modaali*/
+    /*Clears data and closes the modal*/
     const clearData = (event) => {
         setValues({header:'', date:'', location:'', description:'', participants:'', notes: '', image1:''});
         props.handleClose();
@@ -207,7 +208,7 @@ export default function OutlinedTextFields(props) {
                 id="outlined-location"
                 label="Photoshoot location"
                 className={classes.textField}
-                placeholder="Project name"
+                placeholder="location"
                 value={values.location}
                 onChange={handleChange('location')}
                 margin="normal"
@@ -227,13 +228,23 @@ export default function OutlinedTextFields(props) {
                 className={classes.calendar}
                 value={values.date}
                 onChange={handleChange('date')}>
-                <BasicDateTimePicker/>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DateTimePicker
+                        ampm={false}
+                        inputVariant="outlined"
+                        value={values.date}
+                        onChange={onChange}
+                        label="Select Date and Time"
+                        showTodayButton
+                        margin="normal"
+                    />
+                </MuiPickersUtilsProvider>
             </div>
                 <div
                     className={classes.imagedrop}
                     value={values.referencephotos}
                     onChange={handleChangeTwo}>
-                    <p>You upload max. 5 reference pictures in your plan</p>
+                    <p>You can upload max. 5 reference pictures in your plan</p>
                     <ImageDropZone/>
                 </div>
         </form>
