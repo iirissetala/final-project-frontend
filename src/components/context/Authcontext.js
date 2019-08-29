@@ -85,8 +85,8 @@ class AuthProvider extends Component {
     })
   }
 
-  updateData = (params) => {
-    return axios.put("http://localhost:8080/api/" + params, {
+  updateData = (id, params) => {
+    return axios.put("http://localhost:8080/api/plans/" + id, params, {
       headers: {
         authorization: this.state.token
       }
@@ -117,6 +117,7 @@ class AuthProvider extends Component {
           logOut: this.logOut,
           getData: this.getData,
           signUp: this.signUp,
+          updateData: this.updateData,
           AuthContext
         }}
       >

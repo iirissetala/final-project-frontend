@@ -1,20 +1,15 @@
 import React, {Component} from 'react'
 import {AuthContext} from "../context/Authcontext";
-// import Button from "@material-ui/core/Button";
-// import TextField from "@material-ui/core/TextField";
-import Map from "../map/Maptest";
+import Map from "../map/Map";
 import ImageDropZone from "./ImageDropZone";
-import DeleteIcon from "@material-ui/core/SvgIcon/SvgIcon";
-import { makeStyles } from '@material-ui/core/styles/index';
 import TextField from '@material-ui/core/TextField/index';
 import BasicDateTimePicker from './DateTime';
-import SaveIcon from '@material-ui/icons/Save';
-import clsx from 'clsx';
 import Button from '@material-ui/core/Button/index';
-// import DeleteIcon from '@material-ui/icons/Delete';
 import Box from '@material-ui/core/Box';
-import ServiceTest, {addNew} from './ServiceTest';
+import ServiceTest, {deletePlan, updatePlan} from './ServiceTest';
 import {Redirect} from "react-router-dom";
+import {DateTimePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 
 const plans = [];
@@ -46,22 +41,25 @@ class EditPreviousPlan extends Component {
     AuthContext = this.context;
 
     headerChange = (event) => {this.setState({header: event.target.value})};
-    dateChange = (event) => {this.setState({date: event.target.value})};
+    dateChange = date => {this.setState({date: date})};
     locationChange = (event) => {this.setState({location: event.target.value})};
     coordinatesChange = (event) => {
-        this.setState ({coordinates: event.target, longitude: event.target.value.longitude, latitude: event.target.value.latitude})};
+        this.setState ({coordinates: event.target, longitude: event.target.longitude, latitude: event.target.latitude})};
     participantsChange = (event) => {this.setState({participants: event.target.value})};
     descriptionChange = (event) => {this.setState({description: event.target.value})};
     notesChange = (event) => {this.setState({notes: event.target.value})};
     referencePicChange = (event) => {this.setState({referencePictures: event.target.value})};
 
-    deletePlan = () => {
-        this.props.deletePlan(this.props.id)
+    deleteThisPlan = () => {
+        deletePlan(this.props.location.state.plan.id);
+        console.log("deletoi: " + this.props.location.state.plan.id)
     };
 
-    editPlan = () => {
-        this.context.updateData(this.state);
-        console.log('editPlan' + this.state);
+    editPlan = (event) => {
+        event.preventDefault();
+        this.context.updateData(this.state.id, this.state);
+        //updatePlan(this.state.id, this.state);
+        console.log('editPlan', this.props.location.state.plan);
     };
     close = () => {
 
@@ -72,9 +70,6 @@ class EditPreviousPlan extends Component {
         console.log(this.props.location.state);
         return (
         <div>
-            <p> tarkoituksen valuttaa propsit placeholdereina input lohkoihin, statet valuen arvoiksi ja Change funktiot onChange muuttujiin
-                placeholder={this.props.header} value={this.state.header} onChange={this.headerChange}
-            </p>
             <Box borderRadius="borderRadius" {...boxWrapper}>
                 <div style={styling.buttonClose} style={{display: "flex"}} >
                     {this.renderRedirect()}
@@ -155,18 +150,24 @@ class EditPreviousPlan extends Component {
                              onChange={this.coordinatesChange}
                              handleCoordinates={this.coordinatesChange} />
 
-
                     </div>
 
                     <div
                         style={styling.calendar}
-                        /*
-                        value={values.date}
-
-                         onChange={handleChange('date')}
-                         */
-                        >
-                        <BasicDateTimePicker/>
+                        placeholder={this.props.date}
+                        value={this.state.date}
+                        onChange={this.dateChange}>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <DateTimePicker
+                                ampm={false}
+                                inputVariant="outlined"
+                                value={this.state.date}
+                                onChange={this.dateChange}
+                                label="Select Date and Time"
+                                showTodayButton
+                                margin="normal"
+                            />
+                        </MuiPickersUtilsProvider>
                     </div>
                     <div
                         style={styling.imagedrop}
@@ -182,14 +183,9 @@ class EditPreviousPlan extends Component {
                     <Button size="small" color="default" variant="outlined" onClick={this.editPlan}>
                         Save
                     </Button>
-                    {/*<Button variant="outlined" size="small" style={styling.button} style={{marginLeft:"auto"}}  onClick={this.editPlan}>
+                    <Button size="small" color="default" variant="outlined" onClick={this.deleteThisPlan}>
                         Delete
-                        <DeleteIcon className={classes.rightIcon} />
                     </Button>
-                    <Button variant="outlined" size="small" style={styling.button} style={{marginLeft:"auto"}} onClick={this.editPlan}>
-                        Save
-                        <SaveIcon className={clsx(classes.rightIcon, classes.iconSmall)} />
-                    </Button>*/}
                 </div>
             </Box>
         </div>

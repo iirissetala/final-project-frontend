@@ -47,6 +47,18 @@ export function addNew(plan) {
 
 
 export function updatePlan(id, plan) {
+    let formData = new FormData();
+    formData.set("header", plan.header);
+
+    formData.append("date", plan.date);
+    formData.set("location", plan.location);
+    formData.set("description", plan.description);
+    formData.set("notes", plan.notes);
+    formData.set("participants", plan.participants);
+    formData.set("latitude", plan.latitude);
+    formData.set("longitude", plan.longitude);
+
+
     return axios.put('http://localhost:8080/api/plans/'+ id, plan)
 }
 
