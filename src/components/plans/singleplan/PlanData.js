@@ -9,6 +9,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
+import moment from 'moment';
 
 
 
@@ -30,14 +31,14 @@ class PlanData extends Component {
                                         component="img"
                                         alt="Coverphoto"
                                         height="140"
-                                        image= {plan.referencePictures.length ? "/"+plan.referencePictures[0].url : "/liskodisko.jpg"}
+                                        image= {plan.referencePictures.length ? "/pictures/"+plan.referencePictures[0].url : "/liskodisko.jpg"}
                                         title="Contemplative Reptile"
 
                                     />
 
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="h2">{plan.header}</Typography>
-                                        <Typography component="h3">{plan.date}</Typography>
+                                        <Typography component="h3">{moment(plan.date).format('LLLL')}</Typography>
                                         <Typography component="p">{plan.description}</Typography>
                                     </CardContent>
                                 </CardActionArea>

@@ -39,13 +39,6 @@ class ImageDropZone extends Component{
 
             />
 
-                <Button size="small" color="default" variant="outlined" onClick={this.clearAll}>
-                    Clear All
-                </Button>
-                <Button size="small" color="default" variant="outlined">
-                    Sumbit
-                </Button>
-
             </div>
         )
     }

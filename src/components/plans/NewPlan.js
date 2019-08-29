@@ -101,7 +101,7 @@ export default function OutlinedTextFields(props) {
     */
      const [values, setValues] = React.useState({
          header:'',
-         date:'',
+         date: new Date,
          location:'',
          coordinates:[],
          latitude:'',
@@ -236,7 +236,7 @@ export default function OutlinedTextFields(props) {
                         // autoOk <- halutaanko tämä?
                         ampm={false}
                         inputVariant="outlined"
-
+                        value={values.date}
                         onChange={onChange}
                         label="Select Date and Time"
                         showTodayButton

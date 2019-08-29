@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react'
 import { Consumer, AuthContext } from "../../context/Authcontext";
-import {getById} from "../ServiceTest";
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -17,12 +16,9 @@ import Button from "@material-ui/core/Button";
 import Map from "../../map/Maptest";
 import CardMedia from "@material-ui/core/CardMedia";
 import {plans} from "../EditPreviousPlan";
-import CardActions from "@material-ui/core/CardActions";
-import Snackbar from '@material-ui/core/Snackbar';
 import Download from "./Download";
 import moment from 'moment';
-import SnackBar from './SnackBar';
-import {Link} from "react-router-dom";
+
 
 export default class SinglePlan extends Component {
 
@@ -151,7 +147,7 @@ export default class SinglePlan extends Component {
                                     alt="Your reference picture"
                                     height="150"
                                     maxWidth="150px"
-                                    image={"/"+picture.url}
+                                    image={"/pictures/"+picture.url}
                                     title="Your reference picture"
                                style={pic} />
                                
@@ -161,11 +157,6 @@ export default class SinglePlan extends Component {
                             ))}
                             </div>}
                     </div>
-                    <Link to={{pathname:'/plans/'+ this.state.data.id + '/edit'}}>
-                        <Button size="small" color="default" variant="outlined">
-                            Modify
-                        </Button>
-                    </Link>
                 </Box>
         </div>
         )
