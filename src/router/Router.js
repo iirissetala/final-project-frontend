@@ -7,7 +7,7 @@ import Plans from "../components/plans/Plan";
 import Testsite from "../components/Testsite";
 import SinglePlan from '../components/plans/singleplan/SinglePlan'
 import Maptest from '../components/map/Maptest'
-import AllContent from "../components/content/AllContent";
+import AllContent from "../components/content/Content";
 class Router1 extends Component {
   render() {
     return (

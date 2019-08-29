@@ -16,10 +16,11 @@ import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 // https://material-ui.com/components/material-icons icon search from here
 import LoginModal from "../login/LoginModal";
 import { Consumer } from "../context/Authcontext";
+import Avatar from '@material-ui/core/Avatar'
 
 export const NavBar = () => (
     <Consumer>
-        {({ logOut }) => (
+        {({ logOut, username }) => (
             <Navbar bg="light" expand="lg">
                 <Link to="/"><Navbar.Brand><Home />Home</Navbar.Brand></Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -34,6 +35,12 @@ export const NavBar = () => (
                         <Nav.Link><Info />About</Nav.Link>
 
                     </Nav>
+                    <Avatar aria-label="recipe" style={avatarStyle}>
+                        {username.substring(0, 1).toUpperCase()}
+                    </Avatar>
+                    
+                    {username.substring(1)}
+                    &nbsp;
                     <Nav>
                         <Nav.Link className="justify-content-end"><span onClick={logOut}><ExitToApp  /> Log out</span></Nav.Link>
 
@@ -43,6 +50,9 @@ export const NavBar = () => (
     </Consumer>
 )
 
+const avatarStyle = {
+    backgroundColor: 'red[500]'
+}
 
 
 /*

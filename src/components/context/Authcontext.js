@@ -7,7 +7,9 @@ class AuthProvider extends Component {
     super(props);
     this.state = {
       isLoggedIn: localStorage.getItem("Token") === null ? false : true,
-      token: "" || localStorage.getItem("Token")
+      token: "" || localStorage.getItem("Token"),
+      baseurl: process.env.AWS_BASE_URL,
+      username: "" || localStorage.getItem("Username")
     };
   }
 
@@ -15,14 +17,16 @@ class AuthProvider extends Component {
     const userData = { username, password };
     console.log(userData)
     return axios
-      .post("http://localhost:8080/login", userData)
+      .post("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/login", userData)
       .then(res => {
         console.log("REDIRECT");
         console.log(res.headers.authorization);
         localStorage.setItem("Token", res.headers.authorization)
+        localStorage.setItem("Username", username)
         this.setState({
           isLoggedIn: true,
-          token: res.headers.authorization
+          token: res.headers.authorization,
+          username: username
         });
       })
       .catch(err => {
@@ -34,7 +38,8 @@ class AuthProvider extends Component {
     localStorage.removeItem("Token")
     this.setState({
       isLoggedIn: false,
-      token: ""
+      token: "", 
+      username: ""
     });
   };
 
@@ -44,7 +49,7 @@ class AuthProvider extends Component {
     const username = userdata.username
     const password = userdata.password
     const sendData = {email, username, password}
-    return axios.post("http://localhost:8080/api/users/sign-up", sendData)
+    return axios.post("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/users/sign-up", sendData)
       .then(res => {
         return res
       })
@@ -58,7 +63,7 @@ class AuthProvider extends Component {
 
   getData = (params) => {
     return axios
-      .get("http://localhost:8080/api/" + params, {
+      .get("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/" + params, {
         headers: {
           authorization: this.state.token
         }
@@ -68,12 +73,12 @@ class AuthProvider extends Component {
         return res.data
       }).catch(err => {
         console.log(err)
-        return err
+        throw new Error(err.response.data)
       })
   }
 
-  postData = (params) => {
-    return axios.post("http://localhost:8080/api/" + params, {
+  postData = (params, data) => {
+    return axios.post("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/" + params, data, {
       headers: {
         authorization: this.state.token
       }
@@ -81,12 +86,13 @@ class AuthProvider extends Component {
       console.log(res.data)
       return res.data
     }).catch(err => {
-      return err
+      console.log(err)
+      throw new Error(err.response.data)
     })
   }
 
   updateData = (params) => {
-    return axios.put("http://localhost:8080/api/" + params, {
+    return axios.put("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/" + params, {
       headers: {
         authorization: this.state.token
       }
@@ -100,7 +106,7 @@ class AuthProvider extends Component {
 
   //lisäys 26.08.2019 klo20:45
   getById = (id) => {
-    return axios.get('http://localhost:8080/api/plans/' + id)
+    return axios.get('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/' + id)
         .then((response) => response)
         .catch(err => {
           return err
@@ -117,6 +123,7 @@ class AuthProvider extends Component {
           logOut: this.logOut,
           getData: this.getData,
           signUp: this.signUp,
+          postData: this.postData,
           AuthContext
         }}
       >
