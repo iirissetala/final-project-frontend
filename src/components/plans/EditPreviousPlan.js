@@ -3,14 +3,11 @@ import {AuthContext} from "../context/Authcontext";
 import Map from "../map/Map";
 import ImageDropZone from "./ImageDropZone";
 import TextField from '@material-ui/core/TextField/index';
-import BasicDateTimePicker from './DateTime';
 import Button from '@material-ui/core/Button/index';
 import Box from '@material-ui/core/Box';
-import ServiceTest, {deletePlan, updatePlan} from './ServiceTest';
 import {Redirect} from "react-router-dom";
 import {DateTimePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-
 
 const plans = [];
 
@@ -34,7 +31,7 @@ class EditPreviousPlan extends Component {
     setRedirect = () => {this.setState({redirect: true})}
     renderRedirect = () => {
         if (this.state.redirect) {
-            return <Redirect to='/' />
+            return <Redirect to='/plan' />
         }
     }
 
@@ -48,16 +45,19 @@ class EditPreviousPlan extends Component {
     participantsChange = (event) => {this.setState({participants: event.target.value})};
     descriptionChange = (event) => {this.setState({description: event.target.value})};
     notesChange = (event) => {this.setState({notes: event.target.value})};
-    referencePicChange = (event) => {this.setState({referencePictures: event.target.value})};
 
-    deleteThisPlan = () => {
-        deletePlan(this.props.location.state.plan.id);
-        console.log("deletoi: " + this.props.location.state.plan.id)
+
+    deleteThisPlan = (event) => {
+        event.preventDefault();
+        this.context.deletePlan(this.state.id);
+        this.setRedirect();
+        console.log("deletoi: " + this.state.id)
     };
 
     editPlan = (event) => {
         event.preventDefault();
         this.context.updateData(this.state.id, this.state);
+        this.setRedirect();
         //updatePlan(this.state.id, this.state);
         console.log('editPlan', this.props.location.state.plan);
     };
@@ -76,7 +76,7 @@ class EditPreviousPlan extends Component {
                     <Button  variant="outlined" size="small" style={{marginLeft:"auto"}} onClick={this.setRedirect}>X</Button>
                 </div>
                 <div style={styling.menu}>
-                    <h3>Make a new plan!</h3>
+                    <h3>Edit your plan details</h3>
                 </div>
 
 
@@ -169,14 +169,7 @@ class EditPreviousPlan extends Component {
                             />
                         </MuiPickersUtilsProvider>
                     </div>
-                    <div
-                        style={styling.imagedrop}
-                        /*value={values.referencephotos}
-                        onChange={handleChangeTwo}>*/
-                        >
-                        <p>You upload max. 5 reference pictures in your plan</p>
-                        <ImageDropZone/>
-                    </div>
+
                 </form>
 
                 <div style={styling.button} style={{display: "flex"}}>
