@@ -1,26 +1,18 @@
 import React, {Component} from 'react'
 import {AuthContext} from "../context/Authcontext";
-// import Button from "@material-ui/core/Button";
-// import TextField from "@material-ui/core/TextField";
 import Map from "../map/Maptest";
 import ImageDropZone from "./ImageDropZone";
-import DeleteIcon from "@material-ui/core/SvgIcon/SvgIcon";
-import { makeStyles } from '@material-ui/core/styles/index';
 import TextField from '@material-ui/core/TextField/index';
 import BasicDateTimePicker from './DateTime';
-import SaveIcon from '@material-ui/icons/Save';
-import clsx from 'clsx';
 import Button from '@material-ui/core/Button/index';
-// import DeleteIcon from '@material-ui/icons/Delete';
 import Box from '@material-ui/core/Box';
-import ServiceTest, {addNew} from './ServiceTest';
 import {Redirect} from "react-router-dom";
 
 
 const plans = [];
 
 class EditPreviousPlan extends Component {
-/*Propsit tuodaan luokasta .singleplan/PlanData */
+/*Propsit tuodaan luokasta .singlePlan/PlanData */
     state= {
         id: this.props.location.state.plan.id,
         header: this.props.location.state.plan.header,
@@ -39,7 +31,7 @@ class EditPreviousPlan extends Component {
     setRedirect = () => {this.setState({redirect: true})}
     renderRedirect = () => {
         if (this.state.redirect) {
-            return <Redirect to='/' />
+            return <Redirect to='/plan' />
         }
     }
 
@@ -53,7 +45,9 @@ class EditPreviousPlan extends Component {
     participantsChange = (event) => {this.setState({participants: event.target.value})};
     descriptionChange = (event) => {this.setState({description: event.target.value})};
     notesChange = (event) => {this.setState({notes: event.target.value})};
+/*
     referencePicChange = (event) => {this.setState({referencePictures: event.target.value})};
+*/
 
     deletePlan = () => {
         this.props.deletePlan(this.props.id)
@@ -70,18 +64,16 @@ class EditPreviousPlan extends Component {
 
     render (){
         console.log(this.props.location.state);
+
         return (
         <div>
-            <p> tarkoituksen valuttaa propsit placeholdereina input lohkoihin, statet valuen arvoiksi ja Change funktiot onChange muuttujiin
-                placeholder={this.props.header} value={this.state.header} onChange={this.headerChange}
-            </p>
             <Box borderRadius="borderRadius" {...boxWrapper}>
-                <div style={styling.buttonClose} style={{display: "flex"}} >
+                <div >
                     {this.renderRedirect()}
-                    <Button  variant="outlined" size="small" style={{marginLeft:"auto"}} onClick={this.setRedirect}>X</Button>
+                    <Button  variant="outlined" size="small" style={styling.button} onClick={this.setRedirect}>X</Button>
                 </div>
                 <div style={styling.menu}>
-                    <h3>Make a new plan!</h3>
+                    <h3>Edit your plan!</h3>
                 </div>
 
 
@@ -149,47 +141,41 @@ class EditPreviousPlan extends Component {
                         variant="outlined"
                         float="center"
                     />
-                    <div style={styling.map} style={mapWrapper}>
-                        <p>You can also pinpoint your planned location on map </p>
+                    <div  style={styling.mapWrapper}>
+                        <h6>You can also pinpoint your planned location on map
+                            <br></br>
+                        </h6>
+                        <p>By changing the date shown on map, the suns location will change.</p>
+
                         <Map width={'65vw'} height={'50vh'} value={this.state.coordinates}
                              onChange={this.coordinatesChange}
                              handleCoordinates={this.coordinatesChange} />
-
-
                     </div>
 
-                    <div
-                        style={styling.calendar}
-                        /*
-                        value={values.date}
-
-                         onChange={handleChange('date')}
-                         */
+                    <div style={styling.calendar}
+                        value={this.state.date}
+                         onChange={this.dateChange}
                         >
                         <BasicDateTimePicker/>
                     </div>
+/*
                     <div
                         style={styling.imagedrop}
-                        /*value={values.referencephotos}
-                        onChange={handleChangeTwo}>*/
-                        >
-                        <p>You upload max. 5 reference pictures in your plan</p>
+                        value={this.state.referencePictures}
+                        onChange={this.referencePicChange}>
+
+                        <h6>You can upload max. 5 reference pictures in your plan.
+                        </h6>
                         <ImageDropZone/>
                     </div>
+                    */
                 </form>
 
-                <div style={styling.button} style={{display: "flex"}}>
-                    <Button size="small" color="default" variant="outlined" onClick={this.editPlan}>
+                <div>
+                    <Button  style={styling.button} size="small" color="default" variant="outlined" onClick={this.editPlan}>
                         Save
                     </Button>
-                    {/*<Button variant="outlined" size="small" style={styling.button} style={{marginLeft:"auto"}}  onClick={this.editPlan}>
-                        Delete
-                        <DeleteIcon className={classes.rightIcon} />
-                    </Button>
-                    <Button variant="outlined" size="small" style={styling.button} style={{marginLeft:"auto"}} onClick={this.editPlan}>
-                        Save
-                        <SaveIcon className={clsx(classes.rightIcon, classes.iconSmall)} />
-                    </Button>*/}
+
                 </div>
             </Box>
         </div>
@@ -198,6 +184,12 @@ class EditPreviousPlan extends Component {
     }
 }
 
+/*
+*                 <div style={styling.buttonClose} >
+                    {this.renderRedirect()}
+                    <Button  variant="outlined" size="small" style={{marginLeft:"auto"}} onClick={this.setRedirect}>X</Button>
+                </div>
+* */
 
 const styling = {
     container: {
@@ -206,50 +198,33 @@ const styling = {
         flexWrap: 'wrap',
         direction: 'row',
         justify: 'center',
-        margin: 'normal',
+        marginLeft: '20',
     },
     textField: {
-        /*marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),*/
         width: '75%',
     },
     button: {
-        /*marginBottom: theme.spacing(2),
-        marginTop: theme.spacing(5),
-        marginLeft: theme.spacing(1),*/
-        padding: 7,
+        backgroundColor: 'ghostwhite',
+        marginLeft:'85%',
+        marginTop: 30,
+        marginBottom: 30
     },
     buttonClose: {
-       /* marginTop: theme.spacing(1),
-        marginRight: theme.spacing(1),*/
+        display: 'flex',
         padding: 3,
     },
     menu: {
         width: 300,
         alignItems: 'left',
-       /* marginLeft: theme.spacing(2),*/
+        margin: 20,
     },
     calendar: {
-       /* marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        marginBottom: theme.spacing(3),*/
-        width:'75%',
+        width:'100%',
+        marginTop: 30,
+        marginBottom: 30,
     },
     imagedrop: {
-       /* marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),*/
         width:'75%',
-    },
-    map: {
-       /* marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(3),*/
-        bgcolor: 'background.paper',
-        borderColor: 'text.primary',
-        m: 1,
-        border: 1,
-        width: '75%',
     },
 };
 
@@ -258,7 +233,8 @@ const boxWrapper = {
     borderColor: 'text.primary',
     m: 1,
     border: 1,
-    style: { width: '75%' },
+    width: '85%',
+    paddingLeft: 3,
 };
 
 const mapWrapper= {
@@ -266,7 +242,8 @@ const mapWrapper= {
     borderColor: 'text.primary',
     m: 1,
     border: 1,
-    width: '75%',
+    width: '100%',
+
 };
 
 

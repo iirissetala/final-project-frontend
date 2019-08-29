@@ -47,6 +47,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'grey',
     },
+    refButtonArea: {
+        padding: '10px',
+        display: 'flex',
+        alignItems: 'right',
+    },
+
 });
 
 
@@ -75,16 +81,19 @@ const MyDoc = (props)=>(
 )
 
 const Download = (props) => (
-    <div>
+    <div style={styles.refButtonArea}>
         <PDFDownloadLink
             document={<MyDoc id={props.id} date={props.date} header={props.header} description={props.description} participants={props.participants} location={props.location} notes={props.notes} longitude={props.longitude} latitude={props.latitude} referencePictures={props.referencePictures}/>}
             fileName="myplan.pdf"
             style={{
-                textDecoration: "none",
-                padding: "5px",
-                color: "#4a4a4a",
-                backgroundColor: "#f2f2f2",
-                border: "1px solid #4a4a4a"
+                display: 'flex',
+                padding: 7,
+                margin: 10,
+                color: 'black',
+                backgroundColor: 'ghostwhite',
+                marginLeft:'auto',
+                border: "1px solid #4a4a4a",
+                borderRadius: '5px'
             }}
         >
             {({ blob, url, loading, error }) =>

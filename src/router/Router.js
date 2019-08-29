@@ -9,6 +9,7 @@ import SinglePlan from '../components/plans/singleplan/SinglePlan'
 import Maptest from '../components/map/Maptest'
 import AllContent from "../components/content/AllContent";
 import EditPreviousPlan from "../components/plans/EditPreviousPlan";
+
 class Router1 extends Component {
   render() {
     return (
@@ -28,7 +29,6 @@ class Router1 extends Component {
             <Route exact path="/plans/:id/edit" component={EditPreviousPlan}/>
           </Switch>
             </>
-          
       </Router>
     );
   }

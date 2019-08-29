@@ -169,7 +169,7 @@ export default class MapClass extends Component {
                                 <h2>{this.state.selectedLocation.description}</h2>
                                 <p>{this.state.selectedLocation.date}</p>
                                 <Nav.Link>
-                                    <Link to={{ pathname: "/plan/" + this.state.selectedLocation.id, }}
+                                    <Link to={{ pathname: "/plans/" + this.state.selectedLocation.id, }}
                                     >Photoshoot
                                     </Link>
                                 </Nav.Link>

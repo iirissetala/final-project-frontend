@@ -21,7 +21,7 @@ export default class DatePicker extends Component {
         const { sunriseHour, sunsetHour} = this.props
         
         return (
-            <div>
+            <div  style={{backgroundColor:'whitesmoke', paddingLeft:5}}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     
                         <KeyboardDatePicker
