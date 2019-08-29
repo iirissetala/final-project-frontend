@@ -73,7 +73,6 @@ export default function SingleContent(props) {
     function handleExpandClick() {
         setExpanded(!expanded);
     }
-    console.log(props)
 
     return (
         <Grid item xs={12} sm={6}>

@@ -22,7 +22,7 @@ export const NavBar = () => (
     <Consumer>
         {({ logOut, username }) => (
             <Navbar bg="light" expand="lg">
-                <Link to="/"><Navbar.Brand><Home />Home</Navbar.Brand></Link>
+                <Link to="/"><Navbar.Brand><Home />SKP</Navbar.Brand></Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">

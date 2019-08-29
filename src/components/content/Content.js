@@ -79,7 +79,12 @@ export default class Content extends Component {
     };
 
     postMsg = (data) => {
-        this.context.postData("content", data).then(this.setState({showModal: false}))
+        this.context.postData("content", data).then(res => {
+            console.log(res.data)
+            alert(res)
+            this.setState({ showModal: false })
+            
+        }).then(this.getPaginatedData)
     }
 
     render() {
