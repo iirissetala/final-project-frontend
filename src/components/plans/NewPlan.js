@@ -208,7 +208,7 @@ export default function OutlinedTextFields(props) {
                 id="outlined-location"
                 label="Photoshoot location"
                 className={classes.textField}
-                placeholder="Project name"
+                placeholder="location"
                 value={values.location}
                 onChange={handleChange('location')}
                 margin="normal"
