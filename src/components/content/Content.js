@@ -56,15 +56,12 @@ export default class Content extends Component {
                 }
             })
             .then(res => {
-                console.log(res.data.content)
                 this.setState({ content: this.state.content.concat(res.data.content), page: this.state.page + 1 })
                 if (res.data.last) {
                     window.removeEventListener('scroll', this.onScroll, false);
                 }
-                console.log(this.state)
             }).then(this.setState({isLoading: false}))
             .catch(err => {
-                console.log(err)
                 throw new Error(err.response.data)
             })
 
@@ -81,10 +78,10 @@ export default class Content extends Component {
     postMsg = (data) => {
         this.context.postData("content", data).then(res => {
             console.log(res.data)
-            alert(res)
             this.setState({ showModal: false })
             
         }).then(this.getPaginatedData)
+        .catch(err => console.log(err.message))
     }
 
     render() {

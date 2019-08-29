@@ -35,10 +35,10 @@ export const NavBar = () => (
                         <Nav.Link><Info />About</Nav.Link>
 
                     </Nav>
-                    <Avatar aria-label="recipe" style={avatarStyle}>
+                    {/* <Avatar aria-label="recipe" style={avatarStyle}>
                         {username.substring(0, 1).toUpperCase()}
-                        <span className="link-unstyled">{username.substring(1)}</span>
-                    </Avatar>
+                    </Avatar> */}
+                        <span className="link-unstyled">{username}</span>
                     
                     &nbsp;
                     <Nav>

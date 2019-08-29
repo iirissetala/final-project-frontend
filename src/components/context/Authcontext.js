@@ -92,7 +92,7 @@ class AuthProvider extends Component {
   }
 
   updateData = (id, params) => {
-    return axios.put("http://localhost:8080/api/plans/" + id, params, {
+    return axios.put("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/" + id, params, {
       headers: {
         authorization: this.state.token
       }
@@ -106,7 +106,7 @@ class AuthProvider extends Component {
 
   //lisäys 26.08.2019 klo20:45
   getById = (id) => {
-    return axios.get('http://localhost:8080/api/' + id)
+    return axios.get('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/' + id)
         .then((response) => response)
         .catch(err => {
           return err
@@ -114,14 +114,14 @@ class AuthProvider extends Component {
   };
 
   deletePlan = (id) => {
-    return axios.delete('http://localhost:8080/api/plans/' +id,{
+    return axios.delete('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/' +id,{
       headers: {
         authorization: this.state.token
       }})
   };
 
   addReferencepictures = (id, params) => {
-      return axios.put("http://localhost:8080/api/plans/" + id + "/pictures", params, {
+    return axios.put("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/" + id + "/pictures", params, {
           headers: {
               authorization: this.state.token
           }
