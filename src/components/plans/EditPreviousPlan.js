@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import {AuthContext} from "../context/Authcontext";
-import Map from "../map/Maptest";
+import Map from "../map/Map";
 import ImageDropZone from "./ImageDropZone";
 import TextField from '@material-ui/core/TextField/index';
-import BasicDateTimePicker from './DateTime';
 import Button from '@material-ui/core/Button/index';
 import Box from '@material-ui/core/Box';
 import {Redirect} from "react-router-dom";
-
+import {DateTimePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 const plans = [];
 
@@ -38,24 +38,33 @@ class EditPreviousPlan extends Component {
     AuthContext = this.context;
 
     headerChange = (event) => {this.setState({header: event.target.value})};
-    dateChange = (event) => {this.setState({date: event.target.value})};
+    dateChange = date => {this.setState({date: date})};
     locationChange = (event) => {this.setState({location: event.target.value})};
     coordinatesChange = (event) => {
-        this.setState ({coordinates: event.target, longitude: event.target.value.longitude, latitude: event.target.value.latitude})};
+        this.setState ({coordinates: event.target, longitude: event.target.longitude, latitude: event.target.latitude})};
     participantsChange = (event) => {this.setState({participants: event.target.value})};
     descriptionChange = (event) => {this.setState({description: event.target.value})};
     notesChange = (event) => {this.setState({notes: event.target.value})};
+
 /*
     referencePicChange = (event) => {this.setState({referencePictures: event.target.value})};
 */
 
-    deletePlan = () => {
-        this.props.deletePlan(this.props.id)
+
+
+    deleteThisPlan = (event) => {
+        event.preventDefault();
+        this.context.deletePlan(this.state.id);
+        this.setRedirect();
+        console.log("deletoi: " + this.state.id)
     };
 
-    editPlan = () => {
-        this.context.updateData(this.state);
-        console.log('editPlan' + this.state);
+    editPlan = (event) => {
+        event.preventDefault();
+        this.context.updateData(this.state.id, this.state);
+        this.setRedirect();
+        //updatePlan(this.state.id, this.state);
+        console.log('editPlan', this.props.location.state.plan);
     };
     close = () => {
 
@@ -73,7 +82,9 @@ class EditPreviousPlan extends Component {
                     <Button  variant="outlined" size="small" style={styling.button} onClick={this.setRedirect}>X</Button>
                 </div>
                 <div style={styling.menu}>
-                    <h3>Edit your plan!</h3>
+
+                    <h3>Edit your plan details</h3>
+
                 </div>
 
 
@@ -150,14 +161,7 @@ class EditPreviousPlan extends Component {
                         <Map width={'65vw'} height={'50vh'} value={this.state.coordinates}
                              onChange={this.coordinatesChange}
                              handleCoordinates={this.coordinatesChange} />
-                    </div>
 
-                    <div style={styling.calendar}
-                        value={this.state.date}
-                         onChange={this.dateChange}
-                        >
-                        <BasicDateTimePicker/>
-                    </div>
 /*
                     <div
                         style={styling.imagedrop}
@@ -169,6 +173,29 @@ class EditPreviousPlan extends Component {
                         <ImageDropZone/>
                     </div>
                     */
+
+
+                    </div>
+
+                    <div
+                        style={styling.calendar}
+                        placeholder={this.props.date}
+                        value={this.state.date}
+                        onChange={this.dateChange}>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <DateTimePicker
+                                ampm={false}
+                                inputVariant="outlined"
+                                value={this.state.date}
+                                onChange={this.dateChange}
+                                label="Select Date and Time"
+                                showTodayButton
+                                margin="normal"
+                            />
+                        </MuiPickersUtilsProvider>
+                    </div>
+
+
                 </form>
 
                 <div>

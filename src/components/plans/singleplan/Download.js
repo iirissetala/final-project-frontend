@@ -63,16 +63,10 @@ const MyDoc = (props)=>(
         <Document>
             <Page size="A4" style={styles.body}>
                 <Text style={styles.title}>PROJECT NAME: {props.header}</Text>
-
-
                 <Text style={styles.body}>Date & Time: {moment(props.date).format('LLLL')}</Text>
-
                 <Text style={styles.text}>Description: {props.description}</Text>
-
                 <Text style={styles.text}>Notes: {props.notes}</Text>
                 <Text style={styles.text}>Participants: {props.participants}</Text>
-                <Text style={styles.text}>latitude:{props.latitude}</Text>
-                <Text style={styles.text}>longitude:{props.longitude}</Text>
                 <Text style={styles.text}>Location: {props.location}</Text>
                 <Text style={styles.madeBy}> Created using SKP</Text>
 

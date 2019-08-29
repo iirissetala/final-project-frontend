@@ -30,7 +30,7 @@ export default class DatePicker extends Component {
                             format="MM/dd/yyyy"
                             margin="normal"
                             id="date-picker-inline"
-                            label="Pick a date"
+                            label="Date/time for the sun position"
                             value={this.props.date}
                             onChange={this.props.handleCalendarChange}
                             KeyboardButtonProps={{

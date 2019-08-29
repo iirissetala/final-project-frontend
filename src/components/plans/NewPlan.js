@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles/index';
 import TextField from '@material-ui/core/TextField/index';
-import BasicDateTimePicker from './DateTime';
 import SaveIcon from '@material-ui/icons/Save';
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button/index';
@@ -9,8 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ImageDropZone from "./ImageDropZone";
 import Box from '@material-ui/core/Box';
 import ServiceTest, {addNew} from './ServiceTest';
-import Map from '../map/Maptest';
-import PlanModal from './PlanModal';
+import Map from '../map/Map';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers/index";
 import DateFnsUtils from '@date-io/date-fns/build/index';
 
@@ -101,7 +99,7 @@ export default function OutlinedTextFields(props) {
     */
      const [values, setValues] = React.useState({
          header:'',
-         date:'',
+         date: new Date,
          location:'',
          coordinates:[],
          latitude:'',
@@ -234,7 +232,7 @@ export default function OutlinedTextFields(props) {
                     <DateTimePicker
                         ampm={false}
                         inputVariant="outlined"
-
+                        value={values.date}
                         onChange={onChange}
                         label="Select Date and Time"
                         showTodayButton

@@ -21,6 +21,7 @@ import {Link} from "react-router-dom";
 import {Redirect} from "react-router-dom";
 
 
+
 export default class SinglePlan extends Component {
 
     state = {
@@ -57,7 +58,8 @@ export default class SinglePlan extends Component {
 
     muutos = () =>{
         return {
-            display: this.state.plan.readyPictures && this.state.plan.readyPictures.length ===0? 'none':'visible'}}
+
+            display: this.state.data.referencePictures && this.state.data.referencePictures.length ===0? 'none':'visible'}}
 
     render() {
 
@@ -89,11 +91,12 @@ export default class SinglePlan extends Component {
                                 </Typography>
                             </Card>
                         </CardContent>
-                        {readyPictures && <Container maxWidth="lg"style={this.muutos()}>
-                                <Paper className="root" style={style.sliderStyle}>
+
+                        {referencePictures && <Container maxWidth="lg"style={this.muutos()}>
+                                <Paper className="root" style={sliderStyle}>
                                     <AwesomeSlider cssModule={AwsSliderStyles} >
-                                        {readyPictures.map(picture => (
-                                        <div data-src={"/"+picture.url}/>))}
+                                        {referencePictures.map(picture => (
+                                        <div data-src={"/pictures/"+picture.url}/>))}
                                     </AwesomeSlider>
                                 </Paper>
                             </Container>}
@@ -151,35 +154,9 @@ export default class SinglePlan extends Component {
                     </CardContent>
                 </Grid>
 
-                        {referencePictures && <div>
-                        {referencePictures.map(picture => (
-                        <Grid container spacing={1}>
 
-                        <Grid style={style.gridPic}>
-
-                            <CardActionArea>
-                                <CardMedia
-                                    component="img"
-                                    alt="Your reference picture"
-                                    height="150"
-                                    maxWidth="150px"
-                                    image={"/"+picture.url}
-                                    title="Your reference picture"
-                               style={style.pic} />
-                               
-                            </CardActionArea>
-                        </Grid>
-                        </Grid>
-                            ))}
-                            </div>}
                     </div>
-                    <Link to={{pathname:'/plans/'+ this.state.plan.id + '/edit', state: this.state}}>
-                        <Button size="small" color="default" variant="outlined" style={style.button}>
-                            Modify
-                        </Button>
 
-
-                    </Link>
                 </Box>
         </div>
         )

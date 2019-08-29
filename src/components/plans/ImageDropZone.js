@@ -42,7 +42,6 @@ class ImageDropZone extends Component{
             />
 
 
-
             </div>
         )
     }
