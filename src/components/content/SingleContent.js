@@ -93,7 +93,7 @@ export default function SingleContent(props) {
             />
             <CardMedia
                 className={classes.media}
-                    image={`https://suomen-kuvapalvelu.s3-eu-west-1.amazonaws.com/${props.post.image.url}`}
+                    image={`http://suomen-kuvapalvelu.s3-eu-west-1.amazonaws.com/${props.post.image.url}`}
                 title="Paella dish"
             />
             <CardContent>

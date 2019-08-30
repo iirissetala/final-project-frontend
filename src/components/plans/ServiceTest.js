@@ -27,10 +27,6 @@ export function addNew(plan) {
     formData.append("image4", plan.referencephotos[3]);
     formData.append("image5", plan.referencephotos[4]);
 
-    console.log(formData);
-    console.log(plan.image1);
-    console.log(plan.notes);
-
     return axios.post('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans', formData, {
         headers: {
             Authorization: "Bearer " + localStorage.getItem("Token")

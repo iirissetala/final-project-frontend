@@ -31,7 +31,7 @@ class EditPreviousPlan extends Component {
     setRedirect = () => {this.setState({redirect: true})}
     renderRedirect = () => {
         if (this.state.redirect) {
-            return <Redirect to='/plan' />
+            return <Redirect to='/plans' />
         }
     }
 

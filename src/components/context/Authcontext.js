@@ -17,7 +17,7 @@ class AuthProvider extends Component {
     const userData = { username, password };
     console.log(userData)
     return axios
-      .post("http://localhost:8080/login", userData)
+      .post("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/login", userData)
       .then(res => {
         console.log("REDIRECT");
         console.log(res.headers.authorization);
@@ -49,7 +49,7 @@ class AuthProvider extends Component {
     const username = userdata.username
     const password = userdata.password
     const sendData = {email, username, password}
-    return axios.post("http://localhost:8080/api/users/sign-up", sendData)
+    return axios.post("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/users/sign-up", sendData)
       .then(res => {
         return res
       })
@@ -63,7 +63,7 @@ class AuthProvider extends Component {
 
   getData = (params) => {
     return axios
-      .get("http://localhost:8080/api/" + params, {
+      .get("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/" + params, {
         headers: {
           authorization: this.state.token
         }
@@ -78,7 +78,7 @@ class AuthProvider extends Component {
   }
 
   postData = (params, data) => {
-    return axios.post("http://localhost:8080/api/" + params, data, {
+    return axios.post("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/" + params, data, {
       headers: {
         authorization: this.state.token
       }

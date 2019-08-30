@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { NavBar } from "../components/navbar/Navbar";
 import Homer from "../components/home/Home";
-import Map from "../components/map/Map";
-import OutlinedTextFields from "../components/plans/NewPlan";
-import LoginModal from "../components/login/LoginModal";
 import { NotLoggedNavbar } from '../components/navbar/NotLoggedNavbar'
-import Testsite from "../components/Testsite";
+import About from "../components/home/About";
 
 
 class NotLoggedRouter extends Component {
@@ -18,9 +14,9 @@ class NotLoggedRouter extends Component {
                 <NotLoggedNavbar />
                 <>
                     <Switch>
-                        <Route path="/"  component={Homer} />
                         
-                        <Route exact path="/test" component={Testsite} />
+                        <Route exact path="/about" component={About} />
+                        <Route path="/"  component={Homer} />
                     </Switch>
                 </>
 

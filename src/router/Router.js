@@ -10,6 +10,7 @@ import Maptest from '../components/map/Maptest'
 import Content from "../components/content/Content";
 import EditPreviousPlan from "../components/plans/EditPreviousPlan";
 import AddReferencePictures from "../components/plans/AddReferencePictures";
+import About from '../components/home/About'
 
 class Router1 extends Component {
   render() {
@@ -19,13 +20,14 @@ class Router1 extends Component {
             <NavBar />
             <>
               <Switch>
-                <Route path="/" exact component={Homer} />
-                <Route path="/plan" exact component={Plans} />
-            <Route path="/map" exact component={Maptest} />
+                <Route exact path="/plan" component={Plans} />
+            <Route exact path="/map"  component={Maptest} />
             <Route exact path="/plans/:id" component={SinglePlan} />
-            <Route path="/feed" component={Content}/>
-            <Route exact path="/plans/:id/edit" component={EditPreviousPlan}/>
+            <Route exact path="/feed" component={Content}/>
+            <Route exact path="/plans/:id/edit" component={EditPreviousPlan} />
+            <Route exact path="/about" component={About}/>
             <Route exact path="/plans/:id/addpictures" component={AddReferencePictures}/>
+                <Route path="/" component={Homer} />
           </Switch>
             </>
       </Router>

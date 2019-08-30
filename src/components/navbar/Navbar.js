@@ -32,7 +32,8 @@ export const NavBar = () => (
                             <Link to="/map"><Map />Map</Link></Nav.Link>
                         <Nav.Link>
                             <Link to="/feed"><PhotoLibraryIcon />Feed</Link></Nav.Link>
-                        <Nav.Link><Info />About</Nav.Link>
+                        <Nav.Link>
+                            <Link to="/about"><Info />About</Link></Nav.Link>
 
                     </Nav>
                     {/* <Avatar aria-label="recipe" style={avatarStyle}>

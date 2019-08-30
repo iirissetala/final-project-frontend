@@ -250,7 +250,7 @@ export default class MapClass extends Component {
                                         {moment(this.state.selectedLocation.date).format('MMMM Do YYYY, h:mm:ss a')}
                                     </Typography>
                                 <Nav.Link>
-                                    <Link to={{ pathname: "/plans/" + this.state.selectedLocation.id, }}
+                                    <Link to={{ pathname: "/plans/" + this.state.selectedLocation.id + "/edit", }}
                                     >Photoshoot
                                     </Link>
                                 </Nav.Link>
