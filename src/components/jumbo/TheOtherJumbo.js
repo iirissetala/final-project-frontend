@@ -32,22 +32,22 @@ class TheOtherJumbo extends Component {
                     </div>
                     <div style={style.pic}  data-src="/pics/kurt-cotoaga-cqbLg3lZEpk-unsplash.jpg">
                         <div style={style.textwrap}>
-                        <p  style={style.text}>
-                            Our goal is to make things easier for you.
-                            You will be able to keep track of your upcoming photoshoots and manage the planning in one place.
-                            <br></br>
-                            <br></br>
-                            This platform is made for photographers to help and pace up the planning process.
-                        </p>
+                            <p  style={style.text}>
+                                Our goal is to make things easier for you.
+                                You will be able to keep track of your upcoming photoshoots and manage the planning in one place.
+                                <br></br>
+                                <br></br>
+                                This platform is made for photographers to help and pace up the planning process.
+                            </p>
                         </div>
                     </div>
                     <div style={style.pic}  data-src="/pics/kyle-cesmat-5wZ3iImG-I4-unsplash.jpg">
                         <div style={style.textwrap}>
-                        <p  style={style.text}>
-                            Don't we all just love the small beautiful things in life?
-                            <br></br>
-                            Sign up and start your journey! <a style={{color:'black'}} href="http://localhost:3000"> sign up</a>
-                        </p>
+                            <p  style={style.text}>
+                                Don't we all just love the small beautiful things in life?
+                                <br></br>
+                                Sign up and start your journey! <a style={{color:'black'}} href="http://localhost:3000"> sign up</a>
+                            </p>
                         </div>
                     </div>
                     <div style={style.pic}  data-src="/pics/tomas-malik-MODPxoyttL8-unsplash.jpg">
@@ -103,4 +103,4 @@ const style= {
         position: 'relative',
     },
 
-}
+};

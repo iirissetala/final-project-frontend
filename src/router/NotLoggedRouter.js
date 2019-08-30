@@ -7,6 +7,7 @@ import OutlinedTextFields from "../components/plans/NewPlan";
 import LoginModal from "../components/login/LoginModal";
 import { NotLoggedNavbar } from '../components/navbar/NotLoggedNavbar'
 import Testsite from "../components/Testsite";
+import About from "../components/home/About";
 
 
 class NotLoggedRouter extends Component {
@@ -19,7 +20,8 @@ class NotLoggedRouter extends Component {
                 <>
                     <Switch>
                         <Route path="/"  component={Homer} />
-                        
+                        <Route path="/about"  component={About} />
+
                         <Route exact path="/test" component={Testsite} />
                     </Switch>
                 </>

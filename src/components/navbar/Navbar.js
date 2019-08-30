@@ -10,6 +10,7 @@ import {
   Info,
   AccountBox,
   Settings,
+    About,
     ExitToApp,
 } from "@material-ui/icons";
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
@@ -31,7 +32,10 @@ export const NavBar = () => (
                             <Link to="/map"><Map />Map</Link></Nav.Link>
                         <Nav.Link>
                             <Link to="/feed"><PhotoLibraryIcon />Feed</Link></Nav.Link>
-                        <Nav.Link><Info />About</Nav.Link>
+                      <Nav.Link>
+                            <Link to="/about"><Info />About</Link></Nav.Link>
+
+
 
                     </Nav>
                     <Nav>

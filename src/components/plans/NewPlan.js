@@ -120,9 +120,7 @@ export default function OutlinedTextFields(props) {
         console.log(values.referencephotos)
     };
     const handleCoordinates = header => event => {
-        // console.log("handleCoordinates", header, ":", event.target);
         setValues({...values, longitude: event.target.longitude, latitude: event.target.latitude, coordinates: event.target});
-        // console.log("uudet arvot: ", event.target.latitude, event.target.longitude);
     }
 
 
