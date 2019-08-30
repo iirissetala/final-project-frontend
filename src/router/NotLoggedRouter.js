@@ -14,9 +14,9 @@ class NotLoggedRouter extends Component {
                 <NotLoggedNavbar />
                 <>
                     <Switch>
-                        
-                        <Route exact path="/about" component={About} />
                         <Route path="/"  component={Homer} />
+                        <Route path="/about"  component={About} />
+
                     </Switch>
                 </>
 

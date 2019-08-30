@@ -9,7 +9,8 @@ import {
     Info,
     AccountBox,
     Settings,
-    ExitToApp
+    ExitToApp,
+    About
 } from "@material-ui/icons";
 import LoginModal from "../login/LoginModal";
 import { Consumer } from "../context/Authcontext";
