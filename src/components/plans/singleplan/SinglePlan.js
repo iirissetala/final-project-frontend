@@ -44,7 +44,7 @@ export default class SinglePlan extends Component {
     setRedirect = () => {this.setState({redirect: true})}
     renderRedirect = () => {
         if (this.state.redirect) {
-            return <Redirect to='/plan' />
+            return <Redirect to='/plans' />
         }
     };
 
@@ -96,7 +96,7 @@ export default class SinglePlan extends Component {
                                 <Paper className="root" style={style.sliderStyle}>
                                     <AwesomeSlider cssModule={AwsSliderStyles} >
                                         {referencePictures.map(picture => (
-                                        <div data-src={"/pictures/"+picture.url}/>))}
+                                            <div data-src={"http://suomen-kuvapalvelu.s3-eu-west-1.amazonaws.com/"+picture.url}/>))}
                                     </AwesomeSlider>
                                 </Paper>
                             </Container>}

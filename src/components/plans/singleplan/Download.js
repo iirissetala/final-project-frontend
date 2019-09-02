@@ -67,7 +67,8 @@ const MyDoc = (props)=>(
                 <Text style={styles.text}>Description: {props.description}</Text>
                 <Text style={styles.text}>Notes: {props.notes}</Text>
                 <Text style={styles.text}>Participants: {props.participants}</Text>
-                <Text style={styles.text}>Location: {props.location}</Text>
+            <Text style={styles.text}>Location: {props.location}</Text>
+            
                 <Text style={styles.madeBy}> Created using SKP</Text>
 
             </Page>

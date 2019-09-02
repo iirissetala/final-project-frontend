@@ -17,8 +17,6 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Chip from '@material-ui/core/Chip';
-import Paper from '@material-ui/core/Paper';
-import TagFacesIcon from '@material-ui/icons/TagFaces';
 import moment from 'moment'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -93,7 +91,7 @@ export default function SingleContent(props) {
             />
             <CardMedia
                 className={classes.media}
-                    image={`https://suomen-kuvapalvelu.s3-eu-west-1.amazonaws.com/${props.post.image.url}`}
+                    image={`http://suomen-kuvapalvelu.s3-eu-west-1.amazonaws.com/${props.post.image.url}`}
                 title="Paella dish"
             />
             <CardContent>

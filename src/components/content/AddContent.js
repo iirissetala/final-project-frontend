@@ -123,8 +123,9 @@ const handleSubmit = (e) => {
                             multiline
                             rowsMax="4"
                             />
+                            <hr></hr>
                             <Form.Group controlId="formBasicFile">
-                                <Form.Label>Upload file</Form.Label>
+                                <Form.Label>Picture</Form.Label>
                                 <Form.Control type="file" name="file" onChange={handleFileChange} />
                             </Form.Group>                            
           </Typography>

@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import NewPlan from "./NewPlan";
 import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
+import { Redirect } from "react-router-dom";
 
 
 // function rand() {
@@ -51,6 +52,7 @@ export default function PlanModal(){
     };
     const handleClose = () => {
         setOpen(false)
+        return <Redirect to='/plasdan' />
     };
 
     return (

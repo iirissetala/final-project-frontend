@@ -18,12 +18,13 @@ import Signup from "../signup/Signup";
 
 export const NotLoggedNavbar = () => (
     <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="/"><Home />Home</Navbar.Brand>
+        <Link to="/"><Navbar.Brand><Home />SKP</Navbar.Brand></Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
                 
-                <Nav.Link><Info />About</Nav.Link>
+                <Nav.Link>
+                    <Link to="/about"><Info />About</Link></Nav.Link>
 
             </Nav>
             <Nav>
