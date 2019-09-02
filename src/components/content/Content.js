@@ -56,6 +56,7 @@ export default class Content extends Component {
                 }
             })
             .then(res => {
+                console.log(res.data)
                 this.setState({ content: this.state.content.concat(res.data.content), page: this.state.page + 1 })
                 if (res.data.last) {
                     window.removeEventListener('scroll', this.onScroll, false);
@@ -80,7 +81,7 @@ export default class Content extends Component {
             console.log(res.data)
             this.setState({ showModal: false })
             
-        }).then(this.getPaginatedData)
+        }).then(this.getPaginatedData())
         .catch(err => console.log(err.message))
     }
 
