@@ -10,4 +10,7 @@ npm install
 npm start
 ```
 
-Backend link:
+My own role: pdf creation, creation of new plan, modifying an existing plan
+
+Backend link: https://github.com/iirissetala/final-project-backend
+
